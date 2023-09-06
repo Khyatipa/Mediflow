@@ -1,0 +1,48 @@
+@CHARSET "ISO-8859-1";
+
+			
+
+			
+ul{
+	list-style-type: none;
+    margin: 0 auto;    
+    padding: 10px;
+    padding-left:60px;
+    overflow: hidden;
+}
+
+li{
+    float: left;
+	padding: 10px;
+}
+#hidetable{
+	float :bottom; 
+}
+			
+img {
+	border-radius:20px;
+}
+
+.side{
+    float: right;
+    padding-top:17px;
+    padding-right:20px;
+}
+
+input[type=submit],button{
+	background-color:rgb(202,239,247);
+	font-size:25px;
+	border-radius: 8px;
+	
+	font-family: 'Contrail One', cursive;
+	font-family: 'Fredoka One', cursive;
+	font-family: 'Merienda', cursive;
+	font-family: 'Arapey', serif;
+	font-family: 'Nanum Gothic Coding', monospace;
+	font-family: 'Antic Didone', serif;
+	font-family: 'Merienda One', cursive;
+}
+
+ul input,button{
+	width:320px;
+}

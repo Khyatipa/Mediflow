@@ -1,0 +1,32 @@
+@CHARSET "ISO-8859-1";
+
+body{
+	margin: 0 auto	;	
+	background-color :azure;
+	
+	font-family: 'Roboto', sans-serif;	
+	
+}
+
+.head{
+	font-size:70px;
+	background-color:darkslateblue;
+	text-indent:0.6em;
+	
+	font-family: 'Roboto', sans-serif;
+	
+}
+
+.head a{
+	text-decoration: none;
+	color:azure;
+}
+
+.head img{
+	border-radius:20px;
+}
+
+.side a{
+	text-decoration: none;
+	color:azure;
+}

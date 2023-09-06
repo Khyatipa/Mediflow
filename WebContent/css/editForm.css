@@ -1,0 +1,54 @@
+@CHARSET "ISO-8859-1";
+
+.edit{
+	font-size:25px;
+	position:fixed;
+	padding:20px;
+}
+
+.edit td{
+	padding:10px;
+}
+
+fieldset{
+	border-radius:20px;
+	border:2px solid darkblue;	
+}
+
+input{
+	height:30px;
+	min-width:180px;
+}
+
+input[type=radio]{
+	height:15px;
+	min-width:100px;
+}
+
+textarea{
+	height:30px;
+	min-width:180px;
+}
+
+select {
+	height:30px;
+    min-width: 180px;
+}
+
+input.submit{
+	min-width:80px;
+	font-size:20px;
+	border-radius: 10px;
+	padding: 8px;
+	background-color:rgb(202,239,247);
+	height:50px;
+}
+
+button.submit{
+	min-width:60px;
+	font-size:10px;
+	border-radius: 10px;
+	padding: 8px;
+	background-color:rgb(202,239,247);
+	height:30px;
+}

@@ -1,0 +1,31 @@
+<link href="css/displayFilterComplain.css" rel="stylesheet" type="text/css">@CHARSET "ISO-8859-1";
+
+.displayForm{
+	font-size:18px;
+}
+
+#displayShift{
+	padding-left:40px;
+}
+
+.filterTable{
+	width:700px;
+}
+
+.filterTable select{
+	width:120px;
+}
+
+.displayTable{
+	border-radius:20px;
+	padding:5px;
+}
+
+.displayTable td{
+	border-radius:4px;
+}
+
+.displayTable th{
+	border-radius:4px;
+	width:85px;
+}

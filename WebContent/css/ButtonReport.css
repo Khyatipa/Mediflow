@@ -1,0 +1,41 @@
+@CHARSET "ISO-8859-1";
+
+body {
+			  font-family: Arial, Helvetica, sans-serif;
+			}
+							
+			.notification {
+				height:150px;
+				width:220px;
+			  background-color: #555;
+			 color :white;
+			  text-decoration: none;
+			  padding: 25px;
+			  padding-top:35px;
+			  position: relative;
+			  display: inline-block;
+			  border-radius: 20px;
+			  font-size:20px;
+			  
+			  <!--    body font -->
+	font-family: 'Contrail One', cursive;
+	font-family: 'Fredoka One', cursive;
+	font-family: 'Merienda', cursive;
+	font-family: 'Arapey', serif;
+	font-family: 'Nanum Gothic Coding', monospace;
+	font-family: 'Antic Didone', serif;
+	font-family: 'Merienda One', cursive;
+			  
+			}
+			
+			.notification:hover {
+			  background: cornflowerblue;
+			}
+			
+		#bor
+		{
+		
+		border:2px solid white;
+		padding:8px;
+		 border-radius: 8px;
+		}

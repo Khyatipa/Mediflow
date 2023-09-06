@@ -1,0 +1,39 @@
+@CHARSET "utf-8";
+
+body{
+	margin: 0 auto;
+		
+	 background-color:azure;
+	
+	<!--    body font -->
+	font-family: 'Contrail One', cursive;
+	font-family: 'Fredoka One', cursive;
+	font-family: 'Merienda', cursive;
+	font-family: 'Arapey', serif;
+	font-family: 'Nanum Gothic Coding', monospace;
+	font-family: 'Antic Didone', serif;
+	font-family: 'Merienda One', cursive;
+}
+
+.head{
+	font-size:60px;
+	background-color:darkslateblue;
+	text-indent:0.6em;
+	padding-bottom:10px;
+	
+	
+	<!--    header font -->
+	font-family: 'Contrail One', cursive;
+	font-family: 'Fredoka One', cursive;
+	font-family: 'Merienda', cursive;
+}
+
+.head a{
+	text-decoration: none;
+	color:azure;
+}
+
+.side a{
+	text-decoration: none;
+	color:azure;
+}
