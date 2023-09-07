@@ -1,0 +1,236 @@
+﻿@page
+@model Mediflow.Pages.Chemist.OrderCheckoutAddressModel
+@{
+    Layout = "~/Pages/Shared/Chemist/_ChemistHome.cshtml";
+}
+
+<html>
+<head>
+
+</head>
+<body>
+
+
+    <div class="box">
+        <form method="post" asp-page-handler="EditAddress">
+            <div class="content py-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box shipping-method">
+                            <div class="box-header" style="background-color:#4fbfb0">
+                                <h4><b>Delivery-Address :</b> </h4>
+                            </div>
+
+                            <p>
+
+                                <b>Shop Name:</b>   @Model.CRegister.ShopName<br />
+
+                                <b>Shop Address:</b>@Model.CRegister.Address<br />
+
+                                @Model.CRegister.City, @Model.CRegister.State,<br />
+
+                                @Model.CRegister.Zcode, India <br />
+                                <hr />
+                                <b>Mobile         :</b>
+
+                                @Model.CRegister.Mobile
+
+                                <b>Email :         </b>
+
+
+                                @Model.CRegister.Email
+                            </p>
+                            <div class="box-footer text-center">
+
+                                <input type="button" class="btn btn-secondary" value="Change" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="box" style="height:367px">
+                            <div class="box-header" style="background-color:#4fbfb0">
+                                <h4><b>Delivery-Method :</b></h4>
+                            </div>
+
+
+                            <p style="margin-bottom:37px">
+                                <div class=""><label style="padding-right:100px"><b>Provide to Pick-up Boy :</b> </label>
+
+                                <input type="radio" name="delivery" id="1" value="Pickup" />
+                                <i class="fa fa-info-circle"></i> Chemist must send Pick-Up boy.
+                                </div>
+                                <hr />
+
+                                <div class="">
+                                <label style="padding-right:99px"><b>Deliver to shop Directly :</b></label>
+
+                                <input type="radio" name="delivery" id="2" value="Send" />
+                                <i class="fa fa-info-circle"></i> We will deliver for you before 6pm.
+                                    </div>
+                            </p>
+
+                            <div class="box-footer text-center">
+                                <input type="button" class="btn btn-secondary" value="Please Select One Option" disabled />
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <div class="content py-3">
+
+
+                <!-- /.row-->
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="company">ShopName</label>
+                            <input name="shopname" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="street">Address</label>
+                            <input name="address" type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="phone">Telephone</label>
+                            <input name="tele" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input name="email" type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row-->
+            </div>
+            @*<div class="content py-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="box shipping-method">
+                            <h4> Send Delivery Man </h4>
+                            <p>Get order products by evening - as per our availibility.</p>
+                            <div class="box-footer text-center">
+                                <input type="radio" name="delivery" value="Send">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="box shipping-method">
+                            <h4>Pickup Boy</h4>
+                            <p>Get order products from our store - fastest option possible.</p>
+                            <div class="box-footer text-center">
+                                <input type="radio" name="delivery" value="Pickup">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>*@
+
+
+            <div class="box-footer d-flex justify-content-between">
+                <a href="/Chemist/Cart" class="btn btn-outline-secondary"><i class="fa fa-chevron-left"></i>Back to Basket</a>
+                <button type="submit" class="btn btn-primary">Continue to Payment Method<i class="fa fa-chevron-right"></i></button>
+            </div>
+        </form>
+
+
+    </div>
+    @*</div>
+    </div>
+    </div>
+    <div class="col-lg-3">
+        <div id="order-summary" class="box" style="width:260px">
+            <div class="box-header" style="background-color:#4fbfb0">
+                <h3 class="mb-0">Order summary</h3>
+            </div>
+            <p class="text-muted">Shipping and additional costs are calculated based on the values you have entered.</p>
+            <div class="table-responsive">
+
+                <script>
+                            $(document).ready(function () {
+                                $('.showTax').hide();
+                                $('#hideTax').hide();
+                                $('#clickTax').click(function () {
+                                    $('#clickTax').hide();
+
+                                    $('.showTax').show();
+                                    $('#hideTax').show();
+
+                                });
+                                $('#hideTax').click(function () {
+
+                                    $('#clickTax').show();
+                                    $('.showTax').hide();
+                                    $('#hideTax').hide();
+                                });
+
+                                var payTotal = parseFloat($('#grandTotalDynamic').html(), 10) + parseFloat($('#totalgstID').html(), 10);
+                                $('.payable').html(payTotal);
+                            });
+
+                </script>
+
+                <table class="table">
+                    <tbody>
+
+
+                        <tr>
+                            <td>Tax </td>
+                            <td>₹</td>
+
+                            <th> @ViewData["Tax"] </th>
+
+
+                        </tr>
+
+
+                        <tr>
+                            <td>Value</td>
+                            <td>₹</td>
+
+                            <th id="summaryTotal">@ViewData["ValueTotal"]</th>
+
+
+                        </tr>
+                        <tr>
+                            <td>Shipping</td>
+                            <td>₹</td>
+                            <th>0.0  </th>
+                        </tr>
+                        <tr>
+                            <td>Discount</td>
+                            <td>₹</td>
+                            <th id="discount">@ViewData["Discount"] </th>
+                        </tr>
+                        <tr>
+                            <td>Payable </td>
+                            <td>₹</td>
+
+
+                            <th id="payable"> @ViewData["Payable"] </th>
+
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>*@
+
+</body>
+</html>

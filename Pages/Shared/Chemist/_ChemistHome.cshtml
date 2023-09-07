@@ -1,0 +1,775 @@
+﻿<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@ViewBag.Title</title>
+    @*<title>Mediflow</title>*@
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link rel="stylesheet" href="/ChemistHome/vendor/bootstrap/css/bootstrap.min.css">
+    <!-- Font Awesome CSS-->
+    <link rel="stylesheet" href="/ChemistHome/vendor/font-awesome/css/font-awesome.min.css">
+    <!-- Google fonts - Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700">
+    <!-- owl carousel-->
+    <link rel="stylesheet" href="/ChemistHome/vendor/owl.carousel/assets/owl.carousel.css">
+    <link rel="stylesheet" href="/ChemistHome/vendor/owl.carousel/assets/owl.theme.default.css">
+    <!-- theme stylesheet-->
+    <link rel="stylesheet" href="/ChemistHome/css/style.default.css" id="theme-stylesheet">
+    <!-- Custom stylesheet - for your changes-->
+    <link rel="stylesheet" href="/ChemistHome/css/custom.css">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="~/Chemist/assets/img/logo/favicon.png">
+    <!-- Tweaks for older IEs-->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <link href="~/Features/LeftSide.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="~/Chemist/assets/css/style.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#alertDisplay").hide();
+        });
+    </script>    
+
+</head>
+<body>
+
+
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    @*<img src="https://icons8.com/preloaders/preloaders/303/Pill%20spinning-128.gif" />*@
+                    <img src="~/Chemist/assets/img/p1.gif" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <header class="header mb-5 fixed-top">
+        <!--
+        *** TOPBAR ***
+        _________________________________________________________
+        -->
+
+        <div id="wrapper">
+            <div class="overlay"></div>
+
+            <!-- Sidebar -->
+            <nav class="navbar navbar-inverse fixed-top" id="sidebar-wrapper" role="navigation">
+                <ul class="nav sidebar-nav">
+                    <div class="sidebar-header">
+                        <div class="sidebar-brand">
+                            <a href="#">Brand</a>
+                        </div>
+                    </div>
+                    <li>
+                        <a asp-page="/Home/Index">Home</a>
+                    </li>
+                    <li>
+                        <a asp-page="/Home/Index">About</a>
+                    </li>
+                    <li>
+                        <a href="#events">Events</a>
+                    </li>
+                    <li>
+                        <a href="#team">Team</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#works" class="dropdown-toggle" data-toggle="dropdown">Works <span class="caret"></span></a>
+                        @*<ul class="dropdown-menu animated fadeInLeft" role="menu">
+                                <div class="dropdown-header">Dropdown heading</div>
+                                <li><a href="#pictures">Pictures</a></li>
+                                <li><a href="#videos">Videeos</a></li>
+                                <li><a href="#books">Books</a></li>
+                                <li><a href="#art">Art</a></li>
+                                <li><a href="#awards">Awards</a></li>
+                            </ul>*@
+                    </li>
+                    <li>
+                        <a href="#services">Services</a>
+                    </li>
+                    <li>
+                        <a href="#contact">Contact</a>
+                    </li>
+                    <li>
+                        <a href="#followme">Follow me</a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- /#sidebar-wrapper -->
+            <!-- Page Content -->
+            <div id="page-content-wrapper">
+                <button type="button" class="hamburger animated fadeInLeft is-closed" data-toggle="offcanvas">
+                    <span class="hamb-top"></span>
+                    <span class="hamb-middle"></span>
+                    <span class="hamb-bottom"></span>
+                </button>
+
+            </div>
+            <!-- /#page-content-wrapper -->
+
+        </div>
+        <!-- /#wrapper -->
+        <div id="top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 offer mb-3 mb-lg-0">
+                        <a href="#" class="btn btn-success btn-sm">Offer of the day</a>
+                        <a href="#" class="ml-1"> Get 5% off on online orders! </a>
+                    </div>
+                    <div class="col-lg-6 text-center text-lg-right">
+                        @*@using (Html.BeginForm("Logout"))
+                            {*@
+                        <ul class="menu list-inline mb-0">
+                            <li class="list-inline-item">
+                                <a href="#" data-toggle="modal" data-target="#login-modal">Login</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="register.html">Register</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="contact.html">Contact</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#">Recently viewed</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="/Chemist/ChemistDashboard">Dashboard</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="/Admin/LoginAdmin">Admin</a>
+                            </li>
+                            <li class="list-inline-item">
+                                @*<a asp-page="/Home/LoginChemist" asp-route-id="1" method="post">Logout</a>*@
+                                <a asp-page="/Home/LoginChemist" asp-route-ss="Logout">Logout</a>
+                            </li>
+                            <!--<li>-->
+                            @*<form method="post" asp-action="Logout" asp-controller="/Home/LoginChemist">
+                                    @Html.BeginForm("Logout","/Home/LoginChemist", FormMethod.Post)
+                                    {
+                                    <input style="position : absolute; height:27.5px; border-radius:8px ; background-color:#4fbfb0; margin-left: 5px; color:white " ; type="submit" id="btn" value="Logout">
+                                    }
+
+                                </form>*@
+
+                            <!--</li>-->
+
+                        </ul>
+                        @*}*@
+                    </div>
+                </div>
+            </div>
+
+            <div id="login-modal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true" class="modal fade">
+                <div class="modal-dialog modal-sm">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Customer login</h5>
+                            <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="customer-orders.html" method="post">
+                                <div class="form-group">
+                                    <input id="email-modal" type="text" placeholder="email" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <input id="password-modal" type="password" placeholder="password" class="form-control">
+                                </div>
+                                <p class="text-center">
+                                    <button class="btn btn-primary"><i class="fa fa-sign-in"></i> Log in</button>
+                                </p>
+                            </form>
+                            <p class="text-center text-muted">Not registered yet?</p>
+                            <p class="text-center text-muted">
+                                <a href="register.html"><strong>Register now</strong></a>! It is easy and done in 1 minute and gives you access to special discounts and much more!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- *** TOP BAR END ***-->
+
+
+        </div>
+        <nav class="navbar navbar-expand-lg">
+
+            <div class="container">
+                <img src="~/Chemist/assets/img/logo/favicon.png" />
+                <img src="~/Chemist/assets/img/med_3.png" alt="Mediflow" class="d-none d-md-inline-block" width="150px" height="auto">
+                @*<img src="~/Chemist/assets/img/med_2.png" alt="Mediflow logo" class="d-inline-block d-md-none">*@
+                <span class="sr-only">Mediflow - go to homepage</span>
+                <div class="navbar-buttons">
+                    <button type="button" data-toggle="collapse" data-target="#navigation" class="btn btn-outline-secondary navbar-toggler">
+                        <span class="sr-only">Toggle navigation</span>
+                        <i class="fa fa-align-justify"></i>
+                    </button>
+                    @*<button type="button" data-toggle="collapse" data-target="#close" class="btn btn-outline-secondary navbar-toggler">
+                            <span class="sr-only">Toggle Close</span>
+                            <i class="fa fa-times-circle-o" aria-hidden="true"></i>
+                        </button>*@
+                    <button type="button" data-toggle="collapse" data-target="#search" class="btn btn-outline-secondary navbar-toggler">
+                        <span class="sr-only">Toggle search</span><i class="fa fa-search"></i>
+                    </button>
+                    <a href="basket.html" class="btn btn-outline-secondary navbar-toggler">
+                        <i class="fa fa-shopping-cart"></i>
+                    </a>
+                </div>
+
+                <div id="navigation" class="collapse navbar-collapse">
+                    <ul class="navbar-nav mr-auto">
+
+
+                        <li class="nav-item">
+                            <a href="/Chemist/HomePage" class="nav-link active">Home</a>
+                        </li>
+                        <li class="nav-item dropdown menu-large">
+                            <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="200" class="dropdown-toggle nav-link">Categories<b class="caret"></b></a>
+                            <ul class="dropdown-menu megamenu">
+                                <li>
+                                    <div class="row">
+                                        <div class="col-md-6 col-lg-3">
+                                            <h5>Range</h5>
+                                            <ul class="list-unstyled mb-3">
+                                                <li class="nav-item">
+                                                    <a href="./OrderProducts?cat=DER" class="nav-link">Derma</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="./OrderProducts?cat=GYE" class="nav-link">Gynae</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="./OrderProducts?cat=CD" class="nav-link">Cardiac</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="./OrderProducts?cat=GEN" class="nav-link">General</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+
+
+                                        <div class="col-md-6 col-lg-3">
+                                            <h5>Body and Beauty Products</h5>
+                                            <ul class="list-unstyled mb-3">
+                                                <li class="nav-item">
+                                                    <a href="./OrderProducts?cat=DER" class="nav-link">Creams</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="./OrderProducts?cat=DER" class="nav-link">Soaps</a>
+                                                </li>
+                                                <li class="nav-item">
+                                                    <a href="./OrderProducts?cat=DER" class="nav-link">Gels</a>
+                                                </li>
+                                            </ul>
+                                            <h5>Life Saving Drugs</h5>
+                                            <ul class="list-unstyled mb-3">
+                                                <li class="nav-item">
+                                                    <a href="category.html" class="nav-link">Ethyconal</a>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown menu-large">
+                            <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="200" class="dropdown-toggle nav-link">Order<b class="caret"></b></a>
+                            <ul class="dropdown-menu megamenu">
+                                <li>
+                                    <div class="row">
+                                        <div class="col-md-6 col-lg-3">
+                                            <h5>Order</h5>
+                                            <ul class="list-unstyled mb-3">
+                                                <li class="nav-item"><a href="/Chemist/OrderProducts" class="nav-link">Order</a></li>
+                                                <li class="nav-item"><a href="/Chemist/ChemistOrderHistory" class="nav-link">OrderHistory</a></li>
+                                            </ul>
+                                        </div>
+
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="nav-item dropdown menu-large">
+                            <a href="#" data-toggle="dropdown" data-hover="dropdown" data-delay="200" class="dropdown-toggle nav-link">Cart<b class="caret"></b></a>
+                            <ul class="dropdown-menu megamenu">
+                                <li>
+                                    <div class="row">
+                                        <div class="col-md-6 col-lg-3">
+                                            <h5>Order</h5>
+                                            <ul class="list-unstyled mb-3">
+                                                <li class="nav-item"><a asp-page="/Chemist/Cart" asp-page-handler="LoadCart" class="nav-link">Cart</a></li>
+                                            </ul>
+                                        </div>
+
+                                </li>
+                            </ul>
+                        </li>
+
+
+                    </ul>
+
+                    <!--<div class="navbar-buttons d-flex justify-content-end">-->
+                    <!-- /.nav-collapse-->
+                    <!--<div id="search-not-mobile" class="navbar-collapse collapse"></div>
+                        <a data-toggle="collapse" href="#search" class="btn navbar-btn btn-primary d-none d-lg-inline-block"><span class="sr-only">Toggle search</span><i class="fa fa-search"></i></a>
+                        <div id="basket-overview" class="navbar-collapse collapse d-none d-lg-block">
+                            <a href="/Chemist/Cart" class="btn btn-primary navbar-btn">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span id="cartItem">
+
+
+                                    <span id="spanCartItemCount">[@ViewData["countItem"]]</span>
+                                </span>
+                            </a>
+                        </div>
+
+                    </div>-->
+
+
+
+                <div class="navbar-buttons d-flex justify-content-end">
+                    <!-- /.nav-collapse-->
+
+                    <div id="search-not-mobile" class="navbar-collapse collapse"></div>
+
+                    <a data-toggle="collapse" href=".global-search-wrapper">
+                        <input type="text" placeholder="Search" class="form-control">
+
+                        @*<a data-toggle="collapse" href=".global-search-wrapper">
+                <span class="sr-only">Toggle Close</span>
+                <span class="fa fa-times-circle-o fa-close" style="font-size:30px; padding-top:5px" aria-hidden="true"></span>
+            </a>*@
+                    </a>
+
+                    <a data-toggle="collapse" href=".global-search-wrapper" class="btn navbar-btn btn-primary d-none d-lg-inline-block">
+                        <span class="sr-only">Toggle search</span>
+                        <i class="fa fa-search"></i>
+                    </a>
+
+                    <div id="basket-overview" class="navbar-collapse collapse d-none d-lg-block">
+
+                        <a href="/Chemist/Cart" class="btn btn-primary navbar-btn">
+                            <i class="fa fa-shopping-cart"></i>
+                            <span id="cartItem"><span id="spanCartItemCount" class="badge badge-danger">@ViewData["countItem"]</span></span>
+                        </a>
+                    </div>
+                    @if (Model.NotifyChemist != null)
+                    {
+                        <div id="basket-overview" class="navbar-collapse collapse d-none d-lg-block dropdown">
+                            <a href="/Chemist/Cart" class="btn btn-primary navbar-btn dnav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                <i class="fa fa-bell"></i>
+                                <span class="badge badge-danger">@Model.NotifyChemist.Count</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-5">
+
+
+                                @for (int i = 0; i < Model.NotifyChemist.Count; i++)
+                                {
+
+                                <a class="dropdown-item waves-effect waves-light" href="#">@Model.NotifyChemist[i].NotifyMsg <span class="badge badge-danger ml-2">4</span></a>
+
+                                }
+
+                                @*<a class="dropdown-item waves-effect waves-light" href="#">Another action <span class="badge badge-danger ml-2">1</span></a>
+                    <a class="dropdown-item waves-effect waves-light" href="#">Something else here <span class="badge badge-danger ml-2">4</span></a>*@
+
+                            </div>
+
+                        </div>
+                    }
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="alert alert-success" id="alertDisplay" role="alert">
+                Cart Update :
+            </div>
+        </nav>
+
+        <!--side bar-->
+        <div style="backdrop-filter: blur(2px); ">
+            <div class="global-search-wrapper collapse">
+
+                <ul aria-labelledby="header" aria-owns="external_listitem" class="search-dropdown-wrapper" style=" margin-left:530px;">
+                    <div style="background-color:#37A893; position: relative; overflow: hidden; max-width:510px; width: 100%; height: auto; min-height: 85px; max-height: 560px; padding-left:12px; padding-top:10px">
+
+                        <div style="position: relative; overflow: scroll; margin-right: -17px; margin-bottom: -17px; min-height: 102px; max-height: 560px;">
+
+                            <li data-index="0">
+                                <div class="skucard-wrapper" style="margin-bottom: 0.5rem; border-radius: 4px; ">
+                                    <div class="d-flex">
+
+                                        <div class="flex-grow-1 d-flex flex-column justify-content-between">
+
+                                            @*<div class="row products">*@
+                                            <!--Here Paste search-->
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </div>
+
+                        <div style="position: absolute; height: 6px; right: 2px; bottom: 2px; left: 2px; border-radius: 3px;">
+                            <div style="position: relative; display: block; height: 100%; cursor: pointer; border-radius: inherit; background-color: rgba(0, 0, 0, 0.2); width: 0px;"></div>
+                        </div>
+                        <div style="position: absolute; width: 6px; right: 2px; bottom: 2px; top: 2px; border-radius: 3px;">
+                            <div style="position: relative; display: block; width: 100%; cursor: pointer; border-radius: inherit; background-color: rgba(0, 0, 0, 0.2); height: 115px; transform: translateY(0px);"></div>
+                        </div>
+
+                    </div>
+                </ul>
+            </div>
+        </div>
+
+
+    </header>
+
+    <!--side bar-->
+
+
+    <div>
+        @{
+            if (Convert.ToString(ViewData["Msg"]) == "OrderPage")
+            {
+                @await Html.PartialAsync("~/Pages/Shared/Chemist/ProductCategories.cshtml")
+                @RenderBody()
+                
+            }
+            else if (Convert.ToString(ViewData["Msg"]) == "Checkout")
+            {
+                
+                <div id="all">
+                    <div id="content" style="padding-top: 148px;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <!-- breadcrumb-->
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                            <li aria-current="page" class="breadcrumb-item active">@ViewData["MsgStep"]</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                                <div id="checkout" class="col-lg-9">
+                                    <div class="box" style="background-color:rgba(166, 226, 205, 0.96); border-radius:5px">
+                                        @if (Convert.ToString(ViewData["MsgStep"]) == "Payment")
+                                        {
+                                            <div class="nav flex-column flex-sm-row nav-pills" style="background-color:white">
+                                                <a href="/Chemist/Checkout/OrderCheckoutAddress" class="nav-link flex-sm-fill text-sm-center "> <i class="fa fa-map-marker fa-truck"></i>Delivery Details</a>
+                                                <a href="/Chemist/Checkout/OrderCheckoutPayment" class="nav-link flex-sm-fill text-sm-center active"> <i class="fa fa-money">   </i>Payment Method</a>
+                                                <a href="/Chemist/Checkout/OrderCheckoutReview" class="nav-link flex-sm-fill text-sm-center disabled"> <i class="fa fa-eye">  </i>Order Review</a>
+
+                                            </div>
+                                        }
+                                        else if (Convert.ToString(ViewData["MsgStep"]) == "Delivery Details")
+                                        {
+
+                                            <div class="nav flex-column flex-sm-row nav-pills" style="background-color:white">
+                                                <a href="/Chemist/Checkout/OrderCheckoutAddress" class="nav-link flex-sm-fill text-sm-center active"> <i class="fa fa-map-marker fa-truck"></i>Delivery Details</a>
+                                                <a href="/Chemist/Checkout/OrderCheckoutPayment" class="nav-link flex-sm-fill text-sm-center disabled"> <i class="fa fa-money">   </i>Payment Method</a>
+                                                <a href="/Chemist/Checkout/OrderCheckoutReview" class="nav-link flex-sm-fill text-sm-center disabled"> <i class="fa fa-eye">  </i>Order Review</a>
+
+                                            </div>
+                                        }
+                                        else
+                                        {
+
+                                            <div class="nav flex-column flex-sm-row nav-pills" style="background-color:white">
+                                                <a href="/Chemist/Checkout/OrderCheckoutAddress" class="nav-link flex-sm-fill text-sm-center "> <i class="fa fa-map-marker fa-truck"></i>Delivery Details</a>
+                                                <a href="/Chemist/Checkout/OrderCheckoutPayment" class="nav-link flex-sm-fill text-sm-center "> <i class="fa fa-money">   </i>Payment Method</a>
+                                                <a href="/Chemist/Checkout/OrderCheckoutReview" class="nav-link flex-sm-fill text-sm-center active"> <i class="fa fa-eye">  </i>Order Review</a>
+
+                                            </div>
+
+                                        }
+
+
+
+                                        <div>
+                                            @RenderBody()
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div id="order-summary" class="box" style="width:260px">
+                                        <div class="box-header" style="background-color:#4fbfb0">
+                                            <h3 class="mb-0">Order summary</h3>
+                                        </div>
+                                        <p class="text-muted">Shipping and additional costs are calculated based on the values you have entered.</p>
+                                        <div class="table-responsive">
+
+                                            <script>
+                                                $(document).ready(function () {
+                                                    $('.showTax').hide();
+                                                    $('#hideTax').hide();
+                                                    $('#clickTax').click(function () {
+                                                        $('#clickTax').hide();
+
+                                                        $('.showTax').show();
+                                                        $('#hideTax').show();
+
+                                                    });
+                                                    $('#hideTax').click(function () {
+
+                                                        $('#clickTax').show();
+                                                        $('.showTax').hide();
+                                                        $('#hideTax').hide();
+                                                    });
+
+                                                    var payTotal = parseFloat($('#grandTotalDynamic').html(), 10) + parseFloat($('#totalgstID').html(), 10);
+                                                    $('.payable').html(payTotal);
+                                                });
+
+                                            </script>
+
+                                            <table class="table">
+                                                <tbody>
+
+
+                                                    <tr>
+                                                        <td>Tax </td>
+                                                        <td>₹</td>
+
+                                                        <th> @ViewData["Tax"] </th>
+
+
+                                                    </tr>
+
+
+                                                    <tr>
+                                                        <td>Value</td>
+                                                        <td>₹</td>
+
+                                                        <th id="summaryTotal">@ViewData["ValueTotal"]</th>
+
+
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Shipping</td>
+                                                        <td>₹</td>
+                                                        <th>0.0  </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Discount</td>
+                                                        <td>₹</td>
+                                                        <th id="discount">@ViewData["Discount"] </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Payable </td>
+                                                        <td>₹</td>
+
+
+                                                        <th id="payable"> @ViewData["Payable"] </th>
+
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div>
+                            </div>
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+            }
+            else if (Convert.ToString(ViewData["Msg"]) == "Homepage")
+            {
+                
+                <div id="all" style="padding-top:150px">
+                    <div id="content">
+                        @RenderBody()
+                    </div>
+                </div>
+
+            }
+            else if (Convert.ToString(ViewData["Msg"]) == "Profile")
+            {
+                
+                <div id="all">
+                    <div id="content">
+                        <div class="container">
+                            <div class="row" style="padding-top: 148px;">
+                                @await Html.PartialAsync("~/Pages/Shared/Chemist/_ChemistProfile.cshtml")
+                                @RenderBody()
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+            @RenderBody()
+        }
+    </div>
+<!--
+*** FOOTER ***
+_________________________________________________________
+-->
+<div id="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <h4 class="mb-3">Pages</h4>
+                <ul class="list-unstyled">
+                    <li><a href="text.html">About us</a></li>
+                    <li><a href="text.html">Terms and conditions</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="contact.html">Contact us</a></li>
+                </ul>
+                <hr>
+                <h4 class="mb-3">User section</h4>
+                <ul class="list-unstyled">
+                    <li><a href="#" data-toggle="modal" data-target="#login-modal">Login</a></li>
+                    <li><a href="register.html">Regiter</a></li>
+                </ul>
+            </div>
+            <!-- /.col-lg-3-->
+            <div class="col-lg-3 col-md-6">
+                <h4 class="mb-3">Top categories</h4>
+                <h5>Derma</h5>
+                <ul class="list-unstyled">
+                    <li><a href="category.html">T-shirts</a></li>
+                    <li><a href="category.html">Shirts</a></li>
+                    <li><a href="category.html">Accessories</a></li>
+                </ul>
+                <h5>Gynae</h5>
+                <ul class="list-unstyled">
+                    <li><a href="category.html">T-shirts</a></li>
+                    <li><a href="category.html">Skirts</a></li>
+                    <li><a href="category.html">Pants</a></li>
+                    <li><a href="category.html">Accessories</a></li>
+                </ul>
+                </div>
+            <div class="col-lg-3 col-md-6">
+                <h4 class="mb-3">Top categories</h4>
+                <h5>Cardiac</h5>
+                <ul class="list-unstyled">
+                    <li><a href="category.html">T-shirts</a></li>
+                    <li><a href="category.html">Skirts</a></li>
+                    <li><a href="category.html">Pants</a></li>
+                </ul>
+                <h5>General</h5>
+                <ul class="list-unstyled">
+                    <li><a href="category.html">T-shirts</a></li>
+                    <li><a href="category.html">Skirts</a></li>
+                    <li><a href="category.html">Pants</a></li>
+                    <li><a href="category.html">Accessories</a></li>
+                </ul>
+            </div>
+                <!-- /.col-lg-3-->
+                <div class="col-lg-3 col-md-6">
+                    <h4 class="mb-3">Where to find us</h4>
+                    <p>
+                        <strong>Disha Enterprise</strong>
+                        <br>217, saakar complex
+                        <br>sanstha vasahat
+                        <br>Raopura
+                        <br>Vadodara
+                        <br><strong>Gujarat 390001</strong>
+                    </p><a href="contact.html">Go to contact page</a>
+                    <hr class="d-block d-md-none">
+                </div>
+                <!-- /.col-lg-3-->
+                <!--<div class="col-lg-3 col-md-6">
+        <h4 class="mb-3">Get the news</h4>
+        <p class="text-muted">Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
+        <form>
+            <div class="input-group">
+                <input type="text" class="form-control"><span class="input-group-append">
+                    <button type="button" class="btn btn-outline-secondary">Subscribe!</button>
+                </span>
+            </div>-->
+                <!-- /input-group-->
+                <!--</form>
+        <hr>
+        <h4 class="mb-3">Stay in touch</h4>
+        <p class="social"><a href="#" class="facebook external"><i class="fa fa-facebook"></i></a><a href="#" class="twitter external"><i class="fa fa-twitter"></i></a><a href="#" class="instagram external"><i class="fa fa-instagram"></i></a><a href="#" class="gplus external"><i class="fa fa-google-plus"></i></a><a href="#" class="email external"><i class="fa fa-envelope"></i></a></p>
+    </div>-->
+                <!-- /.col-lg-3-->
+            </div>
+        <!-- /.row-->
+    </div>
+    <!-- /.container-->
+</div>
+<!-- /#footer-->
+<!-- *** FOOTER END ***-->
+<!--
+*** COPYRIGHT ***
+_________________________________________________________
+-->
+<!--<div id="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mb-2 mb-lg-0">
+                <p class="text-center text-lg-left">©2019 Your name goes here.</p>
+            </div>
+            <div class="col-lg-6">
+                <p class="text-center text-lg-right">
+                    Template design by <a href="https://bootstrapious.com/">Bootstrapious</a>-->
+                    <!-- If you want to remove this backlink, pls purchase an Attribution-free License https://bootstrapious.com/p/obaju-e-commerce-template. Big thanks!-->
+                <!--</p>
+            </div>
+        </div>
+    </div>
+</div>-->
+<!-- *** COPYRIGHT END ***-->
+<!-- JavaScript files-->
+<script src="/ChemistHome/vendor/jquery/jquery.min.js"></script>
+<script src="/ChemistHome/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/ChemistHome/vendor/jquery.cookie/jquery.cookie.js"></script>
+<script src="/ChemistHome/vendor/owl.carousel/owl.carousel.min.js"></script>
+<script src="/ChemistHome/vendor/owl.carousel2.thumbs/owl.carousel2.thumbs.js"></script>
+<script src="/ChemistHome/js/front.js"></script>
+
+<script>
+            $(document).ready(function () {
+                var trigger = $('.hamburger'),
+                    overlay = $('.overlay'),
+                    isClosed = false;
+
+                trigger.click(function () {
+                                                        hamburger_cross();
+                });
+
+                function hamburger_cross() {
+
+                    if (isClosed == true) {
+                                                        overlay.hide();
+                        trigger.removeClass('is-open');
+                        trigger.addClass('is-closed');
+                        isClosed = false;
+                    } else {
+                                                        overlay.show();
+                        trigger.removeClass('is-closed');
+                        trigger.addClass('is-open');
+                        isClosed = true;
+                    }
+                }
+
+                $('[data-toggle="offcanvas"]').click(function () {
+                                                        $('#wrapper').toggleClass('toggled');
+                });
+            });</script>
+
+<script src="~/Chemist/assets/js/main.js"></script>
+</body>
+</html>

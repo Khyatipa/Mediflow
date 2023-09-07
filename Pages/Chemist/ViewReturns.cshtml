@@ -1,0 +1,117 @@
+﻿@page
+@model Mediflow.Pages.Chemist.ViewReturnsModel
+@{
+    Layout = "~/Pages/Shared/Chemist/_ChemistHome.cshtml";
+}
+
+<html>
+<head>
+
+    <style>
+
+        .add-scroll {
+            overflow-y: scroll;
+            height: 100px;
+        }
+    </style>
+
+    <script>
+
+        $(document).ready(function () {
+
+
+
+        });
+
+
+    </script>
+</head>
+
+<body>
+
+    <div id="customer-orders" class="col-lg-9">
+        <div class="box">
+            <p class="lead"><h1>My Return Orders :</h1></p>
+
+            <p class="text-muted">If you have any questions, please feel free to <a href="contact.html">contact us</a>, our customer service center is working for you 24/7.</p>
+
+            <div class="table-responsive">
+
+                <table class="table table-hover" id="tblRows">
+
+                    <thead>
+                        <tr>
+                            <th>Order</th>
+                            <th>Date</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="rows">
+                        <div id="scrollSection">
+                            @{
+                                int count = 0;
+
+
+                            }
+                            @for (int i = 0; i < Model.ReturnMasterList.Count(); i++)
+                            {
+                                int Rid = @Model.ReturnMasterList[i].RmasterId;
+                                string status;
+                                if (Model.ReturnMasterList[i].RmIstypeExpiry == true)
+                                {
+                                    status = "Expiry Return";
+                                }
+                                else
+                                {
+                                    status = "Instant Return";
+                                }
+                                count++;
+
+                                <form method="get" asp-page="/Chemist/ReturnInvoice">
+                                    <tr>
+
+                                        <th>@count</th>
+                                        <td>@Model.ReturnMasterList[i].RmDate.Value.ToString("dd/MM/yyyy")</td>
+                                        <td>@Model.ReturnMasterList[i].RmFinalPayable
+                                            <input type="hidden" name="RMid" value="@Model.ReturnMasterList[i].RmasterId" />
+                                        </td>
+
+                                        @switch (status)
+                                        {
+                                            case "Expiry Return":
+
+                                                <td><span class="badge badge-success">@status</span></td>
+                                                break;
+
+                                            case "Instant Return":
+                                                <td><span class="badge badge-danger">@status</span></td>
+                                                break;
+                                           
+                                        }
+
+                                        <td><button type="submit" class="btn btn-primary btn-sm">VIEW @*<a class="btn btn-primary btn-sm">View</a>*@</button></td>
+
+                                    </tr>
+                                </form>
+                            }
+
+
+                        </div>
+                    </tbody>
+
+                </table>
+
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+
+
+</body>
+
+</html>

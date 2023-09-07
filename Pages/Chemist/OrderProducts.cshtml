@@ -1,0 +1,587 @@
+﻿@page
+@model Mediflow.Pages.Chemist.OrderProductsModel
+@{
+    ViewData["Title"] = "OrderProduct";
+    Layout = "~/Pages/Shared/Chemist/_ChemistHome.cshtml";
+}
+@*@await Html.PartialAsync("~/Pages/Shared/Chemist/ProductCategories.cshtml")*@
+
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpContextAccessor
+
+@{
+    String aa = @HttpContext.Session.GetString("userId");
+    int cid = Convert.ToInt32(this.HttpContext.Session.GetString("userId"));
+
+
+}
+
+
+<html>
+<head>
+    <style>
+        .details {
+            margin: 12px;
+            padding: 10px;
+            padding-bottom: 0;
+            min-height: 360px;
+            max-height: 360px;
+            background-color: white;
+            background: #fff;
+            border: solid 1px #4fbfa8;
+            -webkit-box-shadow: 0 0px 20px rgba(79,191,168, 0.5);
+            box-shadow: 0 0px 20px rgba(79,191,168, 0.5);
+        }
+
+            .details h4 {
+                padding-left: 40px;
+            }
+
+        .value-button {
+            display: inline-block;
+            /*border: 1px solid #ddd;*/
+            /* margin: 0px;*/
+            margin-top: 2px;
+            width: 28px;
+            height: 34px;
+            text-align: center;
+            /* vertical-align: super;*/
+            /*padding: 11px 0;*/
+            padding: 6px;
+            background: #eee;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+            .value-button:hover {
+                cursor: pointer;
+            }
+
+        .decrease {
+            margin-right: -4px;
+            border-radius: 8px 0 0 8px;
+            background-color: #4fbfa8;
+            color: white;
+            font-weight: normal
+        }
+
+        .increase {
+            margin-left: -4px;
+            border-radius: 0 8px 8px 0;
+            background-color: #4fbfa8;
+            color: white;
+            font-weight: normal;
+        }
+
+        .input-wrap {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .number {
+            text-align: center;
+            border: none;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            /*margin: 0px;*/
+            width: 30px;
+            height: 34px;
+            vertical-align: bottom;
+            /* vertical-align:super;
+            margin-top:20px;*/
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .booked {
+            float: left;
+            color: #CFD8DC;
+            font-size: 30px;
+            padding: 5px;
+            z-index: 3;
+        }
+
+        .middle {
+            transition: .5s ease;
+            opacity: 0;
+            position: absolute;
+            width: 80%;
+            /* height: 60%;*/
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            text-align: center;
+            font-size: 16px;
+            font-weight: bold;
+            /* border:thin;*/
+            /*   background:#3bbba1;*/
+            /* color:white;*/
+            background: white;
+            border-radius: 10px;
+            padding: 10px;
+            border: 1px solid #3bbba1;
+        }
+
+        .front:hover .img-Temp {
+            opacity: 0.4;
+        }
+
+        .front:hover .middle {
+            opacity: 1;
+        }
+
+        .viewDetails {
+            /*  background-color: #4CAF50;
+            color: white;*/
+            /*padding: 16px 32px;*/
+        }
+    </style>
+
+
+</head>
+<body>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#alertDisplay").hide();
+
+            $(".showDiv").hide();
+
+            $(".btnAddItem").click(function () {
+
+                var buttonID = $(this).attr("id");
+                var buttonIDs = buttonID.split('_');
+                var itemID = 0;
+                var delString, qtyVal;
+
+
+                if (buttonIDs.length = 2) {
+                    if (buttonIDs[0] == "del") {
+                        delString = "del"
+                        itemID = buttonIDs[1];
+                    }
+                    else {
+                        itemID = buttonIDs[1];
+                        qtyVal = $("#val_" + buttonIDs[1]).val();
+                    }
+                }
+                var data;
+                //if (delString == "del") {
+                //    data = { 'id': itemID, 'del': delString }
+                //}
+                //else {
+
+                    data = { 'id': itemID, 'qty': qtyVal }
+
+                //}
+
+                $.ajax({
+
+                    type: "GET",
+                    url: "OrderProducts",
+                    data: data,
+                    cache: false,
+                    success: function (data) {
+                        $("#spanCartItemCount").html(data);
+                        //$("#alertDisplay").html("Cart Updated : " + itemID + " of Quantity :" + qtyVal);
+                        $("#alertDisplay").fadeTo(2000, 500).slideUp(500).html("Cart Updated : " + itemID + " of Quantity :" + qtyVal);
+                        //, function () {
+                        //    $("#alertDisplay").slideUp(500).html("Cart Updated : " + itemID + " of Quantity :" + qtyVal);
+                        //});
+                        //if (delString != null) {
+                        //    alert("Item Deleted " + itemID);
+                        //}
+                        //else {
+
+                        @*var cartQty = @ViewData["countItem"];
+                        $("#cartItem").text(cartQty);*@
+
+
+                        //}
+                    },
+                });
+
+            });
+
+            $(".btnShowDetails").click(function () {
+                var detailsID = $(this).attr("id");
+                var details = detailsID.split('_');
+                var itemId = details[1];
+
+                $('#detail_' + itemId).toggle();
+            });
+
+           
+
+            $(".booked").click(function () {
+
+               
+                var temp = $(this).attr("id");
+                var id = temp.split('_');
+                var itemId = id[1];
+                var marked = document.getElementById(temp);
+               
+                    
+                        $.ajax({
+
+                            type: "GET",
+                            url: "OrderProducts?handler=BookmarkProduct",
+                            data: { 'itemid': itemId},
+                            cache: false,
+                            success: function (data) {
+                                if (data == 0) {
+                                    $("#alertDisplay").fadeTo(2000, 500).slideUp(500).html("Item Bookmarked");
+                                    
+                                    marked.style.color = "#4fbfb0";
+                                }
+                                else if (data == 1) {
+                                    $("#alertDisplay").fadeTo(2000, 500).slideUp(500).html("Item UnBookmarked");
+                                    
+                                    
+                                    marked.style.color = "#CFD8DC";
+
+                                }
+                             
+                            }
+
+                        });
+                  
+                    
+
+
+                
+              
+            });
+
+        });
+
+    </script>
+
+
+    <center>
+        <div id="result"></div>
+    </center>
+
+
+    @if (TempData["ErrMsg"] != null)
+    {
+        <label style="color:red;">@TempData["ErrMsg"]</label>
+    }
+    @if (ViewData["ErrMsg"] != null)
+    {
+        <label style="color:red;">@ViewData["ErrMsg"]</label>
+    }
+
+
+    @*<div class="row">*@
+    <!--<div class="col-lg-12">-->
+    <!-- breadcrumb-->
+    <!--</div>-->
+
+<div class="row products ">
+    @if (Model.ProductList != null)
+    {
+
+        @for (int i = 0; i < Model.ProductList.Count; i++)
+        {
+            byte[] bytes = Model.ProductList[i].Image;
+            string base64String = null;
+            if (bytes != null)
+            {
+                base64String = "data:image/png;base64," + Convert.ToBase64String(bytes, 0, bytes.Length);
+            }
+            string buttonID = "btn_" + Convert.ToString(Model.ProductList[i].ItemId);
+            string qtyID = "qty_" + Convert.ToString(Model.ProductList[i].ItemId);
+            //  int stkQty = Convert.ToInt32(Model.ProductList[i].StockQuantity);
+            string delID = "del_" + Convert.ToString(Model.ProductList[i].ItemId);
+            string detailsId = "detail_" + Convert.ToString(Model.ProductList[i].ItemId);
+            String dcrBtn = "dcr_" + Convert.ToString(Model.ProductList[i].ItemId);
+            String valChange = "val_" + Convert.ToString(Model.ProductList[i].ItemId);
+            String inrBtn = "inr_" + Convert.ToString(Model.ProductList[i].ItemId);
+            string marked = "marked_" + Convert.ToString(Model.ProductList[i].ItemId);
+
+            <div class="col-lg-4 col-md-6">
+                <div class="product">
+                    @if (@base64String != null)
+                    {
+                        <div class="flip-container">
+                            <div class="flipper designPopup">
+
+                                <div class="front">
+                                    <a asp-page="/Chemist/DetailedProduct" asp-route-id="@Model.ProductList[i].ItemId">
+                                        <img src="@base64String" alt="" class="img-Temp flip-container"
+                                             style="padding:20px;padding-bottom:0">
+
+                                        <div class="middle">
+                                            <div class="viewDetails">Click to view product details</div>
+                                        </div>
+                                    </a>
+                                </div>
+
+
+                                <div class="back">
+
+                                    @{
+                                        if (Model.BookMarkProductsChemistList.Count > 0)
+
+                                        {
+
+                                            <span>
+                                                <i class="fa fa-bookmark booked" id="@marked"></i>
+                                            </span>
+
+                                            for (int k = 0; k < Model.BookMarkProductsChemistList.Count(); k++)
+                                            {
+                                                if (Model.ProductList[i].ItemId == Model.BookMarkProductsChemistList[k].BookedItemId)
+                                                {
+                                                    <script>
+                                                   var temp ='marked_'+@Model.ProductList[i].ItemId;
+
+                                                   var marked = document.getElementById(temp);
+                                                   marked.style.color = "#4fbfb0";
+
+                                                    </script>
+
+                                                }
+                                            }
+
+
+                                        }
+                                        else
+                                        {
+
+                                            <span>
+                                                <i class="fa fa-bookmark booked" id="@marked"></i>
+                                            </span>
+                                        }
+                                    }
+
+
+                                    <button id="@buttonID" class="btnShowDetails"
+                                            style="float: right; background: transparent; border:none; padding:5px">
+                                        @*<i class="fa fa-info" aria-hidden="true"></i>*@
+                                        <img src="~/ChemistHome/images/i.png" style="height:30px;" />
+                                    </button>
+
+                                    <div id="@detailsId" class="showDiv details">
+                                        <h4>
+                                            <b>Product details</b>
+                                        </h4>
+                                        <hr />
+                                        <dl class="row">
+                                            <dt class="col-sm-5">
+                                                Name
+                                            </dt>
+                                            <dd class="col-sm-7">
+                                                @Model.ProductList[i].ItemName
+                                            </dd>
+                                            <dt class="col-sm-5">
+                                                Mfg By
+                                            </dt>
+                                            <dd class="col-sm-7">
+                                                @Model.ProductList[i].MfgByName
+                                            </dd>
+
+
+
+
+                                            <dt class="col-sm-5">
+                                                Type
+                                            </dt>
+                                            <dd class="col-sm-7">
+                                                @Model.ProductList[i].MedicineType
+                                            </dd>
+                                            <dt class="col-sm-5">
+                                                Stock
+                                            </dt>
+                                            @{
+
+                                                for (int k = 0; k < Model.StockMaster.Count; k++)
+                                                {
+                                                    if (Model.StockMaster[k].SitemId == Model.ProductList[i].ItemId)
+                                                    {
+                                                        <dd class="col-sm-7">
+                                                            @Model.StockMaster[k].StockQty
+                                                        </dd>
+                                                    }
+
+                                                }
+                                            }
+                                            <dt class="col-sm-5">
+                                                Batch No:
+                                            </dt>
+                                            @for (int k = 0; k < Model.StockMaster.Count; k++)
+                                            {
+                                                if (Model.StockMaster[k].SitemId == Model.ProductList[i].ItemId)
+                                                {
+                                                    <dd class="col-sm-7">
+                                                        @Model.StockMaster[k].BatchNo
+                                                    </dd>
+                                                }
+
+                                            }
+                                            <dt class="col-sm-5">
+                                                Content
+                                            </dt>
+                                            <dd class="col-sm-7">
+                                                @Model.ProductList[i].Content
+                                            </dd>
+                                            <dt class="col-sm-5">
+                                                Volume
+                                            </dt>
+                                            <dd class="col-sm-7">
+                                                @Model.ProductList[i].Volume
+                                            </dd>
+                                            <dt class="col-sm-5">
+                                                Mrp 
+                                            </dt>
+                                            <dd class="col-sm-7">
+                                                @Model.ProductList[i].Mrp
+                                            </dd>
+                                        </dl>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                        </div>
+                                                }
+
+                    @if (@base64String != null)
+                    {
+                        <a asp-page="/Chemist/DetailedProduct" asp-route-id="@Model.ProductList[i].ItemId" class="invisible">
+                            <img src="@base64String" alt="" class="img-Temp">
+                        </a>
+                    }
+                <div class="text">
+
+                    <h3 style="height:auto;">
+                        <a href="detail.html">@Model.ProductList[i].ItemName</a>
+                    </h3>
+                    <p class="price" style="font-size:15px; margin-bottom:8px; font-weight:400;">
+
+                        ₹@Model.ProductList[i].Mrp
+                    </p>
+                    @*<select name="Qty" id="@qtyID">
+
+            @for (int s = 0; s < stkQty; s = s + 5)
+            {
+                if (s != 0)
+                {
+                    <option value="@s">@s </option>
+                }
+
+            }
+        </select>*@
+
+
+                    <p class="buttons" style="margin-left:20px">
+                        @*<a asp-page="/Chemist/DetailedProduct" class="btn btn-outline-secondary" asp-route-id="@Model.ProductList[i].ItemId"
+               style="border-radius : 8px; margin-left:0 ">
+                View Product
+            </a>*@
+
+                        @*<a href="basket.html" ></a>*@
+                        <table>
+                            @if (Convert.ToString(ViewData["isEligible"]) == "Approved")
+
+                            {
+                                <tr>
+
+                                    <td style="width:58%;">
+
+
+                                        <span class="value-button dcreditVal decrease" id="@dcrBtn" value="Decrease Value">-</span>
+                                        <input type="number" class="number" id="@valChange"
+                                               min="1" max="" value="5" />
+                                        @*@qtyChange*@
+                                        <span class="value-button inreditVal increase" id="@inrBtn" value="Increase Value">+</span>
+                                    </td>
+                               
+                                    @*<td style="width:5%"></td>*@
+                                    <td style="width:40%;">
+                                        <button type="button" class="btnAddItem btn btn-primary" name="add" id="@buttonID"
+                                                style="margin-bottom:0;border-radius : 8px ">
+                                            Add<i class="fa fa-shopping-cart"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                            else
+                            {
+
+                                <tr>
+
+
+                                    <td>
+                                        <button type="button" class="btn btn-primary" onclick="alert('Only Approved users can add products')" style="margin-left:60px;">
+                                            Add<i class="fa fa-shopping-cart"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            }
+                        </table>
+                    </p>
+
+                </div>
+                    <!-- /.text-->
+                </div>
+                <!-- /.product            -->
+            </div>
+            <!-- /.products-->
+        }
+    }
+</div>
+
+
+    <div class="pages">
+        <p class="loadMore">
+            <a href="#" class="btn btn-primary btn-lg"><i class="fa fa-chevron-down"></i> Load more</a>
+        </p>
+        <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+            <ul class="pagination">
+                <li class="page-item">
+                    <a href="#" aria-label="Previous" class="page-link"><span aria-hidden="true">«</span><span class="sr-only">Previous</span></a>
+                </li>
+                <li class="page-item active">
+                    <a href="#" class="page-link">1</a>
+                </li>
+                <li class="page-item">
+                    <a href="#" class="page-link">2</a>
+                </li>
+                <li class="page-item">
+                    <a href="#" class="page-link">3</a>
+                </li>
+                <li class="page-item">
+                    <a href="#" class="page-link">4</a>
+                </li>
+                <li class="page-item">
+                    <a href="#" class="page-link">5</a>
+                </li>
+                <li class="page-item">
+                    <a href="#" aria-label="Next" class="page-link"><span aria-hidden="true">»</span><span class="sr-only">Next</span></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+
+
+
+</body>
+</html>
+
+
+

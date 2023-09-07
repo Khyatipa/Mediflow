@@ -1,0 +1,100 @@
+﻿@page
+@model Mediflow.Pages.Admin.ViewOrdersModel
+@{
+    Layout = "~/Pages/Shared/Admin/_AdminHome.cshtml";
+    int count = 0;
+}
+
+<head>
+    <title>Table V04</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" type="image/png" href="~/Table/images/icons/favicon.ico" />
+
+    @*<link rel="stylesheet" type="text/css" href="~/Table/vendor/bootstrap/css/bootstrap.min.css">*@
+
+    <link rel="stylesheet" type="text/css" href="~/Table/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+
+    @*<link rel="stylesheet" type="text/css" href="~/Table/vendor/animate/animate.css">*@
+
+
+    @*<link rel="stylesheet" type="text/css" href="~/Table/vendor/select2/select2.min.css">*@
+
+    <link rel="stylesheet" type="text/css" href="~/Table/vendor/perfect-scrollbar/perfect-scrollbar.css">
+
+    @*<link rel="stylesheet" type="text/css" href="~/Table/css/util.css">*@
+    <link rel="stylesheet" type="text/css" href="~/Table/css/main.css?123456789">
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+
+
+</head>
+<div class="limiter col-lg-9">
+    <div class="container-table100">
+
+        <div class="wrap-table100">
+            <div class="table100 ver1 m-b-110">
+
+                <div class="table100-head">
+
+                    <table>
+                        <thead>
+                            <tr class="row100 head">
+                                <th class="cell100 column1">Sr. No</th>
+                                <th class="cell100 column2">Shop Name</th>
+                                <th class="cell100 column2">Order Date</th>
+                                <th class="cell100 column2">Total</th>
+                                <th class="cell100 column2">Status</th>
+                                <th class="cell100 column5">Manage</th>
+
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+
+                <div class="table100-body js-pscroll">
+                    <table>
+                        <tbody>
+
+                            @foreach (var item in Model.FetchOrders)
+                            {
+                                count++;
+
+
+                                <tr class="row100 body">
+
+
+                                    <td class="cell100 column1">@count</td>
+                                    <td class="cell100 column2"> @Html.DisplayFor(modelItem => item.shopname)</td>
+                                    <td class="cell100 column2">  @Html.DisplayFor(modelItem => item.date)</td>
+                                    <td class="cell100 column2">@Html.DisplayFor(modelItem => item.totalpayable)</td>
+                                    <td class="cell100 column2"><span class="badge badge-success">@Html.DisplayFor(modelItem => item.status)</span></td>
+
+
+                                    <td>
+                                        <form action="~/Admin/OrderInvoice" method="post">
+                                            <input type="hidden" name="oid" value="@Html.DisplayFor(modelItem=>item.oid)" />
+                                            <input type="hidden" name="cid" value="@Html.DisplayFor(modelItem=>item.cid)" />
+
+                                            <input type="submit" class="btn btn-primary" value="View" />
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

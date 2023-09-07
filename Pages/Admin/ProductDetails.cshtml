@@ -1,0 +1,261 @@
+﻿@page
+@model Mediflow.Pages.Admin.ProductDetailsModel
+
+@{
+    ViewData["Title"] = "ProductDetails";
+    Layout = "~/Pages/Shared/Admin/_AdminHome.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+        // MDB Lightbox Init
+        $(function () {
+            $("#mdb-lightbox-ui").load("mdb-addons/mdb-lightbox-ui.html");
+        });
+    });
+</script>
+
+@{
+
+
+    byte[] bytes = Model.Products.Image;
+    string base64String = null;
+    if (bytes != null)
+    {
+        base64String = "data:image/png;base64," + Convert.ToBase64String(bytes, 0, bytes.Length);
+    }
+    byte[] bytes1 = Model.Products.Image1;
+    string base64String1 = null;
+    if (bytes1 != null)
+    {
+        base64String1 = "data:image/png;base64," + Convert.ToBase64String(bytes1, 0, bytes1.Length);
+    }
+    byte[] bytes2 = Model.Products.Image2;
+    string base64String2 = null;
+    if (bytes2 != null)
+    {
+        base64String2 = "data:image/png;base64," + Convert.ToBase64String(bytes2, 0, bytes2.Length);
+    }
+}
+
+
+<html>
+<head>
+    <title>Table V04</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" type="image/png" href="~/Table/images/icons/favicon.ico" />
+
+    @*<link rel="stylesheet" type="text/css" href="~/Table/vendor/bootstrap/css/bootstrap.min.css">*@
+
+    <link rel="stylesheet" type="text/css" href="~/Table/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+
+    @*<link rel="stylesheet" type="text/css" href="~/Table/vendor/animate/animate.css">*@
+
+
+    @*<link rel="stylesheet" type="text/css" href="~/Table/vendor/select2/select2.min.css">*@
+
+    <link rel="stylesheet" type="text/css" href="~/Table/vendor/perfect-scrollbar/perfect-scrollbar.css">
+
+    @*<link rel="stylesheet" type="text/css" href="~/Table/css/util.css">*@
+    <link rel="stylesheet" type="text/css" href="~/Table/css/main.css?123456789">
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+
+
+</head>
+
+<body>
+
+    <div class="col-lg-9 order-1 order-lg-2">
+        <div id="productMain" class="row">
+            <div class="col-md-6">
+                <div data-slider-id="1" class="owl-carousel shop-detail-carousel">
+                    <div class="item"> <img src="@base64String" alt="" class="img-fluid"></div>
+                    <div class="item"> <img src="@base64String1" alt="" class="img-fluid"></div>
+                    <div class="item"> <img src="@base64String2" alt="" class="img-fluid"></div>
+                </div>
+                <div class="ribbon sale">
+                    <div class="theribbon">SALE</div>
+                    <div class="ribbon-background"></div>
+                </div>
+                <!-- /.ribbon-->
+                <div class="ribbon new">
+                    <div class="theribbon">NEW</div>
+                    <div class="ribbon-background"></div>
+                </div>
+                <!-- /.ribbon-->
+            </div>
+            <div class="col-md-6">
+                <div class="box">
+                    <h1 class="text-center"> @Html.DisplayFor(model => model.Products.ItemName)</h1>
+                    <p class="goToDescription"><a href="#details" class="scroll-to">Scroll to product details, material &amp; care and sizing</a></p>
+                    <p class="price">Rs. @Html.DisplayFor(model => model.Products.Rate)</p>
+                    <p class="text-center buttons"><a href="basket.html" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Add to cart</a><a href="basket.html" class="btn btn-outline-primary"><i class="fa fa-heart"></i> Add to wishlist</a></p>
+                </div>
+                <div data-slider-id="1" class="owl-thumbs">
+                    <button class="owl-thumb-item"><img src="@base64String" alt="" class="img-fluid"></button>
+                    <button class="owl-thumb-item"><img src="@base64String" alt="" class="img-fluid"></button>
+                    <button class="owl-thumb-item"><img src="@base64String2" alt="" class="img-fluid"></button>
+                </div>
+            </div>
+        </div>
+        <div id="details" class="box">
+            <p></p>
+            <h4>Product details</h4>
+            <p>Name :  @Html.DisplayFor(model => model.Products.ItemName)</p>
+            <p>ManuFactured By :   @Html.DisplayFor(model => model.Products.MfgByName)</p>
+            <p>Marketed By :   @Html.DisplayFor(model => model.Products.MarketByName)</p>
+            @*<p>Batch NO :   @Html.DisplayFor(model => model.Products.BatchNo)</p>
+            <p>Expiry Date :   @Html.DisplayFor(model => model.Products.ExpiryDt)</p>*@
+            <p>Medicine Type :   @Html.DisplayFor(model => model.Products.MedicineType)</p>
+            <p>MRP:  Rs. @Html.DisplayFor(model => model.Products.Mrp)</p>
+            <p>Rate :   @Html.DisplayFor(model => model.Products.Rate)</p>
+            <p>Content :   @Html.DisplayFor(model => model.Products.Content)</p>
+            <p>Volume :   @Html.DisplayFor(model => model.Products.Volume)</p>
+            <p>HSN Code :   @Html.DisplayFor(model => model.Products.HsnCode)</p>
+            <p>Product Category :   @Html.DisplayFor(model => model.Products.ProductCategory)</p>
+            <p>GST Percent :   @Html.DisplayFor(model => model.Products.GstPercent)%</p>
+            <p>Margin Percent :   @Html.DisplayFor(model => model.Products.MarginPercent)%</p>
+
+
+
+            <!--<h4>Material &amp; care</h4>
+                <ul>
+                    <li>Polyester</li>
+                    <li>Machine wash</li>
+                </ul>
+                <h4>Size &amp; Fit</h4>
+                <ul>
+                    <li>Regular fit</li>
+                    <li>The model (height 5'8" and chest 33") is wearing a size S</li>
+                </ul>
+                <blockquote>
+                    <p><em>Define style this season with Armani's new range of trendy tops, crafted with intricate details. Create a chic statement look by teaming this lace number with skinny jeans and pumps.</em></p>
+                </blockquote>
+                <hr>
+                <div class="social">
+                    <h4>Show it to your friends</h4>
+                    <p><a href="#" class="external facebook"><i class="fa fa-facebook"></i></a><a href="#" class="external gplus"><i class="fa fa-google-plus"></i></a><a href="#" class="external twitter"><i class="fa fa-twitter"></i></a><a href="#" class="email"><i class="fa fa-envelope"></i></a></p>
+                </div>
+            </div>
+            <div class="row same-height-row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="box same-height">
+                        <h3>You may also like these products</h3>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="product same-height">
+                        <div class="flip-container">
+                            <div class="flipper">
+                                <div class="front"><a href="detail.html"><img src="img/product2.jpg" alt="" class="img-fluid"></a></div>
+                                <div class="back"><a href="detail.html"><img src="img/product2_2.jpg" alt="" class="img-fluid"></a></div>
+                            </div>
+                        </div><a href="detail.html" class="invisible"><img src="img/product2.jpg" alt="" class="img-fluid"></a>
+                        <div class="text">
+                            <h3>Fur coat</h3>
+                            <p class="price">$143</p>
+                        </div>
+                    </div>-->
+            <!-- /.product-->
+            <!--</div>
+            <div class="col-md-3 col-sm-6">
+                <div class="product same-height">
+                    <div class="flip-container">
+                        <div class="flipper">
+                            <div class="front"><a href="detail.html"><img src="img/product1.jpg" alt="" class="img-fluid"></a></div>
+                            <div class="back"><a href="detail.html"><img src="img/product1_2.jpg" alt="" class="img-fluid"></a></div>
+                        </div>
+                    </div><a href="detail.html" class="invisible"><img src="img/product1.jpg" alt="" class="img-fluid"></a>
+                    <div class="text">
+                        <h3>Fur coat</h3>
+                        <p class="price">$143</p>
+                    </div>
+                </div>-->
+            <!-- /.product-->
+            <!--</div>
+            <div class="col-md-3 col-sm-6">
+                <div class="product same-height">
+                    <div class="flip-container">
+                        <div class="flipper">
+                            <div class="front"><a href="detail.html"><img src="img/product3.jpg" alt="" class="img-fluid"></a></div>
+                            <div class="back"><a href="detail.html"><img src="img/product3_2.jpg" alt="" class="img-fluid"></a></div>
+                        </div>
+                    </div><a href="detail.html" class="invisible"><img src="img/product3.jpg" alt="" class="img-fluid"></a>
+                    <div class="text">
+                        <h3>Fur coat</h3>
+                        <p class="price">$143</p>
+                    </div>
+                </div>-->
+            <!-- /.product-->
+            <!--</div>
+            </div>
+            <div class="row same-height-row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="box same-height">
+                        <h3>Products viewed recently</h3>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="product same-height">
+                        <div class="flip-container">
+                            <div class="flipper">
+                                <div class="front"><a href="detail.html"><img src="img/product2.jpg" alt="" class="img-fluid"></a></div>
+                                <div class="back"><a href="detail.html"><img src="img/product2_2.jpg" alt="" class="img-fluid"></a></div>
+                            </div>
+                        </div><a href="detail.html" class="invisible"><img src="img/product2.jpg" alt="" class="img-fluid"></a>
+                        <div class="text">
+                            <h3>Fur coat</h3>
+                            <p class="price">$143</p>
+                        </div>
+                    </div>-->
+            <!-- /.product-->
+            <!--</div>
+            <div class="col-md-3 col-sm-6">
+                <div class="product same-height">
+                    <div class="flip-container">
+                        <div class="flipper">
+                            <div class="front"><a href="detail.html"><img src="img/product1.jpg" alt="" class="img-fluid"></a></div>
+                            <div class="back"><a href="detail.html"><img src="img/product1_2.jpg" alt="" class="img-fluid"></a></div>
+                        </div>
+                    </div><a href="detail.html" class="invisible"><img src="img/product1.jpg" alt="" class="img-fluid"></a>
+                    <div class="text">
+                        <h3>Fur coat</h3>
+                        <p class="price">$143</p>
+                    </div>
+                </div>-->
+            <!-- /.product-->
+            <!--</div>
+            <div class="col-md-3 col-sm-6">
+                <div class="product same-height">
+                    <div class="flip-container">
+                        <div class="flipper">
+                            <div class="front"><a href="detail.html"><img src="img/product3.jpg" alt="" class="img-fluid"></a></div>
+                            <div class="back"><a href="detail.html"><img src="img/product3_2.jpg" alt="" class="img-fluid"></a></div>
+                        </div>
+                    </div><a href="detail.html" class="invisible"><img src="img/product3.jpg" alt="" class="img-fluid"></a>
+                    <div class="text">
+                        <h3>Fur coat</h3>
+                        <p class="price">$143</p>
+                    </div>
+                </div>-->
+            <!-- /.product-->
+        </div>
+    </div>
+    </div>
+    </div>
+
+
+</body>
+</html>
+
+<!--Section: Block Content-->
+<!--Section: Block Content-->

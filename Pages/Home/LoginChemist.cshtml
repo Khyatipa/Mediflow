@@ -1,0 +1,328 @@
+﻿@page
+@model Mediflow.Pages.Home.IndexModel
+@{
+        ViewData["Title"] = "LoginChemist";
+        Layout = "~/Pages/Shared/_LandingLayout.cshtml";
+    }
+
+<html lang="en">
+<head>
+    <title>Login </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/Chemist/Registration/images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Chemist/Registration/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Chemist/Registration/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Chemist/Registration/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Chemist/Registration/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Chemist/Registration/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Chemist/Registration/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Chemist/Registration/css/main.css">
+    <!--===============================================================================================-->
+    @*<script src="/ChemistHome/vendor/jquery/jquery.min.js"></script>*@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#logoutAlert").hide();
+            $("#registerHide").hide();
+
+            var x = document.getElementById("loginHide");
+            var y = document.getElementById("registerHide");
+
+            $("#registerHide").hide();
+
+            if (y.style.display === "none") {
+                x.style.display = "block";
+            }
+
+
+            $(".btnClick").click(function () {
+              
+                var hideTemp = $(this).val();
+                if ($(this).html().trim() == "Register") {
+
+                    $("#loginHide").hide();           //x.style.display == "none"
+                    $("#registerHide").show();       // y.style.display = "block";
+                    //var b = $("#toggle").val();//document.getElementById("toggle");
+                    $(this).html("Login");
+                    $("#toggle").val("Login"); // Dont do this-->document.getElementById("toggle").val() = "Login"
+
+                }
+                else if ($(this).html().trim() == "Login") {
+                    $("#registerHide").hide();
+                    $("#loginHide").show();
+
+                    $(this).html("Register");
+                    $("#toggle").val("Register");  //Dont do this document.getElementById("toggle").val() = "Register"
+
+                }
+                else if ($(this).val().trim() == "create") {
+                   
+                    $("#loginHide").hide();           //x.style.display == "none"
+                    $("#registerHide").show();       // y.style.display = "block";
+                    //var b = $("#toggle").val();//document.getElementById("toggle");
+                    $(this).html("Login");
+                    $("#toggle").val("Login"); // Dont do this-->document.getElementById("toggle").val() = "Login"
+
+                }
+               
+            });
+
+        });
+
+
+    </script>
+
+</head>
+<body>
+
+    <div style="padding-top:50px">
+        <main id="main">
+            <section style="padding-top:100px" class="section-bg">
+                <div class="container" data-aos="fade-up">
+
+                    <div class="section-header">
+
+                        <div class="">
+                            <h3>
+                                <button style="color: black; border:solid; background:aquamarine; border-color:aquamarine; margin-left:505px; width:100px" class="btn btnClick get-started-btn" id="toggle" value="Register"> Register </button>
+                            </h3>
+
+                            <br />
+
+                            <span class="section-divider"></span>
+
+
+
+
+                           
+
+
+                                <div class="container-login100">
+
+                                    <div class="wrap-login100" style="height:700px">
+
+                                        <div class="login100-pic js-tilt" data-tilt>
+                                            <img src="~/Chemist/Login/images/img-01.png" />
+                                            @*<img src="https://accounts.practo.com/static/images/illustration.png" />*@
+
+
+                                        </div>
+                                        <div>
+
+                                            <form class="login100-form validate-form" asp-page-handler="Login" method="post" id="loginHide">
+
+
+                                                <span class="login100-form-title">
+                                                    Login
+                                                </span>
+
+                                                <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                                                    <input class="input100" type="text" name="Username" placeholder="Username">
+                                                    <span class="focus-input100"></span>
+                                                    <span class="symbol-input100">
+                                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+
+                                                <div class="wrap-input100 validate-input" data-validate="Password is required">
+                                                    <input class="input100" type="password" name="Password" placeholder="Password">
+                                                    <span class="focus-input100"></span>
+                                                    <span class="symbol-input100">
+                                                        <i class="fa fa-lock" aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+
+                                                <div class="container-login100-form-btn">
+                                                    <button type="submit" class="login100-form-btn">
+                                                        Login
+                                                    </button>
+                                                </div>
+
+
+                                                <div class="text-center p-t-12">
+                                                    <span class="txt1" style="color:white">
+                                                        Forgot
+                                                    </span>
+                                                    <a class="txt2" href="#">
+                                                        Username / Password?
+                                                    </a>
+                                                    <br />
+                                                    <i class="fa fa-user " aria-hidden="true"></i>
+                                                    <button class="txt2 btn btnClick get-started-btn" id="downClick" value="create">
+                                                        Create your Account 
+                                                        <i class="fa fa-long-arrow-alt-up m-l-5" aria-hidden="true"></i>
+                                                    </button>
+
+                                                </div>
+
+                                                <br />
+                                                <div id="logoutAlert" class="alert alert-secondary" role="alert" style="margin-left :100px; background-color:#d4edda; border-radius:10px; width:200px ">
+                                                    Alert
+                                                </div>
+                                                @{
+                                                    @*String temp = Convert.ToString(@ViewData["Msg"]);
+                                                    if (temp == "Null")
+                                                    {
+                                                        <script>$("#logoutAlert").hide();</script>
+                                                    }
+                                                    else
+                                                    {
+                                                        <script>
+                                                            $("#logoutAlert").fadeTo(2000, 500).slideUp(500).html("Logout Successful");
+                                                        </script>
+
+
+                                                    }*@
+
+                                                }
+
+
+
+
+
+                                            </form>
+
+                                        </div>
+
+
+                                        <form class="login100-form validate-form" asp-page-handler="Register" method="post" id="registerHide">
+                                            <span class="login100-form-title">
+                                                Registration
+                                            </span>
+
+                                            <div class="wrap-input50 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                                                <input class="input50" type="text" asp-for="CLogin.Fname" placeholder="Firstname">
+                                                <span class="focus-input50"></span>
+                                                <span class="symbol-input100">
+                                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                                </span>
+                                                &ensp;
+                                                @*</div>
+
+                                                    <div class="wrap-input50 validate-input" data-validate="Valid email is required: ex@abc.xyz">*@
+                                                <input class="input50" type="text" asp-for="CLogin.Lname" placeholder="Lastname">
+                                                <span class="focus-input50"></span>
+                                                <span class="symbol-input100" style="padding-left:235px;">
+                                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+
+                                            <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                                                <input class="input100" type="email" asp-for="CLogin.Email" placeholder="Email">
+                                                <span class="focus-input100"></span>
+                                                <span class="symbol-input100">
+                                                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+
+                                            <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                                                <input class="input100" type="text" asp-for="CLogin.Username" placeholder="Username">
+                                                <span class="focus-input100"></span>
+                                                <span class="symbol-input100">
+                                                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                            <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                                                <input class="input100" type="password" asp-for="CLogin.Password" placeholder="Password">
+                                                <span class="focus-input100"></span>
+                                                <span class="symbol-input100">
+                                                    <i class="fa fa-key" aria-hidden="true"></i>
+                                                </span>
+                                            </div>
+                                            <!--<div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                                            <input class="input100" type="tel" asp-for="CRegister.Mobile" placeholder="Mobile Number">
+                                            <span class="focus-input100"></span>
+                                            <span class="symbol-input100">-->
+                                            @*<i class="fa fa-mobile" aria-hidden="true"></i>*@
+                                            <!--<i class="fa fa-phone" aria-hidden="true"></i>
+                                                </span>
+                                            </div>-->
+
+                                            <div class="container-login100-form-btn">
+                                                <button type="submit" class="login100-form-btn">
+                                                    <i class="fa fa-plus-square-o" aria-hidden="true"></i> &nbsp;&nbsp; Register
+                                                </button>
+                                            </div>
+
+                                            <div class="text-center p-t-12">
+                                                <span class="txt1">
+                                                    Forgot :
+                                                </span>
+                                                <a class="txt2" href="#">
+                                                    Username / Password?
+                                                </a>
+                                            </div>
+
+                                            @*<div class="text-center p-t-136">
+                                                    <a class="txt2" href="~/Chemist/RegisterChemist">
+                                                        Create your Account
+                                                        <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>*@
+                                        </form>
+                                    </div>
+
+
+
+                                </div>
+                            <br /><br />
+                                <!--<div class="container-login100" >
+                                <div class="wrap-login100">
+
+                                    <div class="login100-pic js-tilt" data-tilt>
+                                        <img src="~/Chemist/Login/images/img-01.png" />-->
+                                @*<img src="https://accounts.practo.com/static/images/illustration.png" />*@
+
+
+                                <!--</div>
+
+
+
+                                    </div>
+                                </div>-->
+                           
+
+
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+
+
+
+    </div>
+
+
+    <!--===============================================================================================-->
+    <script src="~/Chemist/Login/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Chemist/Login/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/Chemist/Login/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Chemist/Login/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Chemist/Login/vendor/tilt/tilt.jquery.min.js"></script>
+    <script>
+        $('.js-tilt').tilt({
+            scale: 1.1
+        })
+    </script>
+    <!--===============================================================================================-->
+    @*<script src="~/Chemist/Login/js/main.js"></script>*@
+
+
+    @*@await Html.PartialAsync("~/Pages/Chemist/HiddenPartialView.cshtml")*@
+</body>
+</html>
+

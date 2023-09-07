@@ -1,0 +1,654 @@
+﻿@page
+@model Mediflow.Pages.Admin.IndexModel
+@{
+
+    Layout = "~/Pages/Shared/Admin/_AdminHome.cshtml";
+}
+
+    
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+
+
+    <!-- Custom fonts for this template-->
+    @*<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">*@
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    @*<link href="/Chemist/Dashboard/css/sb-admin-2.min.css" rel="stylesheet">*@
+    <style>
+
+        .order-card {
+            color: #fff;
+        }
+
+        .bg-c-blue {
+            background: linear-gradient(45deg,#4099ff,#73b4ff);
+        }
+
+        .bg-c-green {
+            background: linear-gradient(45deg,#2ed8b6,#59e0c5);
+        }
+
+        .bg-c-yellow {
+            background: linear-gradient(45deg,#FFB64D,#ffcb80);
+        }
+
+        .bg-c-pink {
+            background: linear-gradient(45deg,#FF5370,#ff869a);
+        }
+
+
+        .card {
+            border-radius: 5px;
+            -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+            box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
+            border: none;
+            margin-bottom: 30px;
+            -webkit-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+            .card .card-block {
+                padding: 25px;
+            }
+
+        .order-card i {
+            font-size: 26px;
+        }
+
+        .f-left {
+            float: left;
+        }
+
+        .f-right {
+            float: right;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            $('#printBtn').click(function () {
+
+
+                var printContents = $('#printcontent').html();
+                var originalContents = document.body.innerHTML;
+
+                document.body.innerHTML = printContents;
+
+                window.print();
+
+                document.body.innerHTML = originalContents;
+
+                location.reload();
+
+            });
+
+        });
+
+    </script>
+   
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var dataGraph;
+            var datapie;
+            var dataline;
+            $.ajax({
+
+
+                type: 'GET',
+                url: './Admin/Index?handler=LoadAreaChart',
+                data: "",
+                cache: false,
+                success: function (data) {
+                    dataGraph = data;
+                    var barchart = document.getElementById('bar').getContext('2d');
+                   // var cc=new CanvasJS
+                    var mybarchart = new Chart(barchart, {
+
+
+                        type: 'bar',
+                        data: {
+                            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+                            datasets: [{
+                                label: 'Orders',
+
+                                data: data,
+                                backgroundColor: '#4fbfb0'
+
+                            }]
+                        },
+
+                        options: {
+                            legend: {
+                                display: false // To block heading of Label
+                            },
+                            scales: {
+                                yAxes: [{
+
+                                    ticks: {
+                                        suggestedMax: 10,
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+
+                    })
+                }
+            });
+            $.ajax({
+
+
+                type: 'GET',
+                url: './Admin/Index?handler=LoadCircle',
+                data: "",
+                cache: false,
+                success: function (data) {
+                    datapie = data;
+
+                    var piechart = document.getElementById('pie').getContext('2d');
+                    var mypiechart = new Chart(piechart, {
+
+
+                        type: 'doughnut',
+                        data: {
+
+                            labels: ['Approved', 'Pending','Disapproved'],
+                            datasets: [{
+                                label: 'Pie Chart',
+
+
+                                data: datapie,
+                               
+                                backgroundColor: ["#000000", "#ff9966", "#4fbfb0"]
+
+                            }]
+                        },
+
+                        options: {
+                            maintainAspectRatio: false,
+                            tooltips: {
+                                backgroundColor: "rgb(255,255,255)",
+                                bodyFontColor: "#000000",
+                                borderColor: '#dddfeb',
+                                borderWidth: 1,
+                                xPadding: 15,
+                                yPadding: 15,
+                                displayColors: false,
+                                caretPadding: 10,
+                            },
+                            legend: {
+                                display: false
+                            },
+                            cutoutPercentage: 80,
+                        },
+
+                    })
+                }
+            });
+            $.ajax({
+
+
+                type: 'GET',
+                url: './Admin/Index?handler=LoadLine',
+                data: "",
+                cache: false,
+                success: function (data) {
+                    dataGraph = data;
+                    var linechart = document.getElementById('line').getContext('2d');
+                    // var cc=new CanvasJS
+                    var mybarchart = new Chart(linechart, {
+
+
+                        type: 'line',
+                        data: {
+                            labels: ['Mon', 'Tue', 'Wed', 'Thus', 'Fri', 'Sat'],
+                            datasets: [{
+                                label: 'Orders',
+
+                                data: data,
+                                backgroundColor: '#4fbfb0',
+                                pointBackgroundColor: '#000000'
+                                
+
+                            }]
+                        },
+
+                        options: {
+                            legend: {
+                                display: false // To block heading of Label
+                            },
+                            scales: {
+                                yAxes: [{
+                                    
+                                    ticks: {
+                                       stepSize:1,
+                                        suggestedMax: 5,
+                                        beginAtZero: true
+                                    }
+                                }]
+                            }
+                        }
+
+                    })
+                }
+            });
+        });
+
+
+
+    </script>
+</head>
+
+@{
+    int mtotal = 0,m2total=0, atotal = 0;
+    int ttotal = 0, tcount=0;
+    int flag = 0;
+    int countorders = 0; int approvedorders = 0;
+    int countproucts = 0;
+    int countRegisters = 0, countpendingreg=0 ;
+    int countApprovedReg = 0;
+    int countReturns = 0, expiryct = 0, instantct = 0;
+    int ctcredit = 0, ctcash = 0, ctrejected=0;
+    float gsttotal = 0;
+    countorders = Model.OrderMaster.Count;
+    for (int i = 0; i < Model.OrderMaster.Count; i++)
+    {
+        if (Model.OrderMaster[i].OrderDate <= DateTime.Now.AddMonths(-1))
+        {
+            mtotal = mtotal + (int)Model.OrderMaster[i].FinalPayable;
+
+        }
+        if (Model.OrderMaster[i].OrderDate <= DateTime.Now.AddMonths(-2))
+        {
+            m2total = m2total + (int)Model.OrderMaster[i].FinalPayable;
+
+        }
+        if (Model.OrderMaster[i].OrderDate.Value.ToString("dd/MM/yyyy") == DateTime.Now.ToString("dd/MM/yyyy"))
+        {
+            ttotal = ttotal + (int)Model.OrderMaster[i].FinalPayable;
+            tcount++;
+            flag = 1;
+        }
+        if (Model.OrderMaster[i].OrderStatus != "Rejected")
+        {
+            approvedorders = approvedorders + 1;
+        }
+        atotal = atotal + (int)Model.OrderMaster[i].FinalPayable;
+        gsttotal = (float)System.Math.Round(gsttotal + (float)Model.OrderMaster[i].GstCharges,2);
+    }
+    for (int i = 0; i < Model.Products.Count; i++)
+    {
+        countproucts = countproucts + 1;
+
+
+    }
+    for (int i = 0; i < Model.Registers.Count; i++)
+    {
+        countRegisters = countRegisters + 1;
+        if (Model.Registers[i].Status == "Approved")
+        {
+            if(Model.Registers[i].IsCredit==true)
+            {
+                ctcredit++;
+            }
+            else
+            {
+                ctcash++;
+            }
+            countApprovedReg = countApprovedReg + 1;
+        }
+        else if(Model.Registers[i].Status=="NotApproved")
+        {
+            countpendingreg = countpendingreg + 1;
+        }
+        else if (Model.Registers[i].Status == "Disapproved")
+        {
+            ctrejected++;
+        }
+    }
+    for (int i = 0; i < Model.ReturnMaster.Count; i++)
+    {
+        countReturns = countReturns + 1;
+        if (Model.ReturnMaster[i].RmIstypeExpiry == true)
+        {
+            expiryct = expiryct + 1;
+        }
+        else
+        {
+            instantct = instantct + 1;
+        }
+
+    }
+}
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper" class="col-lg-9">
+
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content" class="box">
+
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid" id="printcontent">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4 card-header" style="background-color:#4fbfb0;">
+                        <h1 class="h3 mb-0 text-gray-800 ">Analysis Details</h1>
+                        <a href="#" id="printBtn" class="d-none d-sm-inline-block btn btn-sm btn-secondary shadow-sm">
+                            <i class="fa fa-download fa-sm text-white-50"></i> Download Report
+                        </a>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 col-xl-3">
+                            <div class="card bg-primary order-card">
+                                <div class="card-block">
+                                    <h5 class="m-b-20">Orders Received</h5>
+                                    <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>@countorders</span></h2>
+                                    <p class="m-b-0">Completed Orders &emsp; &emsp;:<span class="f-right"><Strong>@approvedorders</Strong></span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xl-3">
+                            <div class="card bg-info order-card">
+                                <div class="card-block">
+                                    <h5 class="m-b-20">Total Products</h5>
+                                    <h2 class="text-right"><i class="fa fa-list f-left"></i><span>@countproucts</span></h2>
+                                    <p class="m-b-0">Product Categories &emsp;:<span class="f-right"><strong>4</strong></span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xl-3">
+                            <div class="card bg-secondary order-card">
+                                <div class="card-block">
+                                    <h5 class="m-b-20">Approved Users</h5>
+                                    <h2 class="text-right"><i class="fa fa-user-plus f-left"></i><span>@countApprovedReg</span></h2>
+                                    <p class="m-b-0">
+                                        Cash Users &nbsp;&nbsp;:<span class="f-right"><strong>@ctcash</strong></span><br />
+                                        Credit Users &nbsp;:<span class="f-right"><strong>@ctcredit</strong></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xl-3">
+                            <div class="card bg-dark order-card">
+                                <div class="card-block">
+                                    <h5 class="m-b-20">Total Returns</h5>
+                                    <h2 class="text-right"><i class="fa fa-credit-card f-left"></i><span>@countReturns</span></h2>
+                                    <p class="m-b-0">
+                                        Expiry &emsp; &nbsp;&nbsp;&emsp;:<span class="f-right"><strong>@expiryct</strong></span><br>
+                                        Instant &emsp; &emsp;:<span class="f-right"><strong>@instantct</strong></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Content Row --><!--next row-->
+                    <div class="row">
+                        <div class="col-md-4 col-xl-3">
+                            <div class="card bg-primary order-card">
+                                <div class="card-block">
+                                    <h5 class="m-b-20">Todays Earnings</h5>
+                                    <h2 class="text-right"><i class="fa fa-rupee f-left"></i><span>@ttotal</span></h2>
+                                    <p class="m-b-0">Todays<br /> Orders &emsp; &emsp;:<span class="f-right"><strong>@tcount</strong></span></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xl-3">
+                            <div class="card bg-info order-card">
+                                <div class="card-block">
+                                    <h5 class="m-b-20">Earnings Monthly</h5>
+                                    <h2 class="text-right"><i class="fa fa-rupee f-left"></i><span>@mtotal</span></h2>
+                                    <p class="m-b-0">Last two <br />months &nbsp; :<span class="f-right">₹<Strong> @m2total</Strong></span></p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xl-3">
+                            <div class="card bg-secondary order-card">
+                                <div class="card-block">
+                                    <h5 class="m-b-20">Earnings Annually</h5>
+                                    <h2 class="text-right"><i class="fa fa-rupee f-left"></i><span>@atotal</span></h2>
+                                    <p class="m-b-0">G.S.T<br />Paid &nbsp;:<span class="f-right">₹ <strong>@gsttotal</strong></span></p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-xl-3">
+                            <div class="card bg-dark order-card">
+                                <div class="card-block">
+                                    <h5 class="m-b-20">Total Users</h5>
+                                    <h2 class="text-right"><i class="fa fa-users f-left"></i><span>@countRegisters</span></h2>
+                                    <p class="m-b-0">
+                                        Pending &nbsp; &emsp;:<span class="f-right"><strong>@countpendingreg</strong></span>
+                                        Rejected &nbsp;&emsp;:<span class="f-right"><strong>@ctrejected</strong></span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+                    <!-- Content Row -->
+
+                    
+
+
+                    <div class="row">
+
+                        <!-- Area Chart -->
+                        <div class="col-xl-8 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Number of Orders Overview</h6>
+                                    <h6 class="font-weight-bold">2021 : Month-wise Orders </h6>
+                                </div>
+
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-area">
+                                        <canvas id="bar">
+
+                                            <!--Here Chart-->
+                                        </canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pie Chart -->
+                        <div class="col-xl-4 col-lg-5">
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Users Status</h6>
+
+                                </div>
+                              
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-pie pt-4 pb-2">
+                                        <canvas id="pie"></canvas>
+                                    </div>
+                                   
+                                    <div class="mt-4 text-center small">
+                                        <span class="mr-2">
+                                            <i class="fa fa-circle" style="color:black"></i> Approved
+                                        </span>
+                                        <span class="mr-2">
+                                            <i class="fa fa-circle" style="color:#ff9966"></i> Pending
+                                        </span><br />
+                                        <span class="mr-2">
+                                            <i class="fa fa-circle" style="color:#4fbfb0" ></i> Referral
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Content Column -->
+                        <div class="col-lg-6 mb-4">
+
+                            <!-- Project Card Example -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="small font-weight-bold">
+                                        Total Online Orders <span class="float-right">200</span>
+                                    </h4>
+                                    <div class="progress mb-4">
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 40%"
+                                             aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <h4 class="small font-weight-bold">
+                                        Returned Expiry <span class="float-right">50</span>
+                                    </h4>
+                                    <div class="progress mb-4">
+                                        <div class="progress-bar bg-warning" role="progressbar" style="width: 10%"
+                                             aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <h4 class="small font-weight-bold">
+                                        Total Customer Database <span class="float-right">100</span>
+                                    </h4>
+                                    <div class="progress mb-4">
+                                        <div class="progress-bar" role="progressbar" style="width: 60%"
+                                             aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <h4 class="small font-weight-bold">
+                                        Online Payout Details <span class="float-right">30%</span>
+                                    </h4>
+                                    <div class="progress mb-4">
+                                        <div class="progress-bar bg-info" role="progressbar" style="width: 30%"
+                                             aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <h4 class="small font-weight-bold">
+                                        Account Setup <span class="float-right">Complete!</span>
+                                    </h4>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 100%"
+                                             aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Color System -->
+
+
+                        </div>
+                        <div class="col-lg-6 mb-4">
+                            <!-- Project Card Example -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Number of Orders in last 7-days</h6>
+                                   
+                                </div>
+
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-area">
+                                        <canvas id="line">
+
+                                            <!--Here Chart-->
+                                        </canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <!-- /.container-fluid -->
+
+                </div>
+                <!-- End of Main Content -->
+
+
+            </div>
+            <!-- End of Content Wrapper -->
+
+        </div>
+        <!-- End of Page Wrapper -->
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary" href="login.html">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bootstrap core JavaScript-->
+        <script src="/Chemist/Dashboard/vendor/jquery/jquery.min.js"></script>
+    <script src="/Chemist/Dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/Chemist/Dashboard/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/Chemist/Dashboard/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="/Chemist/Dashboard/vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/Chemist/Dashboard/js/demo/chart-area-demo.js"></script>
+    <script src="/Chemist/Dashboard/js/demo/chart-pie-demo.js"></script>
+
+    </body>
+
+</html>
+
+  

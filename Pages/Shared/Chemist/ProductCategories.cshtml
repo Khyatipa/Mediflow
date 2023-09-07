@@ -1,0 +1,246 @@
+﻿
+<html>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    
+    <link rel="stylesheet" href="/ChemistHome/vendor/bootstrap/css/bootstrap.min.css">
+    
+    <link rel="stylesheet" href="/ChemistHome/vendor/font-awesome/css/font-awesome.min.css">
+  
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700">
+ 
+    <link rel="stylesheet" href="/ChemistHome/vendor/owl.carousel/assets/owl.carousel.css">
+    <link rel="stylesheet" href="/ChemistHome/vendor/owl.carousel/assets/owl.theme.default.css">
+ 
+    <link rel="stylesheet" href="/ChemistHome/css/style.default.css?123456780" id="theme-stylesheet">
+   
+    <link rel="stylesheet" href="/ChemistHome/css/custom.css?123456789">
+    
+    <link rel="shortcut icon" href="~/Chemist/assets/img/logo/favicon.png">
+
+  
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <link href="~/Features/LeftSide.css" rel="stylesheet" />
+
+    <link href="~/Chemist/assets/css/style.css" rel="stylesheet" />
+</head>
+
+   <body> 
+
+
+    <div id="all">
+
+
+        <div id="content">
+
+            <div class="container" style="padding-top: 148px;">
+
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <!-- breadcrumb-->
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="#">Home</a>
+                                </li>
+                                <li aria-current="page" class="breadcrumb-item active">@ViewData["catName"]</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div class="col-lg-3">
+                        <!--
+                        *** MENUS AND FILTERS ***
+                        _________________________________________________________
+                        -->
+                        <div class="card sidebar-menu mb-4">
+                            <div class="card-header">
+                                <h3 class="h4 card-title">Categories</h3>
+                            </div>
+
+                            <div class="card-body">
+                                <ul class="nav nav-pills flex-column category-menu">
+                                    <li>
+                                        <div>
+
+                                            <form method="post">
+
+                                                <input style="border-radius:8px; border-color: #4fbfb0" type="text" name="ItemName" placeholder="Search Product" />
+
+                                                <button asp-page-handler="SearchItem" style="position : absolute; height:27.5px; border-radius:8px ; background-color:#4fbfb0; margin-left: 5px; color:white " ; type="submit" id="btn" value="search" name="add"> <i class="fa fa-search"></i></button>
+                                            </form>
+
+                                        </div>
+                                        <hr />
+                                    </li>
+
+                                    <li>
+                                        <form method="post">
+                                            <select name="AplhaSort" style="border-radius:8px; border-color: #4fbfb0; height:27.5px;">
+                                                <option value="NamewiseAsc"> A-Z </option>
+                                                <option value="NamewiseDsc"> Z-A </option>
+                                            </select>
+                                            <button asp-page-handler="Sort" style="position : absolute; height:27.5px; border-radius:8px ; background-color:#4fbfb0; margin-left: 5px; color:white " ; type="submit" id="btn" name="add">
+                                                <i class="fa fa-sort"></i>
+                                            </button>
+                                            <hr />
+                                        </form>
+                                    </li>
+
+                                    <li>
+                                        <a href="OrderProducts" class="nav-link active">Range <span class="badge badge-secondary">42</span></a>
+                                        <ul class="list-unstyled">
+
+
+                                            @*<li> <form method="post">
+                                                <input type="submit" value="DERMA" asp-page-handler="Filter" asp-route-cat="DER"/>
+
+                                                </form></li>*@
+
+                                            <li>
+                                                <a href="./OrderProducts?cat=DER" class="nav-link">Beauty</a>
+                                            </li>
+                                            @*<li><a href="@Url.Action("Filter", "OrderProdcuts",new { cat = "DER" })" class="nav-link">Beauty</a></li>*@
+                                            <li>
+                                                <a href="./OrderProducts?cat=CD" class="nav-link">Cardiac Diabetic</a>
+                                            </li>
+                                            <li>
+                                                <a href="./OrderProducts?cat=GYE" class="nav-link">Gynae</a>
+                                            </li>
+                                            <li>
+                                                <a href="./OrderProducts?cat=GEN" class="nav-link">General</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    @*<li>
+                                            <a href="category.html" class="nav-link active">Emergency  <span class="badge badge-light">123</span></a>
+                                            <ul class="list-unstyled">
+                                                <li><a href="category.html" class="nav-link">T-shirts</a></li>
+                                                <li><a href="category.html" class="nav-link">Skirts</a></li>
+                                                <li><a href="category.html" class="nav-link">Pants</a></li>
+                                                <li><a href="category.html" class="nav-link">Accessories</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="category.html" class="nav-link">Kids  <span class="badge badge-secondary">11</span></a>
+                                            <ul class="list-unstyled">
+                                                <li><a href="category.html" class="nav-link">T-shirts</a></li>
+                                                <li><a href="category.html" class="nav-link">Skirts</a></li>
+                                                <li><a href="category.html" class="nav-link">Pants</a></li>
+                                                <li><a href="category.html" class="nav-link">Accessories</a></li>
+                                            </ul>
+                                        </li>*@
+                                </ul>
+                            </div>
+                        </div>
+                        @*<div class="card sidebar-menu mb-4">
+                            <div class="card-header">
+                                <h3 class="h4 card-title">
+                                    Brands
+                                    <a href="#" class="btn btn-sm btn-danger pull-right"><i class="fa fa-times-circle"></i> Clear</a>
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"> Armani  (10)
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"> Versace  (12)
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"> Carlo Bruni  (15)
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"> Jack Honey  (14)
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-default btn-sm btn-primary"><i class="fa fa-pencil"></i> Apply</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card sidebar-menu mb-4">
+                            <div class="card-header">
+                                <h3 class="h4 card-title">
+                                    Colours
+                                    <a href="#" class="btn btn-sm btn-danger pull-right"><i class="fa fa-times-circle"></i> Clear</a>
+                                </h3>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="form-group">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"><span class="colour white"></span> White (14)
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"><span class="colour blue"></span> Blue (10)
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"><span class="colour green"></span>  Green (20)
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"><span class="colour yellow"></span>  Yellow (13)
+                                            </label>
+                                        </div>
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox"><span class="colour red"></span>  Red (10)
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-default btn-sm btn-primary"><i class="fa fa-pencil"></i> Apply</button>
+                                </form>
+                            </div>
+                        </div>*@
+                        <!-- *** MENUS AND FILTERS END ***-->
+                        <div class="banner">
+                            <a href="#">
+                                <img src="~/Deilvery.gif" alt="sales 2014" class="img-fluid">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-9 ">
+                        <div class="box border border-secondary" style="color:#499988; height:150px">
+
+                            <div style="background-color:#4fbfb0;color:black;height:45px">
+                                <h1 class="text-center">@ViewData["catName"] Products</h1>
+                                <p>In our @ViewData["catName"] department we offer wide selection of the best products we have found and carefully selected worldwide.</p>
+                            </div>
+                        </div>
+
+                                              
+
+
+
+                    @*</div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+    
+                        </body>
+</html>

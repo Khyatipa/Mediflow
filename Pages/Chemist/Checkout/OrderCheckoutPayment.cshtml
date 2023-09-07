@@ -1,0 +1,98 @@
+﻿@page
+@model Mediflow.Pages.Chemist.Checkout.OrderCheckoutPaymentModel
+@{
+    Layout = "~/Pages/Shared/Chemist/_ChemistHome.cshtml";
+}
+<html>
+<head>
+
+</head>
+<body>
+
+
+    <form method="Post" asp-page-handler="PaymentMethod">
+
+
+        @if (Model.CRegister.IsCredit == true)
+        {
+
+            <div class="content py-3">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="box payment-method">
+                            <h4>Credit-Bill</h4>
+                            <p>Pay at month end.</p>
+                            <div class="box-footer text-center">
+                                <input type="radio" name="payment" value="credit">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="box payment-method">
+                            <h4>Cash-Bill</h4>
+                            <p>Pay in cash and get goods.</p>
+                            <div class="box-footer text-center">
+                                <input type="radio" name="payment" value="cash">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="box payment-method">
+                            <h4>Online Payment</h4>
+                            <p>Pay from Paytm.</p>
+                            <div class="box-footer text-center">
+                                <input type="radio" name="payment" value="online">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row-->
+            </div>
+        }<!-- /.content-->
+
+
+        @if (Model.CRegister.IsCredit == false)
+        {
+            <div class="content py-3">
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="box payment-method">
+                            <h4>Cash-Bill</h4>
+                            <p>Pay in cash and get goods.</p>
+                            <div class="box-footer text-center">
+                                <input type="radio" name="payment" value="cash">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="box payment-method">
+                            <h4>Online Payment</h4>
+                            <p>Pay from Paytm.</p>
+                            <div class="box-footer text-center">
+                                <input type="radio" name="payment" value="online">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row-->
+            </div>
+        }
+
+
+
+
+
+
+        <div class="box-footer d-flex justify-content-between">
+            <a href="/Chemist/Checkout/OrderCheckoutDelivery" class="btn btn-outline-secondary"><i class="fa fa-chevron-left"></i>Back to Shipping Method</a>
+            <button type="submit" class="btn btn-primary">Continue to Order Review<i class="fa fa-chevron-right"></i></button>
+        </div>
+    </form>
+            <!-- /.box-->
+         <!-- /.col-lg-9-->
+                    
+                    <!-- /.col-lg-3-->
+     
+</body>
+</html>

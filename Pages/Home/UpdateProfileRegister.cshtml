@@ -1,0 +1,167 @@
+﻿@page
+@model Mediflow.Pages.IntroPage.UpdateProfileRegisterModel
+@{
+    Layout = "~/Pages/Shared/Chemist/_ChemistHome.cshtml";
+}
+
+<html>
+<head><style>
+  
+</style>
+    </head>
+<body>
+
+
+                    <div class="col-lg-9">
+                        <div class="box">
+                            <h1>My account</h1>
+                            <p class="lead">Change your personal details or your password here.</p>
+
+                            <hr style="margin:5px"/>
+                            <h3 class="mt-5">Personal details</h3>
+                            <form method="post" enctype="multipart/form-data">
+                                <div class="row">
+                                    <input type="hidden" asp-for="CRegister.Status" />
+                                    <input type="hidden" asp-for="CRegister.Id" />
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="firstname">Firstname</label>
+                                            <input type="text" asp-for="CRegister.Fname" class="form-control" />
+
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="lastname">Lastname</label>
+                                            <input type="text" asp-for="CRegister.Lname" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--gst/dlno-->
+                                <!-- /.row-->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>GST number</label>
+                                            <input asp-for="CRegister.GstNo" type="text" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Drug License Number</label>
+                                            <input asp-for="CRegister.Rdlno" type="text" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.row-->
+                                <!-- /.row-->
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Shop Name</label>
+                                            <input asp-for="CRegister.ShopName" type="text" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Address</label>
+                                            <textarea asp-for="CRegister.Address" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.row-->
+                                <div class="row">
+                                    <div class="col-md-6 col-lg-3">
+                                        <div class="form-group">
+                                            <label>UserName</label>
+                                            <input asp-for="CRegister.Username" type="text" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-3">
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input asp-for="CRegister.Email" type="email" class="form-control" />
+                                        </div>
+                                    </div>
+
+                                    <input value="@Model.CRegister.Password" hidden asp-for="CRegister.Password" type="password" class="form-control" />
+
+                                    <div class="col-md-6 col-lg-3">
+                                        <div class="form-group">
+                                            <label for="zip">ZIP</label>
+                                            <input asp-for="CRegister.Zcode" type="text" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-lg-3">
+                                        <div class="form-group">
+                                            <label for="state">State</label>
+                                            <select asp-for="CRegister.State" id="state" class="form-control">
+                                                <option value="Gujarat">Gujarat</option>
+                                                <option value="Maharastra">Maharastra</option>
+                                                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                      
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Telephone</label>
+                                            <input asp-for="CRegister.Mobile" type="text" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="email">Upload DL license</label>
+                                            <input asp-for="CRegister.DocumentImg" type="file" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 text-center">
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save changes</button>
+                                </div>
+                            </form>
+
+                            <hr>
+                            <h3>Change password</h3>
+                            <form method="post">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="hidden" asp-for="CRegister.Id" />
+                                        <div class="form-group">
+                                            <label for="password_old">Old password</label>
+                                            <input id="password_old" type="password" asp-for="CRegister.Password" class="form-control" />
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="password_1">New password</label>
+                                            <input id="password_1" type="password" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="password_2">Retype new password</label>
+                                            <input id="password_2" type="password" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.row-->
+                                <div class="col-md-12 text-center">
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save new password</button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+               
+</body>
+</html>

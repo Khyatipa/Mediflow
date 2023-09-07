@@ -1,0 +1,1106 @@
+﻿@page
+@model Mediflow.Pages.Chemist.OrderInvoiceModel
+@{
+    ViewData["Title"] = "OrderInvoice";
+    Layout = "~/Pages/Shared/Chemist/_ChemistHome.cshtml";
+}
+@Html.AntiForgeryToken()
+<html>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.btnAll').hide();
+            $('#invoiceDiv').show();
+
+            $('#track_order').click(function () {
+
+                $('.btnAll').hide();
+                $('#hideTrack').show();
+            });
+            $('#btn_bill').click(function () {
+
+                $('.btnAll').hide();
+                $('#invoiceDiv').show();
+            });
+            $('#btn_return').click(function () {
+
+                $('.btnAll').hide();
+                $('#viewInstantReturn').show();
+            });
+            $('#btn_return_exp').click(function () {
+
+                $('.btnAll').hide();
+                $('#viewReturn').show();
+            });
+
+
+            $('.sendOtp').click(function () {
+
+                var orderId = $(this).attr("id");
+
+
+                $.ajax({
+
+
+                    type: 'GET',
+                    url: 'OrderInvoice?handler=TwoFactor',
+                    data: { 'otp': "Send" },
+
+                    cache: false,
+                    success: function (data) {
+
+                        alert("OtpSent")
+
+                    },
+
+                });
+
+            });
+
+            //Send Expiry Return Starts
+            var arrayExpIds = new Array();
+            var arrayExpVals = new Array();
+            $('.checkboxSelected').change(function () {
+              
+                var tempEId,tempEVal;
+                if ($(this).prop('checked')) {
+
+                    tempEId = $(this).val();
+                    tempEVal = $('#retVal_' + tempEId).val();
+                    arrayExpVals.push(tempEVal);
+                    arrayExpIds.push(tempEId);
+
+                }
+                else {
+                    tempId = $(this).val();
+                    tempVal = $('#val_' + tempEId).val();
+                    arrayExpIds.pop(tempEId);
+                    arrayExpVals.pop(tempEVal);
+                }
+            });
+
+          
+
+            $('#btn_send').click(function () {
+               // alert(arrayExpIds.toString() +'-'+ arrayExpVals.toString());
+                ////alert(arrayIds);
+
+                $.ajax({
+
+                    type: "GET",
+                    traditional: true,
+                    url: "OrderInvoice?handler=Return",
+
+                    data: { 'tempIdArray': arrayExpIds, 'tempValArray': arrayExpVals, 'isExpiryReturn': true },
+
+                    cache: false,
+                    success: function (data) {
+                        alert(data + " Your Expiry Item will be returned");
+                        location.reload();
+                    }
+                });
+            });
+
+            //Expiry Return Ends here
+
+
+            //Instant Return Start
+            var arrayIds7Return = new Array();
+            var arrayValues7Return = new Array();
+
+            //Instant Return
+            $('.ForReturn7Selected').change(function () {
+
+                var tempId;
+                if ($(this).prop('checked')) {
+
+                    tempId = $(this).val();
+                    tempVal = $('#val_' + tempId).val();
+                    arrayValues7Return.push(tempVal);
+                    arrayIds7Return.push(tempId);
+
+                }
+                else {
+                    tempId = $(this).val();
+                    tempVal = $('#val_' + tempId).val();
+                    arrayIds7Return.pop(tempId);
+                    arrayValues7Return.pop(tempVal);
+                }
+
+                var tt = arrayIds7Return.toString();
+                var vv = arrayValues7Return.toString();
+                //alert(tt+''+vv);
+            });
+            // Instant Return Selected
+            $('#ReturnSelected').click(function () {
+
+                if (arrayValues7Return[0] == null && arrayIds7Return[0] == null) {
+                    alert("Please Check the box to return")
+                }
+                else {
+                    //alert(arrayIds);
+                $.ajax({
+
+                        type: "GET",
+                        traditional: true,
+                        url: "OrderInvoice?handler=Return",
+
+                        data: { 'tempIdArray': arrayIds7Return, 'tempValArray': arrayValues7Return, 'isExpiryReturn': false },
+
+                        cache: false,
+                        success: function (data) {
+                            alert(data + " Your Item will be returned");
+                            location.reload();
+                        }
+                    });
+                }
+            });
+            //Instant Return All
+            $('#ReturnAll').click(function () {
+
+                var tempArrayIdsAll = new Array();
+                var tempArrayValsAll = new Array();
+                @{
+                    int[] tempAllIds = new int[Model.OrderItemsDetails.Count()];
+                   // int[] tempAllValue = new int[];
+
+
+                        for(int i=0 ; i < Model.OrderItemsDetails.Count();i++)
+                        {
+                            tempAllIds[i] = @Model.OrderItemsDetails[i].OrderDetail_Id;
+                            
+                        }
+                 }
+
+
+
+                tempArrayIdsAll=@Html.Raw(Json.Serialize(tempAllIds));
+
+                for (var i = 0; i < tempArrayIdsAll.length; i++) {
+                    var temp = $('#val_' + tempArrayIdsAll[i]).val();
+                   
+                    tempArrayValsAll.push(temp);
+                }
+
+               // alert(tempArrayValsAll.toString());
+
+                $.ajax({
+
+                    type: "GET",
+                    traditional: true,
+                    url: "OrderInvoice?handler=Return",
+
+                    data: { 'tempIdArray': tempArrayIdsAll, 'tempValArray': tempArrayValsAll, 'isExpiryReturn': false },
+
+                    cache: false,
+                    success: function (data) {
+                        alert(data + " Your Item will be returned");
+                        location.reload();
+                    }
+                });
+
+            });
+
+            //Instant Return Ends
+
+
+            //Print Invoice
+
+            $('#printBtn').click(function () {
+
+                debugger;
+                var printContents = $('#invoiceDiv').html();
+                var originalContents = document.body.innerHTML;
+
+                document.body.innerHTML = printContents;
+
+                window.print();
+
+                document.body.innerHTML = originalContents;
+
+                location.reload();
+
+            });
+        });
+
+
+
+    </script>
+    <style>
+
+        .card {
+            z-index: 0;
+            background-color: #ECEFF1;
+            padding-bottom: 20px;
+            border-radius: 10px
+        }
+
+        .top {
+            padding-top: 40px;
+            padding-left: 13% !important;
+            padding-right: 13% !important
+        }
+
+        #progressbar {
+            margin-bottom: 30px;
+            overflow: hidden;
+            color: #455A64;
+            padding-left: 0px;
+            margin-top: 30px
+        }
+
+            #progressbar li {
+                list-style-type: none;
+                font-size: 13px;
+                width: 20%;
+                float: left;
+                position: relative;
+                font-weight: 400
+            }
+
+            #progressbar .step0:before {
+                font-family: FontAwesome;
+                content: "\f10c";
+                color: #fff
+            }
+
+            #progressbar li:before {
+                width: 40px;
+                height: 40px;
+                line-height: 45px;
+                display: block;
+                font-size: 20px;
+                background: #99A3A4;
+                border-radius: 50%;
+                margin: auto;
+                padding: 0px
+            }
+
+            #progressbar li:after {
+                content: '';
+                width: 100%;
+                height: 12px;
+                background: #99A3A4;
+                position: absolute;
+                left: 0;
+                top: 16px;
+                z-index: -1
+            }
+
+            #progressbar li:last-child:after {
+                border-top-right-radius: 10px;
+                border-bottom-right-radius: 10px;
+                position: absolute;
+                left: -50%
+            }
+
+            #progressbar li:nth-child(4):after,
+            #progressbar li:nth-child(2):after,
+            #progressbar li:nth-child(3):after {
+                left: -50%
+            }
+
+            #progressbar li:first-child:after {
+                border-top-left-radius: 10px;
+                border-bottom-left-radius: 10px;
+                position: absolute;
+                left: 50%
+            }
+
+            #progressbar li:last-child:after {
+                border-top-right-radius: 10px;
+                border-bottom-right-radius: 10px
+            }
+
+            #progressbar li:first-child:after {
+                border-top-left-radius: 10px;
+                border-bottom-left-radius: 10px
+            }
+
+            #progressbar li.active:before,
+            #progressbar li.active:after {
+                background: #4fbfb0;
+            }
+
+            #progressbar li.active:before {
+                font-family: FontAwesome;
+                content: "\f00c"
+            }
+
+        .icon {
+            width: 40px;
+            height: 40px;
+        }
+
+        .icon-content {
+            padding-bottom: 20px
+        }
+
+        @@media screen and (max-width: 992px) {
+            .icon-content {
+                width: 50%
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="customer-order" class="col-lg-9 pdfdownload">
+        <div class="box" style="padding:12px; margin-bottom:15px">
+            <ul id="pills-tab" role="tablist" class="nav nav-pills nav-justified" style="background-color:lightgray;">
+                <li class="nav-item"><a id="btn_bill" style="color:black" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true" class="nav-link active">Invoice</a></li>
+                <li class="nav-item"><a id="track_order" style="color:black" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false" class="nav-link">Track</a></li>
+                <li class="nav-item"><a style="color:black"  data-target="#myModal" data-toggle="modal"  role="tab" aria-controls="pills-profile" aria-selected="false" class="nav-link clickable openmodal" >Rate</a></li>
+                @*<li class="nav-item"><a id="pills-contact-tab" style="color:black" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false" class="nav-link">Rating Order</a></li>*@
+                <li class="nav-item">
+                    <div class="btn-group">
+                        <a class="btn dropdown-toggle nav-link" style="color:black" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">
+                            Manage
+                        </a>
+
+                        <div class="dropdown-menu border-secondary">
+                            <a class="dropdown-item clickable" id="printBtn">Download</a>
+                            <div class="dropdown-divider"></div>
+                            @{ if (Model.OrderMaster != null)
+                                {
+                                    if (Model.OrderMaster.OrderStatus == "Cancelled")
+                                    { }
+                                    else
+                                    {
+                                        <a class="dropdown-item" id="btn_edit" style="color:black" data-toggle="modal" data-target="#exampleModalCenter" href="#">Edit</a>
+                                        <div class="dropdown-divider"></div>
+                                    }
+                                }
+                            }
+
+                            @*<a class="dropdown-item" href="#">Cancel</a>*@
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div class="btn-group">
+                        <a class="btn dropdown-toggle nav-link" style="color:black" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">
+                            Return
+                        </a>
+                        <div class="dropdown-menu border-secondary">
+                            <a class="btn dropdown-item" id="btn_return_exp">Return Expired Goods</a>
+
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item btn" id="btn_return">Return Ordered Goods</a>
+                        </div>
+                    </div>
+                </li>
+
+
+            </ul>
+
+
+
+            @*<button id="btn_edit" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">Edit</button>
+            <button class="btn btn-primary" id="btn_pdf">Cancel</button>*@
+
+
+
+
+        </div>
+
+        <!-- Edit Alert -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Edit Order</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to Edit Order?
+                        Confirming will place a hold on your current order untill placed again correctly!
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary sendOtp" data-toggle="modal" data-target="#openOTP">Confirm Edit</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--Edit Alert End-->
+        <!-- OTP Section-->
+        <div class="modal fade" id="openOTP" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <h3>
+                            OTP Verification
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </h3>
+                        <hr />
+                    </div>
+                    @{ if (Model.CRegister != null && Model.OrderMaster != null)
+                        {
+                            <div class="d-flex justify-content-center align-items-center container">
+                                <div class="card py-5 px-3">
+                                    <span class="mobile-text">Enter the code we just send on your mobile phone <b class="text-danger">+91-@Model.CRegister.Mobile</b></span>
+                                    <form method="post" asp-page-handler="CheckTwoFactor">
+                                        <div id="form" class="modal-body text-center mt-5">
+                                            <input type="text" name="n1" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+                                            <input type="text" name="n2" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+                                            <input type="text" name="n3" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+                                            <input type="text" name="n4" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+                                            <input type="text" name="n5" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+                                            <input type="text" name="n6" maxLength="1" size="1" min="0" max="9" pattern="[0-9]{1}" />
+                                            <input type="text" name="ForderId" value="@Model.OrderMaster.FinalOrderId" hidden />
+                                        </div>
+
+                                        <div class="modal-body text-center mt-5">
+
+
+                                            <button type="submit" class="btn btn-primary" id="">Confirm OTP</button>
+                                            <div class="text-center mt-5"><span class="d-block mobile-text">Don't receive the code?</span><span class="font-weight-bold text-danger cursor">Resend</span></div>
+
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        }
+                    }
+
+                    <br />
+                </div>
+            </div>
+        </div>
+        <!--End Otp Section-->
+        @{ if (Model.OrderMaster != null)
+            {
+                <!--hide tag ---order tracing-->
+                <div class="box container px-1 px-md-4 py-5 mx-auto btnAll" id="hideTrack" style="width:823px;padding:24px">
+                    <div class="card">
+                        <div class="row d-flex justify-content-between px-3 top">
+
+                            <div class="d-flex">
+
+                                <h5>
+                                    <span style="font-size:17px;font-weight:bold">Order Status :</span> Order No. <span class="text-primary font-weight-bold">#@Model.OrderMaster.FinalOrderId</span> is <b>@Model.OrderMaster.OrderStatus</b> &nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Order placed on <b>@Model.OrderMaster.OrderDate</b>
+
+                                </h5>
+
+
+                            </div>
+                            <div class="d-flex text-sm-right" style="margin-bottom:0px">
+                                <h5></h5>
+
+                            </div>
+
+                        </div>
+
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-12">
+                                <ul id="progressbar" class="text-center">
+                                    @{
+                                        string status = Model.OrderMaster.OrderStatus;
+                                        switch (status)
+                                        {
+
+                                            case "UnderReview":
+                                                {
+                                                    <li class="active step0"></li>
+                                                    <li class="step0"></li>
+                                                    <li class="step0"></li>
+                                                    <li class="step0"></li>
+                                                    <li class="step0"></li>
+                                                }
+                                                break;
+
+                                            case "Approved":
+                                                {
+                                                    <li class="active step0"></li>
+                                                    <li class="active step0"></li>
+                                                    <li class="step0"></li>
+                                                    <li class="step0"></li>
+                                                    <li class="step0"></li>
+                                                }
+                                                break;
+
+                                            case "Dispatched":
+                                                {
+                                                    <li class="active step0"></li>
+                                                    <li class="active step0"></li>
+                                                    <li class="active step0"></li>
+                                                    <li class="step0"></li>
+                                                }
+                                                break;
+
+                                            case "OutForDelivery":
+                                                {
+                                                    <li class="active step0"></li>
+                                                    <li class="active step0"></li>
+                                                    <li class="active step0"></li>
+                                                    <li class="active step0"></li>
+                                                }
+                                                break;
+
+                                            case "Delivered":
+                                                {
+                                                    <li class="active step0"></li>
+                                                    <li class="active step0"></li>
+
+                                                    <li class="active step0"></li>
+                                                    <li class="active step0"></li>
+                                                }
+                                                break;
+                                            case "Received":
+                                                {
+                                                    <li class="step0"></li>
+                                                    <li class="step0"></li>
+                                                    <li class="step0"></li>
+                                                    <li class="step0"></li>
+                                                    <li class="step0"></li>
+                                                }
+                                                break;
+
+                                            default:
+                                                <li class="active step0"></li>
+                                                break;
+
+                                        }
+                                    }
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row justify-content-between top" style="padding-top:15px">
+
+                            <div class="row d-flex icon-content">
+                                <img class="icon" src="https://i.imgur.com/9nnc9Et.png">
+
+                            </div>
+                            <div class="row d-flex icon-content">
+                                <img class="icon" src="https://i.imgur.com/9nnc9Et.png">
+
+                            </div>
+                            <div class="row d-flex icon-content">
+                                <img class="icon" src="https://i.imgur.com/u1AzR7w.png">
+
+                            </div>
+                            <div class="row d-flex icon-content">
+                                <img class="icon" src="https://i.imgur.com/TkPm63y.png">
+
+                            </div>
+                            <div class="row d-flex icon-content">
+                                <img class="icon" src="https://i.imgur.com/HdsziHP.png">
+
+                            </div>
+                        </div>
+                        <div class="row justify-content-between top" style="padding-top:5px; color:#4fbfb0">
+
+                            <div class="row d-flex icon-content">
+
+                                <div class="d-flex flex-column">
+
+                                    <p class="font-weight-bold"> Under<br /> Review</p>
+                                </div>
+                            </div>
+                            <div class="row d-flex icon-content">
+
+                                <div class="d-flex flex-column">
+                                    <p class="font-weight-bold">Order<br>Approved</p>
+                                </div>
+                            </div>
+                            <div class="row d-flex icon-content">
+
+                                <div class="d-flex flex-column">
+                                    <p class="font-weight-bold">Order<br>Dispatched</p>
+                                </div>
+                            </div>
+                            <div class="row d-flex icon-content">
+
+                                <div class="d-flex flex-column">
+                                    <p class="font-weight-bold">Order Out<br>For Delivery</p>
+                                </div>
+                            </div>
+                            <div class="row d-flex icon-content">
+
+                                <div class="d-flex flex-column">
+                                    <p class="font-weight-bold">Order<br>Delivered</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row d-flex justify-content-between px-3 top">
+
+                            <div class="d-flex">
+
+                                <h6>
+                                    Order placed withing vadodara area<br /> would be delivered before 6 p.m.
+                                </h6>
+
+                            </div>
+                            <div class="d-flex flex-column text-sm-right">
+                                <p class="mb-0">@*<h4><b>Order Tracking</b></h4>*@Expected Arrival : <b>01/12/19</b></p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--order tracking end-->
+                <!-- Feedback form-->
+    <form method="post" asp-page-handler="RateOrder">
+        <div id="myModal" class="modal fade" role="dialog">
+            <!--Modal-->
+            <div class="modal-dialog">
+                <!--Modal Content-->
+                <div class="modal-content">
+                    <!-- Modal Header-->
+                    <div class="modal-header" style="background-color:#4fbfb0">
+                        <h3>Feedback Request</h3>
+                        <!--Close/Cross Button--> <button type="button" class="close" data-dismiss="modal" style="color: white;">&times;</button>
+                    </div> <!-- Modal Body-->
+                    <div class="modal-body text-center">
+                        <i class="far fa-file-alt fa-4x mb-3 animated rotateIn icon1"></i>
+                        <h3>Hey @Model.CRegister.Fname ! Your opinion matters</h3>
+                      
+                        <h6>Your Rating for order placed on @Model.OrderMaster.OrderDate.Value.ToString("dd/MM/yyyy") of Rs.@Model.OrderMaster.FinalPayable</h6>
+
+
+                        <hr />
+                        <h4> Are you satisfied with our service?</h4>
+                    </div>
+                    <div style="margin-left:35px;">
+                        <!-- Radio Buttons for Rating-->
+                        <div class="form-check mb-4"> <input name="feedback" value="Very good" type="radio" required> <label class="ml-3">Very good</label> </div>
+                        <div class="form-check mb-4"> <input name="feedback" value="Good" type="radio" required> <label class="ml-3">Good</label> </div>
+                        <div class="form-check mb-4"> <input name="feedback" value="Bad" type="radio" required> <label class="ml-3">Bad</label> </div>
+                        <div class="form-check mb-2"> <input name="feedback" value="Very Bad" type="radio" required> <label class="ml-3">Very Bad</label> </div>
+                    </div><!--Text Message-->
+                    <div class="modal-body text-center" style="padding:0px">
+                        <hr />
+                        <input type="hidden" value="@Model.OrderMaster.FinalOrderId" name="fid" />
+                        <h4>What could we improve?</h4>
+                        <h5>Help us improve our service? <strong>Give us your feedback!</strong></h5>
+
+                    </div> <textarea name="msg" type="textarea" class="form-control" style="width:400px;margin-left:50px;margin-right:50px" placeholder="Your Feedback. Please share your problem here." rows="3"></textarea> <!-- Modal Footer-->
+                    <br />
+                   
+                    <div class="modal-footer" style="background-color:#4fbfb0"> <button type="submit" class="btn btn-secondary">Rate Order <i class="fa fa-paper-plane"></i> </button> <input type="button" class="btn btn-outline-secondary" data-dismiss="modal" value="Cancel"> </div>
+                </div>
+            </div>
+        </div>
+    </form>
+                <!--end feedback-->
+                <!--order invoide-->
+    <div class="box btnAll " id="invoiceDiv">
+
+        <div class="card-header" style="background-color:#4fbfb0">
+            <h1 style="margin-left:240px">Disha Enterprise</h1>
+            <h5 style="margin-left:245px;color:white">Mediflow - A Product of DishaEnterprise</h5>
+        </div>
+        <br />
+        <div class="row addresses">
+            <div class="col-lg-5">
+                <p style="text-align:left">
+                    219, Sakar Complex, Sanstha Vasahat, 
+                    Raopura, Vadodara, <br /> Gujarat, 390001. <br/>
+                    Mob: 9327251779, 0265-2414258
+                </p>
+            </div>
+            <div class="col-lg-7">
+                <p>
+                    GSTIN : 24AAIFV3598A1Z4<br />
+                    20B VAD-88524, 21B VAD-88525<br />
+                    Mediflow.com
+                </p>
+            </div>
+        </div>
+        <hr />
+
+        <div class="row addresses">
+            <div class="col-lg-5" style="text-align:left">
+                <h2>Invoice address</h2>
+                To,  @if (Model.OrderDeliveryDetails != null)
+                {
+
+                    <p>@Model.OrderDeliveryDetails.ShopName<br />@Model.OrderDeliveryDetails.ShopAddress<br /></p>
+                }
+            </div>
+            <div class="col-lg-7 text-right">
+                <h2>Order Details</h2>
+                <p>
+                    DL no.    : @Model.CRegister.Rdlno<br />
+                    GST       : @Model.CRegister.GstNo<br />
+                    Bill No.  : @Model.OrderMaster.FinalOrderId<br />
+                    @if (Model.OrderMaster.IsCredit == true)
+                                    {<h5> Bill Type : Credit</h5> }
+                                    else
+                                    { <h5> Bill Type : Cash</h5>}
+
+                    Date      : @Model.OrderMaster.OrderDate.Value.ToString("dd/MM/yyyy")<br />
+                    Delivery  : @Model.OrderMaster.DeliveryType<br />
+
+                </p>
+            </div>
+        </div>
+        <hr />
+        <p class="lead">Order #@Model.OrderMaster.FinalOrderId was placed on <strong>@Model.OrderMaster.OrderDate</strong> and is currently <strong>@Model.OrderMaster.OrderStatus</strong>.</p>
+
+
+        <div class="table-responsive mb-4">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Sr.No</th>
+                        <th>Product</th>
+                        <th>HSN</th>
+                        <th>Pack</th>
+                        <th>Mfg</th>
+                        <th>Batch No.</th>
+                        <th>ExpiryDt.</th>
+                        <th>M.R.P</th>
+                        <th>Qty</th>
+                        <th>Free</th>
+                        <th>Rate</th>
+                        <th>SGST%</th>
+                        <th>CGST%</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int count = 0;
+                        double eachTotal = 0.0;
+                    }
+                    @foreach (var item in Model.OrderItemsDetails)
+                    {
+                        count++;
+                        eachTotal = Convert.ToDouble(item.Rate * item.Item_Qty);
+                        System.Math.Round(eachTotal, 2);
+                        <tr>
+
+                            <td>@count</td>
+
+                            <td><a asp-page="/Chemist/DetailedProduct" asp-route-id="@item.Item_Id">@item.Item_Name</a></td>
+                            <td>@item.HsnCode</td>
+                            <td>@item.Volume</td>
+                            <td>@item.Mfg_By_Name</td>
+                            <td>@item.OBatch_No</td>
+
+                            <td>@item.OExpiry_Dt.Value.Date.ToString("dd/MM/yyyy")</td>
+                            <td>@item.Mrp</td>
+                            <td>@item.Item_Qty</td>
+                            <td>0</td>
+                            <td>@item.Rate</td>
+                            <td>@(item.GstPercent * 100 / 2)</td>
+                            <td>@(item.GstPercent * 100 / 2)</td>
+                            <td>@eachTotal</td>
+                        </tr>
+                    }
+
+                </tbody>
+                <tfoot>
+
+                </tfoot>
+            </table>
+        </div>
+        <!-- /.table-responsive-->
+        <div class="row addresses">
+            <div class="col-lg-8">
+
+            </div>
+            <div class="col-lg-4 text-right">
+                <table>
+                    <tr>
+                        <th colspan="13" class="text-right">Value Total: </th>
+                        <th>@Model.OrderMaster.ValuePrice</th>
+                    </tr>
+                    <tr>
+                        <th colspan="13" class="text-right">Less Discount: </th>
+                        <th>@Model.OrderMaster.Discount</th>
+                    </tr>
+                    <tr>
+                        <th colspan="13" class="text-right">Shipping and handling: </th>
+                        <th>0.00</th>
+                    </tr>
+
+                    <tr>
+                        <th colspan="13" class="text-right">GST: Rs.</th>
+                        <th>@Model.OrderMaster.GstCharges</th>
+                    </tr>
+                    <tr>
+                        <th colspan="13" class="text-right">Net Amount: </th>
+                        <th>@Model.OrderMaster.FinalPayable</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <hr />
+
+        <div class="row addresses">
+            <div class="col-lg-3">
+                FOR DISHA ENTERPRISE
+            </div>
+            <div class="col-lg-9">
+                SUBJECT TO VADODARA JURISDICTION ONLY
+            </div>
+
+        </div>
+        <hr />
+        <p class="text-muted">If you have any questions, please feel free to <a href="contact.html">contact us</a>, our customer service center is working for you 24/7.</p>
+    </div>
+                <!--End or Order invoice-->
+            }
+        }
+        <!--Return Exp Procedure-->
+        <div class="box btnAll" id="viewReturn">
+
+            <div class="table-responsive">
+
+                @{
+                    if (Convert.ToString(ViewData["Return"]) == "Return Eligible")
+                    {
+                        <div class="card">
+                            <div class="card-header" style="background-color:#4fbfb0">
+                                <p class="lead"><h2>Expiry Return : @ViewData["Return"] for return.</h2></p>
+                            </div>
+
+                            <table class="table table-hover" id="tblRows">
+
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Quantity</th>
+                                        <th>Batch</th>
+                                        <th>Expiry</th>
+
+                                        <th>Return</th>
+                                        <th>Check</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody class="rows">
+                                    <div id="scrollSection">
+
+
+
+                                        @for (int i = 0; i < Model.OrderItemsDetails.Count; i++)
+                                        {
+                                            int btnId = @Model.OrderItemsDetails[i].OrderDetail_Id;
+                                            string retExpVal = "retVal_" + Model.OrderItemsDetails[i].OrderDetail_Id;
+                                            //  string arrayValues = "arrayValues_" + Model.OrderItemsDetails[i].OrderDetail_Id;
+                                            if (Model.OrderItemsDetails[i].OExpiry_Dt.Value.AddMonths(-3) <= DateTime.Now)
+                                            {
+                                                //4-4-2021<=1-4-2021<div id="customer-orders" class="col-lg-9">
+
+                                                <tr>
+                                                    <td>@Model.OrderItemsDetails[i].Item_Name</td>
+                                                    <td><input class="form-control" type="text" id="@retExpVal" value="@Model.OrderItemsDetails[i].Item_Qty" /></td>
+
+                                                    <td>@Model.OrderItemsDetails[i].OBatch_No</td>
+                                                    <td>@Model.OrderItemsDetails[i].OExpiry_Dt.Value.ToString("dd/MM/yyyy")</td>
+                                                    @{
+                                                        if (Model.OrderItemsDetails[i].OItemReturn_Status == true)
+                                                        {
+                                                            <td>Return Done</td>
+                                                            <td><input type="checkbox" disabled /></td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td>None  </td>
+                                                            <td><input type="checkbox" class="checkboxSelected" id="@btnId" value="@btnId" /></td>
+                                                        }
+
+
+
+                                                    }
+
+
+                                                </tr>
+
+                                            }
+
+                                        }
+
+                                    </div>
+
+                                </tbody>
+
+
+                            </table>
+                            @{ int flag = 0;
+                                for (int i = 0; i < Model.OrderItemsDetails.Count; i++)
+                                {
+
+                                    if (Model.OrderItemsDetails[i].OItemReturn_Status == false)
+                                    {
+                                        flag = 1;
+                                    }
+                                    else
+                                    {
+                                        flag = 0;
+                                    }
+
+
+
+                                }
+                                if (flag == 0)
+                                {
+                                    <input class="btn btn-primary" onClick="alert('Return Already Initiated')" type="button" value="Return" />
+                                }
+                                else
+                                {
+                                    <input class="btn btn-primary" id="btn_send" type="button" value="Return" />
+                                }
+                            }
+                        </div>
+                    }
+                    if (Convert.ToString(ViewData["Return"]) == "Not Eligible")
+                    {
+                        <div class="card">
+                            <div class="card-header" style="background-color:#4fbfb0">
+                                <p class="lead"><h2>Expiry Return : @ViewData["Return"] for return.</h2></p>
+                            </div>
+
+                            <br /><hr />
+                            <p class="lead">
+                                <h5>
+                                    &nbsp;&nbsp;&nbsp;&nbsp; Expiry orders are only possible when products have expiry
+                                    date less then 3 months from current date .
+                                </h5>
+                            </p>
+                            <p class="lead font-bold"><h4> &nbsp;&nbsp;&nbsp;&nbsp;Thanks Team Mediflow</h4></p>
+                            <br />
+                            <hr />
+                        </div>
+                    }
+                }
+            </div>
+
+        </div>
+        <!--Return 7days item-->
+        <div class="box btnAll" id="viewInstantReturn">
+            <div class="card">
+
+                @{ if (Convert.ToString(ViewData["ReturnInstant"]) == "Instant Return Eligible")
+                    {
+                        <div class="card-header" style="background-color:#4fbfb0">
+                            <p class="lead">
+                                <h3>Return : @ViewData["ReturnInstant"] for 7 days.</h3>
+
+                                @{
+                                    int d1 = Convert.ToInt32(Model.OrderMaster.OrderDate.Value.AddDays(7).ToString("dd"));
+                                    int d2 = Convert.ToInt32(DateTime.Now.ToString("dd"));
+                                    if ((d1 - d2) <= 7)
+                                    {
+                                        <h4 class="font-bold">Remaining days to return :@(d1-d2+1)</h4>
+                                    }
+
+
+                                }
+                                <h4 class="font-bold">Order placed on: @(Model.OrderMaster.OrderDate.Value.ToString("dd/MM/yyyy"))</h4>
+                            </p>
+                        </div>
+                        <div class="table-responsive mb-4">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Sr.No</th>
+                                        <th>Product</th>
+
+
+                                        <th>Batch No.</th>
+                                        <th>ExpiryDt.</th>
+                                        <th>M.R.P</th>
+                                        <th>Qty</th>
+
+                                        <th>Rate</th>
+                                        @*<th>SGST%</th>
+                                        <th>CGST%</th>*@
+                                        <th>Amount</th>
+                                        <th>Select</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int countRet = 0;
+                                        double eachTotalRet = 0.0;
+
+                                    }
+                                    @foreach (var item in Model.OrderItemsDetails)
+                                    {
+
+                                        int retbtnId = @Model.OrderItemsDetails[countRet].OrderDetail_Id;
+                                        string retbtnVal = "val_" + @Model.OrderItemsDetails[countRet].OrderDetail_Id;//(int)@Model.OrderItemsDetails[countRet].Item_Qty;
+                                        countRet++;
+                                        //tempAllIds[countRet]= @Model.OrderItemsDetails[countRet].OrderDetail_Id;
+                                        //tempAllValue[countRet]= @Model.OrderItemsDetails[countRet].OrderDetail_Id;
+                                        eachTotalRet = Convert.ToDouble(item.Rate * item.Item_Qty);
+                                        System.Math.Round(eachTotalRet, 2);
+                                        <tr>
+
+                                            <td>@countRet</td>
+
+                                            <td><a asp-page="/Chemist/DetailedProduct" asp-route-id="@item.Item_Id">@item.Item_Name</a></td>
+
+
+                                            <td>@item.OBatch_No</td>
+
+                                            <td>@item.OExpiry_Dt.Value.Date.ToString("dd/MM/yyyy")</td>
+                                            <td>@item.Mrp</td>
+                                            <td><input class="form-control" type="text" id="@retbtnVal" value="@item.Item_Qty" /></td>
+
+                                            <td>@item.Rate</td>
+                                            @*<td>@(item.GstPercent * 100 / 2)</td>
+                                            <td>@(item.GstPercent * 100 / 2)</td>*@
+                                            <td>@eachTotalRet</td>
+                                            <td><input class="ForReturn7Selected" type="checkbox" value="@retbtnId" /></td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                                <tfoot>
+
+                                </tfoot>
+                            </table>
+                        </div>
+                        <hr />
+                        <div style="margin-left:230px">
+                            <input type="button" class="btn btn-primary" style="width:150px" id="ReturnSelected" value="Return Selected" />
+                            <input type="button" class="btn btn-primary" style="width:150px" id="ReturnAll" value="Return All" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="card-header" style="background-color:#4fbfb0">
+                            <p class="lead"><h2>Expiry Return : @ViewData["ReturnInstant"].</h2></p>
+                        </div>
+
+                        <br /><hr />
+                        <p class="lead">
+                            <h5>
+                                &nbsp;&nbsp;&nbsp;&nbsp;  7 days Return orders are only possible from the date of order placed .
+                            </h5>
+                        </p>
+                        <p class="lead font-bold"><h4> &nbsp;&nbsp;&nbsp;&nbsp;Thanks Team Mediflow</h4></p>
+                        <br />
+                        <hr />
+                    }
+                }
+            </div>
+        </div>
+
+
+        <div id="end"></div>
+    </div>
+            <!--End Return-->
+
+</body>
+</html>

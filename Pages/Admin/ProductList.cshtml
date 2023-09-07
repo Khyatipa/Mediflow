@@ -1,0 +1,163 @@
+﻿@page
+@model Mediflow.Pages.Admin.ProductListModel
+
+@{
+    ViewData["Title"] = "ProductList";
+    Layout = "~/Pages/Shared/Admin/_AdminHome.cshtml";
+    int count = 0;
+    int i = 0;
+   
+}
+
+<html>
+<head>
+    <title>Table V04</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" type="image/png" href="~/Table/images/icons/favicon.ico" />
+
+    @*<link rel="stylesheet" type="text/css" href="~/Table/vendor/bootstrap/css/bootstrap.min.css">*@
+
+    <link rel="stylesheet" type="text/css" href="~/Table/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+
+    @*<link rel="stylesheet" type="text/css" href="~/Table/vendor/animate/animate.css">*@
+
+
+    @*<link rel="stylesheet" type="text/css" href="~/Table/vendor/select2/select2.min.css">*@
+
+    <link rel="stylesheet" type="text/css" href="~/Table/vendor/perfect-scrollbar/perfect-scrollbar.css">
+
+    @*<link rel="stylesheet" type="text/css" href="~/Table/css/util.css">*@
+    <link rel="stylesheet" type="text/css" href="~/Table/css/main.css?12345678910">
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+
+
+</head>
+<body>
+
+    <div class="col-lg-9">
+        <div class="">
+
+            <div class="wrap-table100">
+                <div class="table100 ver1 m-b-110" style="width:830px">
+
+                    <div class="table100-head">
+
+                        <table>
+                            <thead>
+                                <tr class="row100 head">
+                                    <th class="cell100 column1">Sr. No</th>
+                                    <th class="cell100 column2">Name</th>
+                                    <th class="cell100 column3">Type</th>
+                                    <th class="cell100 column3">Status</th>
+                                    <th class="cell100 column4">Manage</th>
+
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+
+                    <div class="table100-body js-pscroll">
+                        <table>
+                            <tbody>
+
+                                @foreach (var item in Model.Products)
+                                {
+                                    int flag = 0;
+                                    count++;
+
+                                    <tr class="row100 body">
+                                        <td class="cell100 column1">@count</td>
+                                        <td class="cell100 column2" style="padding-right:50px"> @Html.DisplayFor(modelItem => item.ItemName) </td>
+                                        <td class="cell100 column3"> @Html.DisplayFor(modelItem => item.MedicineType)</td>
+
+                                        @{
+                                            if (Model.StockMaster != null)
+                                            {
+                                                for (int k = 0; k < Model.StockMaster.Count; k++)
+                                                {
+                                                    // var temp = new Model.StockMaster.Where(i => i.ItemId == item.ItemId).ToList();
+
+                                                    if (item.ItemId == Model.StockMaster[k].SitemId)
+                                                    {
+                                                        flag = 1;
+
+                                                    }
+
+
+
+                                                }
+                                            }
+                                            if (flag == 0)
+                                            {
+                                                <td class="cell100 column3"><span class="badge badge-warning">Add Stock</span></td>
+
+                                            }
+                                            else if (flag == 1)
+                                            {
+                                                <td class="cell100 column3"><span class="badge badge-success">In Stock</span></td>
+
+                                            }
+
+                                        }
+
+
+
+                                        <td class="cell100 column4">
+                                            <ul class="list-inline m-0">
+                                                <li class="list-inline-item">
+                                                    <a asp-page="/Admin/ProductDetails" asp-route-id="@item.ItemId" class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="View">
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a asp-page="/Admin/EditProduct" asp-route-id="@item.ItemId" class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                        <i class="fa fa-edit"></i>
+                                                    </a>
+                                                </li>
+
+                                                <li class="list-inline-item">
+                                                    <a asp-page="/Admin/EditStock" asp-route-id="@item.ItemId" class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Stock Manage">
+                                                        <i class="fa fa-plus-square-o"></i>
+                                                    </a>
+                                                </li>
+
+                                                <li class="list-inline-item">
+
+                                                    <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="toggle" data-placement="top" title="Delete">
+                                                        <i class='fa fa-toggle-on'></i>
+                                                    </button>
+                                                    @*<input type="checkbox" checked data-toggle="toggle" data-onstyle="primary" data-on="<i class='fa fa-toggle-on'></i>" data-off="<i class='fa fa-toggle-off'></i>" data-offstyle="danger" data-size="small">*@
+
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a asp-page="/Admin/DeleteProduct" asp-route-id="@item.ItemId" class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                        <i class="fa fa-trash"></i>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+</html>

@@ -1,0 +1,372 @@
+﻿@page
+@model Mediflow.Pages.Chemist.Checkout.OrderCheckoutReviewModel
+@{
+    Layout = "~/Pages/Shared/Chemist/_ChemistHome.cshtml";
+}
+<html>
+<head>
+    <style>
+
+        .form-change {
+            width: 150px;
+            margin: 0 auto;
+            /* text-align: center;*/
+            /*   padding-top: 20px;*/
+        }
+
+        .value-button {
+            display: inline-block;
+            border: 1px solid #ddd;
+            margin: 0px;
+            width: 40px;
+            height: 42px;
+            text-align: center;
+            vertical-align: middle;
+            padding: 11px 0;
+            background: #eee;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+            .value-button:hover {
+                cursor: pointer;
+            }
+
+        .decrease {
+            margin-right: -4px;
+            border-radius: 8px 0 0 8px;
+            background-color: #4fbfb0;
+        }
+
+        .increase {
+            margin-left: -4px;
+            border-radius: 0 8px 8px 0;
+            background-color: #4fbfb0;
+        }
+
+        .input-wrap {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .number {
+            text-align: center;
+            border: none;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            margin: 0px;
+            width: 40px;
+            height: 40px;
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+      $(document).ready(function () {
+          $('#placeOrderBtn').click(function () {
+
+              var valTot = parseFloat($('#grandTotalDynamic').html(),10);
+              var gstTot = parseFloat($('#totalgstID').html(),10);
+              var payTot = parseFloat($('#payable').html(), 10);//coming from layout page
+              var discount = parseFloat($('#discount').html(), 10);//comping from layout page
+
+              var data = { 'valTot': valTot, 'gstTot': gstTot, 'payTot': payTot, 'discount': discount }
+
+              $.ajax({
+
+
+                  type: 'GET',
+                  url: 'OrderCheckoutReview?handler=Order',
+                  data: data,
+                  cache: false,
+                  success: function (data) {
+                      if (data == "Paytm") {
+                          window.location.href = "../Paytm";       
+                      }
+                      window.location.href = "../ChemistOrderHistory";                    
+
+                  },
+                  failure: function (data) {
+                      alert("fail ordering");
+                  }
+
+
+
+              });
+
+          });
+
+
+      });
+
+
+
+
+  </script>
+</head>
+
+<body>
+
+    @{
+       
+        double total,  count = 0;
+        double rate;
+        String qtyChange = null;
+        String orderID = null, countRows = null;
+
+    }
+
+
+
+
+
+    <div class="box">
+        @*<form method="post" action="checkout1.html">*@
+        <h1>Shopping cart</h1><h3>Payment Type :  @ViewData["PayType"]</h3>
+        <p class="text-muted">You currently have @Model.SPCartDetails.Count() item(s) in your cart.</p>
+        <div class="table-responsive">
+
+            <table class="table">
+
+                <thead>
+                    <tr>
+                        <th>SrNo.</th>
+                        <th>Product</th>
+
+                        <th>Quantity</th>
+                        <th>Expiry</th>
+                        <th>Batch No.</th>
+                        <th>Mrp</th>
+                        <th>Rate</th>
+                        <th colspan="2">Total</th>
+                    </tr>
+                </thead>
+
+                @for (int i = 0; i < Model.SPCartDetails.Count; i++)
+                {
+
+                    countRows = "row_" + i;
+                    qtyChange = "qty_" + i;
+
+
+                    orderID = "Oid_" + Model.SPCartDetails[i].Oid;
+                    int Qty = @Model.SPCartDetails[i].Qty;
+
+                    rate = @Model.SPCartDetails[i].Rate;
+                    total = System.Math.Round((rate * Qty), 2);
+                  
+
+                    count = i + 1;
+
+
+
+                    <tbody>
+                        <tr class="@countRows">
+                            <td>@count</td>
+
+                            <td><a asp-page="/Chemist/DetailedProduct" asp-route-id="@Model.SPCartDetails[i].Id">@Model.SPCartDetails[i].Itemname</a></td>
+                            <td>
+
+                                @Model.SPCartDetails[i].Qty
+
+                            </td>
+                            <td>
+                                @Model.SPCartDetails[i].expiryDate.Date.ToString("dd/MM/yyyy")
+                            </td>
+                            <td>
+                                @Model.SPCartDetails[i].batchNumber
+                            </td>
+                            <td>@Model.SPCartDetails[i].Price</td>
+                            <td>@Model.SPCartDetails[i].Rate</td>
+                            <!--Identifying orderId in javascript-->
+                            <td>
+                                @total
+
+
+                                <input id="@orderID" hidden value="@Model.SPCartDetails[i].Oid" />
+
+
+                            </td>
+
+
+                        </tr>
+
+                    </tbody>
+                }
+           
+                <tfoot>
+                    <tr>
+                        <th colspan="7">Value Total</th>
+                        <th colspan="2" id="grandTotalDynamic">@ViewData["valueTotal"]</th>
+                    </tr>
+                </tfoot>
+
+            </table>
+
+        </div>
+        <!-- /.table-responsive-->
+
+        <div class="box-footer d-flex justify-content-between">
+
+            <a href="/Chemist/Checkout/OrderCheckoutPayment" class="btn btn-outline-secondary">
+                <i class="fa fa-chevron-left"></i>Back to payment method
+            </a>
+            <div class="right">
+                <a href="/Chemist/Cart"<button class="btn btn-outline-secondary"><i class="fa fa-refresh"></i> Edit cart</button></a>
+
+                @if ((string)ViewData["PayType"] != "Online")
+                {
+                    <button id="placeOrderBtn" class="btn btn-primary">Place an order<i class="fa fa-chevron-right"></i></button>
+                }
+                else
+                {
+                 
+                    <a href="/Chemist/Paytm"><button class="btn btn-primary">Pay online<i class="fa fa-chevron-right"></i></button></a>
+                    
+                }
+
+            </div>
+</div>
+        @*</form>*@
+    </div>
+    <!-- /.box-->
+
+
+
+
+    <div class="row">
+        <div class="col-lg-3">
+            <div id="order-summary" class="box" style="width:540px">
+                <div class="box-header" style="background-color:#4fbfb0">
+                    <h3 class="mb-0">GST Calculation</h3>
+                </div>
+                <p class="text-muted">GST charges are calculated based on the values you have entered and its bydefault HSN code.</p>
+                <div class="table-responsive">
+
+                    <script>
+                        $(document).ready(function () {
+                            $('.showTax').hide();
+                            $('#hideTax').hide();
+                            $('#clickTax').click(function () {
+                                $('#clickTax').hide();
+
+                                $('.showTax').show();
+                                $('#hideTax').show();
+
+                            });
+                            $('#hideTax').click(function () {
+
+                                $('#clickTax').show();
+                                $('.showTax').hide();
+                                $('#hideTax').hide();
+                            });
+
+                           
+                        });
+
+                    </script>
+
+                    <table class="table">
+                        <tbody>
+
+
+                            <tr>
+                                <td colspan="4">Tax </td>
+                                <td>₹</td>
+                                <th colspan="2">
+                                    @ViewData["totalGST"]
+                                    &nbsp;&nbsp;
+                                    <i class="fa fa-arrow-down" style="cursor:pointer" id="clickTax"></i>
+                                    <i class="fa fa-arrow-up" style="cursor:pointer" id="hideTax"></i>
+                                </th>
+
+                            </tr>
+
+
+                            <tr class="showTax" style="background-color:#4fbfb0;">
+                                <td colspan="2" style="color:white">GST </td>
+                                <td style="color:white">BASE </td>
+                                <td style="color:white">SGST </td>
+                                <td style="color:white">CGST ₹</td>
+                                <td style="color:white">Total-GST ₹</td>
+                            </tr>
+                            <tr class="showTax">
+                                <td>GST </td>
+                                <th>0% </th>
+                                <th>0.0 </th>
+                                <th>0.0 </th>
+                                <th>0.0 </th>
+                            </tr>
+
+                            <tr class="showTax">
+                                <td>GST </td>
+                                <th>5% </th>
+                                <th>@TempData["gst2.5"]</th>
+                                <th>@TempData["gst2.5"]</th>
+                                <th>@TempData["gst5"] </th>
+                            </tr>
+                            <tr class="showTax">
+                                <td>GST </td>
+                                <th>12% </th>
+                                <th>@TempData["gst6"]</th>
+                                <th>@TempData["gst6"]</th>
+                                <th>@TempData["gst12"] </th>
+                            </tr>
+                            <tr class="showTax">
+                                <td>GST </td>
+                                <th>18% </th>
+
+                                <th>@ViewData["gst9"] </th>
+                                <th>@ViewData["gst9"] </th>
+                                <th>@ViewData["gst18"] </th>
+                            </tr>
+                            <tr class="showTax">
+                                <td>GST </td>
+                                <th>28% </th>
+                                <th>@ViewData["gst14"]</th>
+                                <th>@ViewData["gst14"] </th>
+                                <th>@ViewData["gst28"]</th>
+                            </tr>
+                            <tr class="showTax">
+                                <td colspan="2">Total Tax</td>
+                                <th>@ViewData["totalsubGST"]</th>
+                                <th>@ViewData["totalsubGST"]</th>
+                                <th id="totalgstID"> @ViewData["totalGST"] ₹ </th>
+
+                            </tr>
+                            <!--END GST CALCULATE-->
+                            <tr>
+                                <td colspan="4">SGST </td>
+                                <td>₹</td>
+                                <th colspan="2">@ViewData["totalsubGST"] </th>
+                            </tr>
+                            <tr>
+                                <td colspan="4">CGST </td>
+                                <td>₹</td>
+                                <th colspan="2">@ViewData["totalsubGST"] </th>
+                            </tr>
+
+                          
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+</body>
+</html>

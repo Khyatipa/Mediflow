@@ -1,0 +1,300 @@
+﻿@page
+@model Mediflow.Pages.Admin.OrderInvoiceModel
+@{
+
+    Layout = "~/Pages/Shared/Admin/_AdminHome.cshtml";
+}
+<html>
+<head>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+    <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('#printBtn').click(function () {
+
+                debugger;
+                var printContents = $('#printcontent').html();
+                var originalContents = document.body.innerHTML;
+
+                document.body.innerHTML = printContents;
+
+                window.print();
+
+                document.body.innerHTML = originalContents;
+
+                location.reload();
+
+            });
+
+            $('.selecttagClick').click(function () {
+               // alert('here');
+                var e = document.getElementById("drpList");
+                // var e = $('#drpList').
+                debugger;
+
+                var valuett = e.options[e.selectedIndex];
+                var tt = valuett.innerHTML;
+
+                //var ii = document.getElementById('FinalId');
+                //var ii =$(n')
+                //var valueii = tt.html();
+
+                var valueii = $('#FinalId').val();
+               // alert(valueii);
+               // alert(tt);
+                $.ajax({
+
+                    type: "GET",
+                    url: "OrderInvoice",
+                    data: { 'sts': tt, 'iidd': valueii },
+
+                        success: function (data) {
+                        alert(tt);
+
+                            $('#statusChange').html(tt);
+
+                    }
+
+                });
+
+
+            });
+
+        });
+    </script>
+</head>
+<body>
+    <div class="box invoiceDiv col-lg-9" id="printcontent" > 
+
+        <div class="row addresses">
+            <div class="col-lg-7">
+                <h1>Disha Enterprise</h1>
+                <h6>Mediflow - A Product of DishaEnterprise</h6>
+                <p>
+                    219,Sakar Complex, Sanstha Vasahat,
+                    Raopura, Vadodara, Gujarat, 390001.
+                    Mob: 9327251779, 0265-2414258
+                </p>
+                <p>
+                    GSTIN : 24AAIFV3598A1Z4<br />
+                    20B VAD-88524, 21B VAD-88525<br />
+                    Mediflow.com
+                </p>
+            </div>
+            
+            <div class="col-lg-5">
+                <h1>Update Status</h1>
+
+               
+                <select id="drpList" class="form-group" style="width:150px;height:35px;">
+                    @{
+                        switch (Model.OrderMaster.OrderStatus)
+                        {
+
+                            case "Received":
+                                <option value="UnderReview">UnderReview</option>
+
+                                <option value="Reject">Reject</option>
+                                break;
+                            case "UnderReview":
+                                <option value="Approved">Approve</option>
+                                break;
+                            case "Approved":
+                                <option value="Dispatched">Dispatched</option>
+                                break;
+                            case "Dispatched":
+                                <option value="OutForDelivery">OutForDelivery</option>
+                                break;
+                            case "OutForDelivery":
+                                <option value="Delivered">Delivered</option>
+                                break;
+                            case "Delivered":
+                                <option value="Delivered">Delivered</option>
+                                break;
+                            default:
+                                <option value="Rejected">Rejected</option>
+                                break;
+
+                        }
+                    }
+                </select>
+                <button class="btn btn-primary btn-xs vd_bg-soft-green mgr-10 selecttagClick"><i class="append-icon fa fa-fw fa-rotate-right"></i></button>
+
+                <div class="mgbt-xs-5 border border-primary rounded" style="width:210px">
+                    <button class="btn vd_btn vd_bg-grey" id="printBtn" type="button"><i class="fa fa-print append-icon"></i>&nbsp;&ndash; Print Order Invoice</button>
+                
+                    @*<button class="btn vd_btn vd_bg-green" type="button"><i class="fa fa-download append-icon"></i>Save as PDF</button>*@
+                </div>
+            </div>
+           
+        </div>
+        
+        <hr />
+       
+        <div class="row addresses">
+            <div class="col-lg-7">
+                To,  @if (Model.OrderDeliveryDetails != null)
+                {
+                    <h2>Invoice address</h2>
+                    <p>@Model.OrderDeliveryDetails.ShopName<br />@Model.OrderDeliveryDetails.ShopAddress<br /></p>
+                }
+            </div>
+            <div class="col-lg-5">
+                <br />
+                <h2>Order Details</h2>
+                <p>
+                    DL no.    : @Model.cRegister.Rdlno<br />
+                    GST       : @Model.cRegister.GstNo <br />
+                    Bill No.    @Model.OrderMaster.FinalOrderId
+                    @if (Model.OrderMaster.IsCredit == true)
+                    {
+                     <h5>
+                        Bill Type : Credit
+                    </h5> }
+                      else
+                     { 
+                        <h5> Bill Type : Cash</h5>
+                        }
+
+                    Date      : @Model.OrderMaster.OrderDate<br />
+                    Delivery  : @Model.OrderMaster.DeliveryType<br />
+
+                    </p>
+                </div>
+        </div>
+
+        <input type="hidden" id="FinalId" value="@Model.OrderMaster.FinalOrderId" />
+
+
+        <hr />
+        <p class="lead">Order #@Model.OrderMaster.FinalOrderId was placed on <strong>@Model.OrderMaster.OrderDate</strong> and is currently <strong id="statusChange">@Model.OrderMaster.OrderStatus</strong>.</p>
+
+
+        <div class="table-responsive mb-4">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Sr.No</th>
+                        <th>Product</th>
+                        <th>HSN</th>
+                        <th>Pack</th>
+                        <th>Mfg</th>
+                        <th>Batch No.</th>
+                        <th>ExpiryDt.</th>
+                        <th>M.R.P</th>
+                        <th>Qty</th>
+                        <th>Free</th>
+                        <th>Rate</th>
+                        <th>SGST%</th>
+                        <th>CGST%</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int count = 0;
+                        double eachTotal = 0.0;
+                    }
+                    @foreach (var item in Model.OrderItemsDetails)
+                    {
+                        count++;
+                        eachTotal = Convert.ToDouble(item.Rate * item.Item_Qty);
+                        System.Math.Round(eachTotal, 2);
+                        <tr>
+
+                            <td>@count</td>
+
+                            <td><a asp-page="/Admin/ProductDetails" asp-route-id="@item.Item_Id">@item.Item_Name</a></td>
+                            <td>@item.HsnCode</td>
+                            <td>@item.Volume</td>
+                            <td>@item.Mfg_By_Name</td>
+                            <td>@item.OBatch_No</td>
+
+
+                            <td>@item.Mrp</td>
+                            <td>@item.Item_Qty</td>
+                            <td>0</td>
+                            <td>@item.Rate</td>
+                            <td>@(item.GstPercent * 100 / 2)</td>
+                            <td>@(item.GstPercent * 100 / 2)</td>
+                            <td>@eachTotal</td>
+                        </tr>
+                    }
+
+                </tbody>
+                <tfoot>
+
+                </tfoot>
+            </table>
+        </div>
+        <!-- /.table-responsive-->
+        <div class="row addresses">
+            <div class="col-lg-8">
+                <table>
+                    <tr>
+                        <th colspan="13" class="text-right">Value Total</th>
+                        <th>@Model.OrderMaster.ValuePrice</th>
+                    </tr>
+                    <tr>
+                        <th colspan="13" class="text-right">Less Discount</th>
+                        <th>@Model.OrderMaster.Discount</th>
+                    </tr>
+                    <tr>
+                        <th colspan="13" class="text-right">Shipping and handling</th>
+                        <th>0.00</th>
+                    </tr>
+                    <tr>
+                        <th colspan="13" class="text-right">GST Rs.</th>
+                        <th>@Model.OrderMaster.GstCharges</th>
+                    </tr>
+                    <tr>
+                        <th colspan="13" class="text-right">Net Amount</th>
+                        <th>@Model.OrderMaster.FinalPayable</th>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-lg-4">
+                <table>
+                    <tr>
+                        <th colspan="13" class="text-right">Value Total</th>
+                        <th>@Model.OrderMaster.ValuePrice</th>
+                    </tr>
+                    <tr>
+                        <th colspan="13" class="text-right">Less Discount</th>
+                        <th>@Model.OrderMaster.Discount</th>
+                    </tr>
+                    <tr>
+                        <th colspan="13" class="text-right">Shipping and handling</th>
+                        <th>0.00</th>
+                    </tr>
+
+                    <tr>
+                        <th colspan="13" class="text-right">GST Rs.</th>
+                        <th>@Model.OrderMaster.GstCharges</th>
+                    </tr>
+                    <tr>
+                        <th colspan="13" class="text-right">Net Amount</th>
+                        <th>@Model.OrderMaster.FinalPayable</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <hr />
+
+
+
+        <div class="row addresses">
+            <div class="col-lg-3">
+                FOR DISHA ENTERPRISE
+            </div>
+            <div class="col-lg-9">
+                SUBJECT TO VADODARA JURISDICTION ONLY
+            </div>
+
+        </div>
+        <hr />
+        <p class="text-muted">If you have any questions, please feel free to <a href="contact.html">contact us</a>, our customer service center is working for you 24/7.</p>
+    </div>
+</body>
+</html>

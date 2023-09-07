@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpContextAccessor
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    @*<title>Mediflow</title>*@
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" href="~/Chemist/assets/img/logo/favicon.png">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700|Open+Sans:300,300i,400,400i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="/Chemist/LandingPage/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/Chemist/LandingPage/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/Chemist/LandingPage/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/Chemist/LandingPage/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="/Chemist/LandingPage/assets/css/style.css" rel="stylesheet">
+
+    <!-- =======================================================
+    * Template Name: Avilon - v4.0.0
+    * Template URL: https://bootstrapmade.com/avilon-bootstrap-landing-page-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+    <link href="~/Chemist/assets/css/style.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                   
+                    <img src="~/Chemist/assets/img/p1.gif" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top d-flex align-items-center header-transparent">
+        <div class="container d-flex justify-content-between align-items-center">
+
+            <div id="logo">
+                @*<h1><a href="/Home/Index">Mediflow</a></h1>*@
+               <a href="~/Chemist/HomePage"> <img src="~/Chemist/assets/img/med_3.png" alt="Mediflow" class="d-none d-md-inline-block" width="200px" height="auto" />
+                </a>
+            </div>
+
+            <nav id="navbar" class="navbar">
+                <ul>
+
+
+
+                    <li><a class="nav-link scrollto" href="/Home/Index">Home</a></li>
+                    <li><a class="nav-link scrollto" href="#about">About</a></li>
+                    <li class="dropdown">
+                        <a class="nav-link scrollto" href="#features"><span>Features</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                            <li><a href="#more-features">More Features</a></li>
+                            <li><a href="#advanced-features">Advance Features</a></li>
+                        </ul>
+                    </li>
+                    <li><a class="nav-link scrollto" href="#faq">FAQs</a></li>
+                    <li><a class="nav-link scrollto" href="#team">Divisions</a></li>
+                    <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+
+                    <li><a class="nav-link scrollto" href="#loginhere">Login</a></li>
+                    <li class="dropdown">
+                        <a href="#"><span>Profile</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                            <li><a href="/Home/LoginChemist">Login</a></li>
+                       
+                            <li><a href="/Home/UpdateProfileRegister">Update Profile</a></li>
+
+
+                            @*{string status = this.HttpContext.Session.GetString("status"); }*@
+
+                            @if (Convert.ToString(ViewData["status"]) != null)
+                            {
+                                <li><a href="#">Status : <b> @ViewData["status"] </b></a></li>
+                            }
+                            else
+                            {
+                                <li><a href="#">Status : <b> New User !</b></a></li>
+                            }
+
+                            @if (Convert.ToString(ViewData["username"]) != null)
+                            {
+                                <li><a href="#">User : <b>@ViewData["Firstname"]</b></a></li>
+                            }
+                            <li class="dropdown">
+                                <a href="#"><span>Login</span> <i class="bi bi-chevron-right"></i></a>
+                                <ul>
+                                    <li><a href="#">Deep Drop Down 1</a></li>
+                                    <li><a href="#">Deep Drop Down 2</a></li>
+                                    <li><a href="#">Deep Drop Down 3</a></li>
+                                    <li><a href="#">Deep Drop Down 4</a></li>
+                                    <li><a href="#">Deep Drop Down 5</a></li>
+                                </ul>
+                            </li>
+
+                         
+                        </ul>
+                    </li>
+                    @if (Convert.ToString(ViewData["username"]) != null) { 
+                        <li><a class="nav-link scrollto" asp-page="/Home/LoginChemist" asp-route-ss="Logout">Logout</a></li>
+                    }
+                </ul>
+               
+            </nav><!-- .navbar -->
+        </div>
+    </header><!-- End Header -->
+    <!-- ======= Hero Section ======= -->
+
+    <div>
+        @RenderBody()
+    </div>
+
+
+
+    <!--Footer-->
+    <footer id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 text-lg-start text-center">
+                    <div class="copyright">
+                        &copy; Copyright <strong>Mediflow</strong>. All Rights Reserved
+                    </div>
+                    <!--<div class="credits">-->
+                        <!--
+                          All the links in the footer should remain intact.
+                          You can delete the links only if you purchased the pro version.
+                          Licensing information: https://bootstrapmade.com/license/
+                          Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Avilon
+                        -->
+                        <!--Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+                    </div>-->
+                </div>
+                <div class="col-lg-6">
+                    <nav class="footer-links text-lg-right text-center pt-2 pt-lg-0">
+                        <a href="#intro" class="scrollto">Home</a>
+                        <a href="#about" class="scrollto">About</a>
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Use</a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-chevron-up"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="/Chemist/LandingPage/assets/vendor/aos/aos.js"></script>
+    <script src="/Chemist/LandingPage/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/Chemist/LandingPage/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="/Chemist/LandingPage/assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="/Chemist/LandingPage/assets/js/main.js"></script>
+
+    <script src="~/Chemist/Registration/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="~/Chemist/Registration/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/Chemist/Registration/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Chemist/assets/js/main.js"></script>
+
+</body>
+</html>

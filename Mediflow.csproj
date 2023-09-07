@@ -1,0 +1,269 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\Chemist\ChemistDashboardCss\**" />
+    <Content Remove="wwwroot\Chemist\ChemistDashboardCss\**" />
+    <EmbeddedResource Remove="wwwroot\Chemist\ChemistDashboardCss\**" />
+    <None Remove="wwwroot\Chemist\ChemistDashboardCss\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Pages\Admin\AddProduct.cshtml" />
+    <None Include="Pages\Admin\Index.cshtml" />
+    <None Include="Pages\Admin\ProductList.cshtml" />
+    <None Include="Pages\Admin\LoginAdmin.cshtml" />
+    <None Include="Pages\Admin\ViewRegisters.cshtml" />
+    <None Include="Pages\Chemist\Cart.cshtml" />
+    <None Include="Pages\Chemist\Checkout\OrderCheckoutAddress.cshtml" />
+    <None Include="Pages\Chemist\Checkout\OrderCheckoutPayment.cshtml" />
+    <None Include="Pages\Chemist\Checkout\OrderCheckoutReview.cshtml" />
+    <None Include="Pages\Chemist\ChemistDashboard.cshtml" />
+    <None Include="Pages\Chemist\ChemistOrderHistory.cshtml" />
+    <None Include="Pages\Chemist\DetailedProduct.cshtml" />
+    <None Include="Pages\Chemist\HomePage.cshtml" />
+    <None Include="Pages\Chemist\OrderInvoice.cshtml" />
+    <None Include="Pages\Chemist\Profile.cshtml" />
+    <None Include="Pages\Home\LoginChemist.cshtml" />
+    <None Include="Pages\Home\UpdateProfileRegister.cshtml" />
+    <None Include="Pages\Shared\Chemist\ProductCategories.cshtml" />
+    <None Include="Pages\Shared\Chemist\_ChemistHome.cshtml" />
+    <None Include="Pages\Shared\Chemist\_ChemistProfile.cshtml" />
+    <None Include="Pages\Shared\_LandingLayout.cshtml" />
+    <None Include="Pages\_ViewImports.cshtml" />
+    <None Include="Pages\_ViewStart.cshtml" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\less\animated.less" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\less\core.less" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\less\fixed-width.less" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\less\font-awesome.less" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\less\icons.less" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\less\larger.less" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\less\list.less" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\less\mixins.less" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\less\path.less" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\less\screen-reader.less" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\less\stacked.less" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\less\variables.less" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\scss\_animated.scss" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\scss\_core.scss" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\scss\_icons.scss" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\scss\_larger.scss" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\scss\_list.scss" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\scss\_mixins.scss" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\scss\_path.scss" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\scss\_stacked.scss" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\fonts\font-awesome-4.7.0\scss\_variables.scss" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\js\main.js" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\vendor\bootstrap\css\bootstrap-grid.css.map" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\vendor\bootstrap\css\bootstrap-reboot.css.map" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\vendor\bootstrap\css\bootstrap.css.map" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\vendor\bootstrap\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\vendor\bootstrap\js\bootstrap.js" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\vendor\bootstrap\js\bootstrap.min.js" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\vendor\bootstrap\js\popper.js" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\vendor\bootstrap\js\popper.min.js" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\vendor\bootstrap\js\tooltip.js" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\vendor\jquery\jquery-3.2.1.min.js" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\vendor\select2\select2.js" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\vendor\select2\select2.min.js" />
+    <None Include="wwwroot\Admin\AdminDashboardCss\AdminLogin\vendor\tilt\tilt.jquery.min.js" />
+    <None Include="wwwroot\ChemistHome\js\front.js" />
+    <None Include="wwwroot\ChemistHome\js\map.js" />
+    <None Include="wwwroot\ChemistHome\vendor\bootstrap\js\bootstrap.bundle.js" />
+    <None Include="wwwroot\ChemistHome\vendor\bootstrap\js\bootstrap.bundle.min.js" />
+    <None Include="wwwroot\ChemistHome\vendor\bootstrap\js\bootstrap.js" />
+    <None Include="wwwroot\ChemistHome\vendor\bootstrap\js\bootstrap.min.js" />
+    <None Include="wwwroot\ChemistHome\vendor\font-awesome\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\ChemistHome\vendor\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\ChemistHome\vendor\jquery.cookie\jquery.cookie.js" />
+    <None Include="wwwroot\ChemistHome\vendor\jquery\core.js" />
+    <None Include="wwwroot\ChemistHome\vendor\jquery\jquery.js" />
+    <None Include="wwwroot\ChemistHome\vendor\jquery\jquery.min.js" />
+    <None Include="wwwroot\ChemistHome\vendor\jquery\jquery.slim.js" />
+    <None Include="wwwroot\ChemistHome\vendor\jquery\jquery.slim.min.js" />
+    <None Include="wwwroot\ChemistHome\vendor\owl.carousel2.thumbs\owl.carousel2.thumbs.js" />
+    <None Include="wwwroot\ChemistHome\vendor\owl.carousel2.thumbs\owl.carousel2.thumbs.min.js" />
+    <None Include="wwwroot\ChemistHome\vendor\owl.carousel\owl.carousel.js" />
+    <None Include="wwwroot\ChemistHome\vendor\owl.carousel\owl.carousel.min.js" />
+    <None Include="wwwroot\ChemistHome\vendor\popper.js\esm\popper-utils.js" />
+    <None Include="wwwroot\ChemistHome\vendor\popper.js\esm\popper-utils.min.js" />
+    <None Include="wwwroot\ChemistHome\vendor\popper.js\esm\popper.js" />
+    <None Include="wwwroot\ChemistHome\vendor\popper.js\esm\popper.min.js" />
+    <None Include="wwwroot\ChemistHome\vendor\popper.js\popper-utils.js" />
+    <None Include="wwwroot\ChemistHome\vendor\popper.js\popper-utils.min.js" />
+    <None Include="wwwroot\ChemistHome\vendor\popper.js\popper.js" />
+    <None Include="wwwroot\ChemistHome\vendor\popper.js\popper.min.js" />
+    <None Include="wwwroot\ChemistHome\vendor\popper.js\umd\popper-utils.js" />
+    <None Include="wwwroot\ChemistHome\vendor\popper.js\umd\popper-utils.min.js" />
+    <None Include="wwwroot\ChemistHome\vendor\popper.js\umd\popper.js" />
+    <None Include="wwwroot\ChemistHome\vendor\popper.js\umd\popper.js.flow" />
+    <None Include="wwwroot\ChemistHome\vendor\popper.js\umd\popper.min.js" />
+    <None Include="wwwroot\Chemist\assets\fonts\fa-brands-400.svg" />
+    <None Include="wwwroot\Chemist\assets\fonts\fa-brands-400.woff2" />
+    <None Include="wwwroot\Chemist\assets\fonts\fa-regular-400.svg" />
+    <None Include="wwwroot\Chemist\assets\fonts\fa-regular-400.woff2" />
+    <None Include="wwwroot\Chemist\assets\fonts\fa-solid-900.svg" />
+    <None Include="wwwroot\Chemist\assets\fonts\fa-solid-900.woff2" />
+    <None Include="wwwroot\Chemist\assets\fonts\Flaticon.svg" />
+    <None Include="wwwroot\Chemist\assets\fonts\Flaticon.woff2" />
+    <None Include="wwwroot\Chemist\assets\fonts\themify.svg" />
+    <None Include="wwwroot\Chemist\assets\img\icon\feature_icon_1.svg" />
+    <None Include="wwwroot\Chemist\assets\img\icon\feature_icon_2.svg" />
+    <None Include="wwwroot\Chemist\assets\img\icon\feature_icon_3.svg" />
+    <None Include="wwwroot\Chemist\assets\img\icon\feature_icon_4.svg" />
+    <None Include="wwwroot\Chemist\assets\js\animated.headline.js" />
+    <None Include="wwwroot\Chemist\assets\js\bootstrap.min.js" />
+    <None Include="wwwroot\Chemist\assets\js\contact.js" />
+    <None Include="wwwroot\Chemist\assets\js\jquery.ajaxchimp.min.js" />
+    <None Include="wwwroot\Chemist\assets\js\jquery.counterup.min.js" />
+    <None Include="wwwroot\Chemist\assets\js\jquery.form.js" />
+    <None Include="wwwroot\Chemist\assets\js\jquery.magnific-popup.js" />
+    <None Include="wwwroot\Chemist\assets\js\jquery.nice-select.min.js" />
+    <None Include="wwwroot\Chemist\assets\js\jquery.scrollUp.min.js" />
+    <None Include="wwwroot\Chemist\assets\js\jquery.slicknav.min.js" />
+    <None Include="wwwroot\Chemist\assets\js\jquery.sticky.js" />
+    <None Include="wwwroot\Chemist\assets\js\jquery.validate.min.js" />
+    <None Include="wwwroot\Chemist\assets\js\mail-script.js" />
+    <None Include="wwwroot\Chemist\assets\js\main.js" />
+    <None Include="wwwroot\Chemist\assets\js\mixitup.min.js" />
+    <None Include="wwwroot\Chemist\assets\js\owl.carousel.min.js" />
+    <None Include="wwwroot\Chemist\assets\js\plugins.js" />
+    <None Include="wwwroot\Chemist\assets\js\popper.min.js" />
+    <None Include="wwwroot\Chemist\assets\js\slick.min.js" />
+    <None Include="wwwroot\Chemist\assets\js\swiper.min.js" />
+    <None Include="wwwroot\Chemist\assets\js\vendor\jquery-1.12.4.min.js" />
+    <None Include="wwwroot\Chemist\assets\js\vendor\modernizr-3.5.0.min.js" />
+    <None Include="wwwroot\Chemist\assets\js\waypoints.min.js" />
+    <None Include="wwwroot\Chemist\assets\js\wow.min.js" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\less\animated.less" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\less\core.less" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\less\fixed-width.less" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\less\font-awesome.less" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\less\icons.less" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\less\larger.less" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\less\list.less" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\less\mixins.less" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\less\path.less" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\less\screen-reader.less" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\less\stacked.less" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\less\variables.less" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\scss\_animated.scss" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\scss\_core.scss" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\scss\_icons.scss" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\scss\_larger.scss" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\scss\_list.scss" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\scss\_mixins.scss" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\scss\_path.scss" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\scss\_stacked.scss" />
+    <None Include="wwwroot\Chemist\Login\fonts\font-awesome-4.7.0\scss\_variables.scss" />
+    <None Include="wwwroot\Chemist\Login\js\main.js" />
+    <None Include="wwwroot\Chemist\Login\vendor\bootstrap\css\bootstrap-grid.css.map" />
+    <None Include="wwwroot\Chemist\Login\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
+    <None Include="wwwroot\Chemist\Login\vendor\bootstrap\css\bootstrap-reboot.css.map" />
+    <None Include="wwwroot\Chemist\Login\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
+    <None Include="wwwroot\Chemist\Login\vendor\bootstrap\css\bootstrap.css.map" />
+    <None Include="wwwroot\Chemist\Login\vendor\bootstrap\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\Chemist\Login\vendor\bootstrap\js\bootstrap.js" />
+    <None Include="wwwroot\Chemist\Login\vendor\bootstrap\js\bootstrap.min.js" />
+    <None Include="wwwroot\Chemist\Login\vendor\bootstrap\js\popper.js" />
+    <None Include="wwwroot\Chemist\Login\vendor\bootstrap\js\popper.min.js" />
+    <None Include="wwwroot\Chemist\Login\vendor\bootstrap\js\tooltip.js" />
+    <None Include="wwwroot\Chemist\Login\vendor\jquery\jquery-3.2.1.min.js" />
+    <None Include="wwwroot\Chemist\Login\vendor\select2\select2.js" />
+    <None Include="wwwroot\Chemist\Login\vendor\select2\select2.min.js" />
+    <None Include="wwwroot\Chemist\Login\vendor\tilt\tilt.jquery.min.js" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\less\animated.less" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\less\bordered-pulled.less" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\less\core.less" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\less\fixed-width.less" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\less\font-awesome.less" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\less\icons.less" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\less\larger.less" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\less\list.less" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\less\mixins.less" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\less\path.less" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\less\rotated-flipped.less" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\less\screen-reader.less" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\less\stacked.less" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\less\variables.less" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\scss\font-awesome.scss" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\scss\_animated.scss" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\scss\_bordered-pulled.scss" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\scss\_core.scss" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\scss\_fixed-width.scss" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\scss\_icons.scss" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\scss\_larger.scss" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\scss\_list.scss" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\scss\_mixins.scss" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\scss\_path.scss" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\scss\_rotated-flipped.scss" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\scss\_screen-reader.scss" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\scss\_stacked.scss" />
+    <None Include="wwwroot\Table\fonts\font-awesome-4.7.0\scss\_variables.scss" />
+    <None Include="wwwroot\Table\js\main.js" />
+    <None Include="wwwroot\Table\vendor\bootstrap\css\bootstrap-grid.css.map" />
+    <None Include="wwwroot\Table\vendor\bootstrap\css\bootstrap-grid.min.css.map" />
+    <None Include="wwwroot\Table\vendor\bootstrap\css\bootstrap-reboot.css.map" />
+    <None Include="wwwroot\Table\vendor\bootstrap\css\bootstrap-reboot.min.css.map" />
+    <None Include="wwwroot\Table\vendor\bootstrap\css\bootstrap.css.map" />
+    <None Include="wwwroot\Table\vendor\bootstrap\css\bootstrap.min.css.map" />
+    <None Include="wwwroot\Table\vendor\bootstrap\js\bootstrap.js" />
+    <None Include="wwwroot\Table\vendor\bootstrap\js\bootstrap.min.js" />
+    <None Include="wwwroot\Table\vendor\bootstrap\js\popper.js" />
+    <None Include="wwwroot\Table\vendor\bootstrap\js\popper.min.js" />
+    <None Include="wwwroot\Table\vendor\bootstrap\js\tooltip.js" />
+    <None Include="wwwroot\Table\vendor\jquery\jquery-3.2.1.min.js" />
+    <None Include="wwwroot\Table\vendor\perfect-scrollbar\perfect-scrollbar.min.js" />
+    <None Include="wwwroot\Table\vendor\select2\select2.js" />
+    <None Include="wwwroot\Table\vendor\select2\select2.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AstroBasic.PayTM.Library.NETCORE" Version="1.0.0" />
+    <PackageReference Include="Dapper" Version="2.0.78" />
+    <PackageReference Include="MailKit" Version="2.10.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer.Design" Version="1.1.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.12">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Owin.Host.SystemWeb" Version="3.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
+    <PackageReference Include="Otp.NET" Version="1.2.2" />
+    <PackageReference Include="RestSharp" Version="106.11.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\ChemistHome\vendor\font-awesome\less\" />
+    <Folder Include="wwwroot\ChemistHome\vendor\font-awesome\scss\" />
+  </ItemGroup>
+
+</Project>

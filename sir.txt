@@ -1,0 +1,68 @@
+wait
+me ek table banayu che
+
+done
+
+password ??
+mane su khabr m
+
+admin@123 
+e koi pwd nai add karyo
+
+
+
+Scaffold-DbContext "Data Source=.\SQLEXPRESS;Initial Catalog=Mediflow;User ID=sa;Password=admin@123" Microsoft.EntityFrameworkCore.SqlServer -OutputDir DBModels -f
+
+
+
+user this connection string
+
+but kai khbar j naa padi su karyu aa badhu sir
+
+first aapde sql server login create karyu
+
+bas biju kai nai karty
+sir aa next time class ma kejo ne fari ke aa badha ne karvu padse...etle mare bija frnds ne karvanu che me potej confusion ma chu..tame ano video moklaso?
+
+
+
+
+implement ML with python
+
+
+badhane kadach na problem aave...tare etle aavyo k te alaga thi sql server install karyu che
+
+sir to inbuilt kemnu hoy? visaul studio install kariye tyare puche che
+te select nai karty hoi
+
+
+ave thase?
+
+su ?
+
+ajj SQL have set kari dishi ok
+kn
+
+chalo kai doubt hoy to puchu pachi\
+byr
+\
+
+
+
+Scaffold-DbContext "Data Source=NEGAN\SQLEXPRESS;Initial Catalog=Mediflow;User ID=sa;Password=admin@123" Microsoft.EntityFrameworkCore.SqlServer -OutputDir DBModels -f
+
+public virtual DbSet<SPCartDetails> SPCartDetails { get; set; }
+
+        public virtual DbSet<FetchOrders> FetchOrders { get; set; }
+        public virtual DbSet<OrderItemsDetails> OrderItemsDetails { get; set; }
+
+         public virtual DbSet<OrderItemsDetails> OrderItemsDetails { get; set; }
+
+ public virtual DbSet<SPCartDetails> SPCartDetails { get; set; }
+
+        public virtual DbSet<FetchOrders> FetchOrders { get; set; }
+        public virtual DbSet<OrderItemsDetails> OrderItemsDetails { get; set; }
+
+        public virtual DbSet<SpGetInstantReturn> SpGetInstantReturn { get; set; }
+        public virtual DbSet<SpReturnInvoice> SpReturnInvoice { get; set; }
+        public virtual DbSet<SPGetReturn> SPGetReturn { get; set; }

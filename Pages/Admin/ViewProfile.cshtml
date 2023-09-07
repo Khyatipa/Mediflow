@@ -1,0 +1,337 @@
+﻿@page
+@model Mediflow.Pages.Admin.ViewProfileModel
+@{
+    Layout = "~/Pages/Shared/Admin/_AdminHome.cshtml";
+}
+<head>
+    <style>
+        .ratings {
+            background-color: #fff;
+            padding: 15px;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 5px 5px #E0E0E0
+        }
+
+        .product-rating {
+            font-size: 50px
+        }
+
+        .stars i {
+            font-size: 18px;
+            color: #28a745
+        }
+    </style>
+</head>
+
+
+<div class="col-lg-9 box">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            var x = document.getElementById('pills-home-tab').getAttribute('aria-selected');
+           
+            if (x == "false") {
+              
+                x = "true"
+            }
+            document.getElementById("pills-home-tab").setAttribute("aria-selected", x);
+
+            $('#pills-home').addClass("active show");
+            
+           // alert(2);
+        });
+    </script>
+
+    <ul id="pills-tab" role="tablist" class="nav nav-pills nav-justified" style="background-color:lightgray; color:white">
+        <li class="nav-item"><a id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="false" class="nav-link active">Profile</a></li>
+        <li class="nav-item"><a id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false" class="nav-link">Documents</a></li>
+        <li class="nav-item"><a id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false" class="nav-link">Ratings</a></li>
+
+    </ul>
+    <div id="pills-tabContent" class="tab-content">
+        <div id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" class="tab-pane fade">
+            <br />
+            <form method="post" class="tm-edit-product-form">
+                <div class="row tm-edit-product-row">
+
+                    <div class="col-6">
+                        <div class="card sidebar-menu">
+                            <div class="card-header" style="background-color :#4fbfb0; width:380px;">
+                                <h3 class="h4 card-title">Chemist Details</h3>
+                            </div>
+
+                            <div class="card-body" style="height:429px;">
+
+
+                                <div class="form-group mb-3">
+                                    <label for="name">
+                                        Full Name
+                                    </label>
+                                    <input asp-for="@Model.Chemist.Fname"
+                                           type="text"
+                                           class="form-control validate"
+                                           required disabled />
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="description">Email</label>
+                                    <input type="email" asp-for="@Model.Chemist.Email" class="form-control validate" rows="3" disabled>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="category">Mobile</label>
+                                    <input type="tel" asp-for="@Model.Chemist.Mobile" class="form-control validate" rows="3" disabled>
+
+
+                                    <input type="hidden" value=" @Model.Chemist.Id" name="id" />
+
+                                </div>
+                                <div class="row">
+                                    <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                        <label for="expire_date">
+                                            Credit / Cash
+                                        </label>
+                                        <select name="CAC" class="custom-select tm-select-accounts"
+                                                id="category">
+                                            <option selected>Credit/Cash</option>
+                                            <option value="null">None</option>
+                                            <option value="1">Credit</option>
+                                            <option value="2">Cash</option>
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                        <label for="stock">
+                                            Status
+                                        </label>
+                                        <select asp-for="Chemist.Status" name="status" class="custom-select tm-select-accounts"
+                                                id="category">
+                                            <option selected>Select Status</option>
+                                            <option value="Approved">Approve</option>
+                                            <option value="Disapproved">Disapprove</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <button type="Submit" class="btn btn-primary btn-block text-uppercase">
+
+                                    Update
+
+                                </button>
+
+
+
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="col-6">
+                        <div class="card sidebar-menu">
+                            <div class="card-header" style="background-color :#4fbfb0; width:380px;">
+                                <h3 class="h4 card-title">Shop Details</h3>
+                            </div>
+
+                            <div class="card-body">
+
+
+                                <div class="form-group mb-3">
+                                    <label for="name">
+                                        Drug License No.
+                                    </label>
+                                    <input asp-for="@Model.Chemist.Rdlno" id="name"
+                                           name="name"
+                                           type="text"
+                                           class="form-control validate"
+                                           required disabled />
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="description">GSTIN No.</label>
+                                    <input asp-for="@Model.Chemist.GstNo" type="text" class="form-control validate" rows="3" disabled>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="description">Shop Name</label>
+                                    <input asp-for="@Model.Chemist.ShopName" type="text" class="form-control validate" rows="3" disabled>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="category">Shop Address</label>
+                                    <textarea class="form-control validate"
+                                              rows="4"
+                                              required disabled>@Model.Chemist.Address , @Model.Chemist.City, @Model.Chemist.State</textarea>
+
+
+
+
+                                </div>
+
+
+
+
+
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </form>
+            @*<iframe src="~/Academic Calender_2021.pdf" title="webviewer" frameborder="0"></iframe>*@
+
+        </div>
+        @{ 
+
+
+            byte[] bytes = Model.Chemist.DocumentImg;
+            string base64String = null;
+            if (bytes != null)
+            {
+                base64String = "data:image/png;base64," + Convert.ToBase64String(bytes, 0, bytes.Length);
+            }
+        }
+        <div id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" class="tab-pane fade">
+            <br />
+            <div class="col-6">
+                <iframe src="@base64String" scrolling="no" title="webviewer" frameborder="0" style="width:700px; height:450px;"></iframe>
+
+            </div>
+            
+        </div>
+        <!--3rd Tab-->
+
+        <div id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" class="tab-pane fade">
+
+            <br />
+
+
+
+
+
+
+            <div class="row">
+                <div class="col-4">
+
+
+                    <div class="content text-center">
+                        <div class="ratings">
+
+                            <div class="card-header" style="background-color :#4fbfb0">
+                                <h3 class="h4 card-title">Payments</h3>
+                            </div>
+                            <span class="product-rating">4.6</span><span>/5</span>
+                            <div class="stars"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
+                            <div class="rating-text"> <span>46 ratings & 15 reviews</span> </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-4">
+
+
+                    <div class="content text-center">
+                        <div class="ratings">
+                            <div class="card-header" style="background-color :#4fbfb0">
+                                <h3 class="h4 card-title">Orders</h3>
+                            </div>
+                            <span class="product-rating">4.6</span><span>/5</span>
+                            <div class="stars">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="rating-text"> <span>46 ratings & 15 reviews</span> </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="col-4">
+
+
+                    <div class="content text-center">
+                        <div class="ratings">
+                            <div class="card-header" style="background-color :#4fbfb0">
+                                <h3 class="h4 card-title">Regularity</h3>
+                            </div>
+                            <span class="product-rating">4.6</span><span>/5</span>
+                            <div class="stars"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
+                            <div class="rating-text"> <span>46 ratings & 15 reviews</span> </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-4">
+
+
+                    <div class="content text-center">
+                        <div class="ratings">
+
+                            <div class="card-header" style="background-color :#4fbfb0">
+                                <h3 class="h4 card-title">Payments</h3>
+                            </div>
+                            <span class="product-rating">4.6</span><span>/5</span>
+                            <div class="stars"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
+                            <div class="rating-text"> <span>46 ratings & 15 reviews</span> </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-4">
+
+
+                    <div class="content text-center">
+                        <div class="ratings">
+                            <div class="card-header" style="background-color :#4fbfb0">
+                                <h3 class="h4 card-title">Orders</h3>
+                            </div>
+                            <span class="product-rating">4.6</span><span>/5</span>
+                            <div class="stars">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                            <div class="rating-text"> <span>46 ratings & 15 reviews</span> </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="col-4">
+
+
+                    <div class="content text-center">
+                        <div class="ratings">
+                            <div class="card-header" style="background-color :#4fbfb0">
+                                <h3 class="h4 card-title">Regularity</h3>
+                            </div>
+                            <span class="product-rating">4.6</span><span>/5</span>
+                            <div class="stars"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
+                            <div class="rating-text"> <span>46 ratings & 15 reviews</span> </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+</div>

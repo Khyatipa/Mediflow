@@ -1,0 +1,893 @@
+﻿@page
+@model Mediflow.Pages.Home.IndexModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_LandingLayout.cshtml";
+}
+<html lang="en">
+<head>
+
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="~/Chemist/Registration/images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Chemist/Registration/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Chemist/Registration/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Chemist/Registration/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Chemist/Registration/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Chemist/Registration/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Chemist/Registration/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Chemist/Registration/css/main.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#logoutAlert").hide();
+            $("#registerHide").hide();
+
+            var x = document.getElementById("loginHide");
+            var y = document.getElementById("registerHide");
+
+            $("#registerHide").hide();
+
+            if (y.style.display === "none") {
+                x.style.display = "block";
+            }
+
+
+            $(".btnClick").click(function () {
+
+                var hideTemp = $(this).val();
+                if ($(this).html().trim() == "Register") {
+
+                    $("#loginHide").hide();           //x.style.display == "none"
+                    $("#registerHide").show();       // y.style.display = "block";
+                    //var b = $("#toggle").val();//document.getElementById("toggle");
+                    $(this).html("Login");
+                    $("#toggle").val("Login"); // Dont do this-->document.getElementById("toggle").val() = "Login"
+
+                }
+                else if ($(this).html().trim() == "Login") {
+                    $("#registerHide").hide();
+                    $("#loginHide").show();
+
+                    $(this).html("Register");
+                    $("#toggle").val("Register");  //Dont do this document.getElementById("toggle").val() = "Register"
+
+                }
+            });
+
+        });
+
+
+    </script>
+    
+
+</head>
+
+
+<body>
+
+    <!-- ======= Header ======= -->
+    <!-- End Header -->
+    <!-- ======= Hero Section ======= -->
+    <section id="hero">
+
+        <div class="hero-text" data-aos="zoom-out">
+
+            <h2>Welcome to Mediflow</h2>
+            <p>One-Stop platform for your Medicine Management and Ordering </p>
+            <a href="~/Home/LoginChemist" class="btn-get-started scrollto">Get Started</a>
+            <a href="./Chemist/Orderproducts" class="btn-get-started scrollto">View Catalogue</a>
+        </div>
+
+        <div class="product-screens">
+
+            <div class="product-screen-1" data-aos="fade-up" data-aos-delay="400">
+                <img src="/Chemist/LandingPage/assets/img/product-screen-1.png" alt="">
+
+            </div>
+
+            <div class="product-screen-2" data-aos="fade-up" data-aos-delay="200">
+                <img src="/Chemist/LandingPage/assets/img/product-screen-2.png" alt="">
+
+            </div>
+
+            <div class="product-screen-3" data-aos="fade-up">
+
+                <img src="/Chemist/LandingPage/assets/img/product-screen-3.png" alt="">
+            </div>
+
+        </div>
+
+    </section><!-- End Hero Section -->
+
+    <main id="main">
+
+        <!-- ======= About Section ======= -->
+        <section id="about" class="section-bg">
+            <div class="container-fluid" data-aos="fade-up">
+                <div class="section-header">
+                    <h3 class="section-title">About Us</h3>
+                    <span class="section-divider"></span>
+                    <p class="section-description">
+                        "Mediflow" An Online Business Solution offered by <b>"Disha Enterprise"</b> which promises and gives Quality Brands at affordable prices, located in Vadodara, Gujarat.
+                        <br>
+                        We have various Specialized Brands - <strong>CARDIAC, GYNAE, ANIT-DIABETIC, SKIN-CARE, GENERAL</strong> offering wide range of products.
+                    </p>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 about-img" data-aos="fade-right" dat-aos-delay="100">
+                        <img src="/Chemist/LandingPage/assets/img/about-img.jpg" alt="">
+                    </div>
+
+                    <div class="col-lg-6 content" data-aos="fade-left" dat-aos-delay="100">
+                        <div class="p-3 mb-2 bg-info text-white">
+                            <h2>Join our Online platform to get <b>5 % extra</b> discount on products</h2>
+                        </div>
+
+                        <h3>Designed to overcome manual ordering discrepancies. One-stop platform for ordering medicines </h3>
+                        <hr />
+
+
+
+                        <ul>
+                            <li>
+                                <i class="bi bi-check-circle"></i> Online Ordering
+                            </li>
+                            <li>
+                                <i class="bi bi-check-circle"></i> Online Payment Gateways
+                            </li>
+                            <li>
+                                <i class="bi bi-check-circle"></i> View Latest Products
+                            </li>
+                            <li>
+                                <i class="bi bi-check-circle"></i> Extra Discounts
+                            </li>
+                            <li>
+                                <i class="bi bi-check-circle"></i> Improved Transparency
+                            </li>
+                        </ul>
+                        <hr />
+                        <p>
+                            Powered by <b>Disha Enterprise</b>: To nullify the problems and business losses between Chemist and Stockist, this platform will solve all the
+                            problems and increase business profits on both sides. The Products range selected by Disha Enterprise is purely done as per the
+                            recommendations received from some of the top eminent physicians.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section><!-- End About Section -->
+        <!-- ======= Featuress Section ======= -->
+        <section id="features">
+            <div class="container" data-aos="fade-up">
+
+                <div class="row">
+
+                    <div class="col-lg-8 offset-lg-4">
+                        <div class="section-header">
+                            <h3 class="section-title">Mediflow Features</h3>
+                            <span class="section-divider"></span>
+                            <br />
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-5 features-img">
+                        <img src="/Chemist/LandingPage/assets/img/product-features.png" alt="" data-aos="fade-right">
+                    </div>
+
+                    <div class="col-lg-8 col-md-7 ">
+
+                        <div class="row">
+
+                            <div class="col-lg-6 col-md-6 box" data-aos="fade-up">
+                                <div class="icon">
+                                    <i class="bi bi-display"></i>
+                                </div>
+                                <h4 class="title">
+                                    <a href="">Order Online</a>
+                                </h4>
+                                <p class="description">Now place your order instant at your convenience and as per your flexibility.</p>
+                            </div>
+                            <div class="col-lg-6 col-md-6 box" data-aos="fade-up">
+                                <div class="icon">
+                                    <i class="bi bi-phone"></i>
+                                </div>
+                                <h4 class="title">
+                                    <a href="">Mobile Responsive</a>
+                                </h4>
+                                <p class="description">Responsived design: to increase more customers and to improve browsing experience</p>
+                            </div>
+                            <div class="col-lg-6 col-md-6 box" data-aos="fade-up" data-aos-delay="100">
+                                <div class="icon">
+                                    <i class="bi bi-cart-plus"></i>
+                                </div>
+                                <h4 class="title">
+                                    <a href="">Cart Manage</a>
+                                </h4>
+                                <p class="description">Chemist can manage products and its quantity</p>
+                            </div>
+                            <div class="col-lg-6 col-md-6 box" data-aos="fade-up" data-aos-delay="100">
+                                <div class="icon">
+                                    <i class="bi bi-pencil-square"></i>
+                                </div>
+                                <h4 class="title">
+                                    <a href="">Manage Orders</a>
+                                </h4>
+                                <p class="description">Chemist can still edit placed order and change it according to their needs</p>
+                            </div>
+                            <div class="col-lg-6 col-md-6 box" data-aos="fade-up" dat-aos-delay="100">
+                                <div class="icon">
+                                    <i class="bi bi-credit-card"></i>
+                                </div>
+                                <h4 class="title">
+                                    <a href="">Payment Gateways</a>
+                                </h4>
+                                <p class="description">One can take advantage of Online Payment like : Paytm </p>
+                            </div>
+                            <div class="col-lg-6 col-md-6 box" data-aos="fade-up" dat-aos-delay="100">
+                                <div class="icon">
+                                    <i class="bi bi-clipboard-data"></i>
+                                </div>
+                                <h4 class="title">
+                                    <a href="">Purchase Analysis</a>
+                                </h4>
+                                <p class="description">Purchase analysis will help cutomer to know their purchasing pattern. </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <br />
+                </div>
+
+            </div>
+
+        </section><!-- End Featuress Section -->
+
+        <!-- ======= More Features Section ======= -->
+        @*<section id="more-features" class="section-bg">
+            <div class="container" data-aos="fade-up">
+
+                <div class="section-header">
+                    <h3 class="section-title">More Features</h3>
+                    <span class="section-divider"></span>
+                    <p class="section-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
+                </div>
+
+                <div class="row gy-4">
+
+                    <div class="col-lg-6">
+                        <div class="box">
+                            <div class="icon">
+                                <i class="bi bi-briefcase"></i>
+                            </div>
+                            <h4 class="title">
+                                <a href="">Lorem Ipsum</a>
+                            </h4>
+                            <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident etiro rabeta lingo.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="box">
+                            <div class="icon">
+                                <i class="bi bi-card-checklist"></i>
+                            </div>
+                            <h4 class="title">
+                                <a href="">Dolor Sitema</a>
+                            </h4>
+                            <p class="description">Minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat tarad limino ata nodera clas.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="box">
+                            <div class="icon">
+                                <i class="bi bi-bar-chart"></i>
+                            </div>
+                            <h4 class="title">
+                                <a href="">Sed ut perspiciatis</a>
+                            </h4>
+                            <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur trinige zareta lobur trade.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="box">
+                            <div class="icon">
+                                <i class="bi bi-binoculars"></i>
+                            </div>
+                            <h4 class="title">
+                                <a href="">Magni Dolores</a>
+                            </h4>
+                            <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum rideta zanox satirente madera</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>*@<!-- End More Features Section -->
+    
+    <!-- ======= Call To Action Section ======= -->
+        <section id="call-to-action">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9 text-center text-lg-start">
+                        <h3 class="cta-title">Call To Action</h3>
+                        <br />
+                        <p class="cta-text"> Do you have doubts? Call today! or Send us query we will help you out. </p>
+                    </div>
+                    <div class="col-lg-3 cta-btn-container text-center">
+                        <a class="cta-btn align-middle" href="#contact">Call To Action</a>
+                    </div>
+                </div>
+
+            </div>
+        </section><!-- End Call To Action Section -->
+        <!-- ======= Advanced Featuress Section ======= -->
+        <section id="advanced-features">
+
+            <div class="features-row section-bg" data-aos="fade-up">
+                <div class="container">
+                    <div class="row">
+                        <div class="section-header">
+                            <h1 class="section-title">Order Manage</h1>
+                            <span class="section-divider"></span>
+                            <br />
+                        </div>
+                        <div class="col-12">
+                            <img class="advanced-feature-img-right wow fadeInRight" src="/Chemist/LandingPage/assets/img/advanced-feature-1.jpg" alt="">
+                            <div>
+                                <i class="bi-geo-alt"></i>
+                                <h2>Chemist can check order status too!</h2>
+                                <h3>Know your orders tracking details from "Track Your Order" feature</h3>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-row" data-aos="fade-up">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <img class="advanced-feature-img-left" src="/Chemist/LandingPage/assets/img/advanced-feature-3.jpg" alt="">
+                            <div>
+                                <h2>Chemist can access the Dashboard for detailed analysis.</h2><br />
+                                <i class="bi bi-calendar4-week"></i>
+                                <p><br />Number of Orders per week and its frequency</p>
+                                <i class="bi bi-bar-chart"></i>
+                                <p><br />Most common products bought online.</p>
+                                <i class="bi bi-clock-history"></i>
+                                <p><br />Chemist can view Order History to check their placed Orders</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </section><!-- End Advanced Featuress Section -->
+        <!-- ======= Clients Section ======= -->
+        <section id="clients">
+            <div class="container" data-aos="fade-up">
+
+                <div class="row">
+
+                    @*<div class="col-md-2">
+                        <img src="/Chemist/LandingPage/assets/img/clients/client-1.png" alt="">
+                    </div>
+
+                    <div class="col-md-2">
+                        <img src="/Chemist/LandingPage/assets/img/clients/client-2.png" alt="">
+                    </div>
+
+                    <div class="col-md-2">
+                        <img src="/Chemist/LandingPage/assets/img/clients/client-3.png" alt="">
+                    </div>
+
+                    <div class="col-md-2">
+                        <img src="/Chemist/LandingPage/assets/img/clients/client-4.png" alt="">
+                    </div>
+
+                    <div class="col-md-2">
+                        <img src="/Chemist/LandingPage/assets/img/clients/client-5.png" alt="">
+                    </div>
+
+                    <div class="col-md-2">
+                        <img src="/Chemist/LandingPage/assets/img/clients/client-6.png" alt="">
+                    </div>*@
+
+                </div>
+            </div>
+        </section><!-- End Clients Section -->
+        <!-- ======= Pricing Section ======= -->
+        
+                <section class="section-bg" id="loginhere">
+
+
+                    <div id="pricing" class="container" data-aos="fade-up">
+
+                        
+
+                        <div class="section-header">
+
+                            <div class="box">
+                                <h3>
+                                    <button style="color: black; border:solid; background:aquamarine; border-color:aquamarine;" class="btnClick get-started-btn" id="toggle" value="Register"> Register </button>
+                                </h3>
+
+
+
+                                <span class="section-divider"></span>
+
+
+
+
+                                <div class="limiter" style="position:center">
+
+
+                                    <div class="container-login100">
+
+                                        <div class="wrap-login100" style="height:700px">
+
+                                            <div class="login100-pic js-tilt" data-tilt>
+                                                <img src="~/Chemist/Login/images/img-01.png" />
+                                                @*<img src="https://accounts.practo.com/static/images/illustration.png" />*@
+
+
+                                            </div>
+                                            <div>
+
+                                                <form class="login100-form validate-form" asp-page-handler="Login" method="post" id="loginHide">
+
+
+                                                    <span class="login100-form-title">
+                                                        Login
+                                                    </span>
+
+                                                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                                                        <input class="input100" type="text" name="Username" placeholder="Username">
+                                                        <span class="focus-input100"></span>
+                                                        <span class="symbol-input100">
+                                                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                        </span>
+                                                    </div>
+
+                                                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                                                        <input class="input100" type="password" name="Password" placeholder="Password">
+                                                        <span class="focus-input100"></span>
+                                                        <span class="symbol-input100">
+                                                            <i class="fa fa-lock" aria-hidden="true"></i>
+                                                        </span>
+                                                    </div>
+
+                                                    <div class="container-login100-form-btn">
+                                                        <button type="submit" class="login100-form-btn">
+                                                            Login
+                                                        </button>
+                                                    </div>
+
+
+                                                    <div class="text-center p-t-12">
+                                                        <span class="txt1" style="color:white">
+                                                            Forgot
+                                                        </span>
+                                                        <a class="txt2" href="#">
+                                                            Username / Password?
+                                                        </a>
+                                                        <br />
+                                                        <i class="fa fa-user " aria-hidden="true"></i>
+                                                        <a class="txt2" href="~/Home/RegisterChemist">
+                                                            Create your Account
+                                                            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                                                        </a>
+
+                                                    </div>
+
+                                                    <br />
+                                                    <div id="logoutAlert" class="alert alert-secondary" role="alert" style="margin-left :100px; background-color:#d4edda; border-radius:10px; width:200px ">
+                                                        Alert
+                                                    </div>
+                                                    @{
+                                                        @*String temp = Convert.ToString(@ViewData["Msg"]);
+                                                        if (temp == "Null")
+                                                        {
+                                                            <script>$("#logoutAlert").hide();</script>
+                                                        }
+                                                        else
+                                                        {
+                                                            <script>
+                                                                $("#logoutAlert").fadeTo(2000, 500).slideUp(500).html("Logout Successful");
+                                                            </script>
+
+
+                                                        }*@
+
+                                                    }
+
+
+                                                </form>
+
+                                            </div>
+
+
+                                            <form class="login100-form validate-form" asp-page-handler="Register" method="post" id="registerHide">
+                                                <span class="login100-form-title">
+                                                    Registration
+                                                </span>
+
+                                                <div class="wrap-input50 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                                                    <input class="input50" type="text" asp-for="CLogin.Fname" placeholder="Firstname">
+                                                    <span class="focus-input50"></span>
+                                                    <span class="symbol-input100">
+                                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                                    </span>
+                                                    &ensp;
+                                                    @*</div>
+
+                                                    <div class="wrap-input50 validate-input" data-validate="Valid email is required: ex@abc.xyz">*@
+                                                    <input class="input50" type="text" asp-for="CLogin.Lname" placeholder="Lastname">
+                                                    <span class="focus-input50"></span>
+                                                    <span class="symbol-input100" style="padding-left:235px;">
+                                                        <i class="fa fa-user" aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+
+                                                <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                                                    <input class="input100" type="email" asp-for="CLogin.Email" placeholder="Email">
+                                                    <span class="focus-input100"></span>
+                                                    <span class="symbol-input100">
+                                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+
+                                                <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                                                    <input class="input100" type="text" asp-for="CLogin.Username" placeholder="Username">
+                                                    <span class="focus-input100"></span>
+                                                    <span class="symbol-input100">
+                                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                                                    <input class="input100" type="password" asp-for="CLogin.Password" placeholder="Password">
+                                                    <span class="focus-input100"></span>
+                                                    <span class="symbol-input100">
+                                                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                    </span>
+                                                </div>
+                                                <!--<div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                                            <input class="input100" type="tel" asp-for="CRegister.Mobile" placeholder="Mobile Number">
+                                            <span class="focus-input100"></span>
+                                            <span class="symbol-input100">-->
+                                                @*<i class="fa fa-mobile" aria-hidden="true"></i>*@
+                                                <!--<i class="fa fa-phone" aria-hidden="true"></i>
+                                                </span>
+                                            </div>-->
+
+                                                <div class="container-login100-form-btn">
+                                                    <button type="submit" class="login100-form-btn">
+                                                        Register
+                                                    </button>
+                                                </div>
+
+                                                <div class="text-center p-t-12">
+                                                    <span class="txt1">
+                                                        Forgot :
+                                                    </span>
+                                                    <a class="txt2" href="#">
+                                                        Username / Password?
+                                                    </a>
+                                                </div>
+
+                                                @*<div class="text-center p-t-136">
+                                                    <a class="txt2" href="~/Chemist/RegisterChemist">
+                                                        Create your Account
+                                                        <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>*@
+                                            </form>
+                                        </div>
+
+
+
+                                    </div>
+
+                                    <!--<div class="container-login100" >
+                                <div class="wrap-login100">
+
+                                    <div class="login100-pic js-tilt" data-tilt>
+                                        <img src="~/Chemist/Login/images/img-01.png" />-->
+                                    @*<img src="https://accounts.practo.com/static/images/illustration.png" />*@
+
+
+                                    <!--</div>
+
+
+
+                                    </div>
+                                </div>-->
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </section><!-- End Pricing Section -->
+                <!-- ======= Frequently Asked Questions Section ======= -->
+                <section id="faq">
+                    <div class="container">
+
+                        <div class="section-header">
+                            <h3 class="section-title">Frequently Asked Questions</h3>
+
+                            <span class="section-divider"></span>
+                            <p class="section-description">Frequently asked question by Chemists</p>
+                        </div>
+
+                        <ul class="faq-list">
+
+                            <li>
+                                <div data-bs-toggle="collapse" class="collapsed question" href="#faq1">
+                                    What is Mediflow ?
+                                    <i class="bi bi-chevron-down icon-show"></i>
+                                    <i class="bi bi-chevron-up icon-close"></i>
+                                </div>
+                                <div id="faq1" class="collapse" data-bs-parent=".faq-list">
+                                    <p>
+                                        Mediflow is project initiated by <strong>Disha Enterprise</strong> by mitigate various problems between Chemist and Stockist
+                                    </p>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div data-bs-toggle="collapse" href="#faq2" class="collapsed question">
+                                    What will I get from Online platform ?
+                                    <i class="bi bi-chevron-down icon-show"></i>
+                                    <i class="bi bi-chevron-up icon-close"></i>
+                                </div>
+                                <div id="faq2" class="collapse" data-bs-parent=".faq-list">
+                                    <p>
+                                        By using this platform you can access the 500 products offered by <strong>Disha Enterprise</strong>. Online ordering is the main
+                                        facility provided to chemist to order at per their convenience. Paying online through various payment gateaways. Checking purchasing
+                                        data analysis. And mane more features <a href="#features">Check Here</a>.
+
+                                    </p>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div data-bs-toggle="collapse" href="#faq3" class="collapsed question">
+                                    Why it is better then manual method ?
+                                    <i class="bi bi-chevron-down icon-show"></i>
+                                    <i class="bi bi-chevron-up icon-close"></i>
+                                </div>
+                                <div id="faq3" class="collapse" data-bs-parent=".faq-list">
+                                    <p>
+                                        <strong>
+                                            Online ordering is better in many ways :
+                                        </strong>
+                                        <br /><br />
+                                        <ol type="a">
+                                            <li> Hastle free-ordering</li>
+                                            <li>No-queues for ordering</li>
+                                            <li>Edit Order</li>
+                                            <li>Tracking Order</li>
+                                            <li>Online Payment</li>
+                                            <li>Can view Stock, Expiry</li>
+                                            <li>Easy Returns</li>
+                                        </ol>
+                                    </p>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div data-bs-toggle="collapse" href="#faq4" class="collapsed question">
+                                    How online payment works?
+                                    <i class="bi bi-chevron-down icon-show"></i>
+                                    <i class="bi bi-chevron-up icon-close"></i>
+                                </div>
+                                <div id="faq4" class="collapse" data-bs-parent=".faq-list">
+                                    <p>
+                                        We have provided option of Online ordering gateways such as <b>Paytm</b>. By selecting Paytm method before proceeding
+                                        to order it will redirect to <b>Paytm</b> gateway.
+                                    </p>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div data-bs-toggle="collapse" href="#faq5" class="collapsed question">
+                                    What time it will took to deliver goods?
+                                    <i class="bi bi-chevron-down icon-show"></i>
+                                    <i class="bi bi-chevron-up icon-close"></i>
+                                </div>
+                                <div id="faq5" class="collapse" data-bs-parent=".faq-list">
+                                    <p>
+                                        Disha Enterprise gaurantees delivery before 6 p.m. within Vadodara Premises. Chemist can opt to send their own pickup boy
+                                        to collect goods or select receive the goods through our Delivery Boy.
+                                    </p>
+                                </div>
+                            </li>
+
+                            <li>
+                                <div data-bs-toggle="collapse" href="#faq6" class="collapsed question">
+                                    More Questions ?
+                                    <i class="bi bi-chevron-down icon-show"></i>
+                                    <i class="bi bi-chevron-up icon-close"></i>
+                                </div>
+                                <div id="faq6" class="collapse" data-bs-parent=".faq-list">
+                                    <p>
+                                        Contact us today or Send your query we will resopond you as soon as possible. <b><a href="#contact">Click here</a></b>
+                                    </p>
+                                </div>
+                            </li>
+
+                        </ul>
+
+                    </div>
+                </section><!-- End Frequently Asked Questions Section -->
+                <!-- ======= Team Section ======= -->
+              
+                <!-- ======= Contact Section ======= -->
+                <section id="contact" class="section-bg">
+                    <div class="container" data-aos="fade-up">
+                        <div class="row">
+                            <div class="section-header">
+                                <h3 class="section-title">Contact Us</h3>
+                                <span class="section-divider"></span>
+                                <p class="section-description">Visit our store or Call us today!</p>
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <div class="contact-about">
+                                    <h3><b>Mediflow</b></h3>
+                                    <p>
+                                        Online Order Today. Dont waste time in calling or
+                                        messaging to the office directly.
+                                    </p>
+                                    <div class="social-links">
+                                        <a href="https://www.pharmabizconnect.com/company/983-elite-biotech"><i class="bi bi-globe"></i></a>
+                                        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                                        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                                        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                                        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                                        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 col-md-4">
+                                <div class="info">
+                                    <div>
+                                        <i class="bi bi-geo-alt"></i>
+                                        <p>
+                                            217 saakar complex, sanstha vasahat, Raopura
+                                            <br> Vadodara, Gujarat 390001
+                                        </p>
+                                    </div>
+
+                                    <div>
+                                        <i class="bi bi-envelope"></i>
+                                        <p>info@example.com</p>
+                                    </div>
+
+                                    <div>
+                                        <i class="bi bi-phone"></i>
+                                        <p>+91 932-748-9530</p>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-lg-5 col-md-8">
+                                
+                                <div class="member">
+                                   
+                                    <div class="pic">
+                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d37883.75678798118!2d73.19696080326408!3d22.304151751896743!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb468cca55254ac23!2sDaxia%20Healthcare!5e0!3m2!1sen!2sin!4v1613210221629!5m2!1sen!2sin" frameborder="0" style="width:90%;height:300px; border:0; padding-bottom:40px" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+                            
+                            <div class="row justify-content-evenly">
+                                <div class="col-lg-5 col-md-6">
+                                    <div class="member text-center">
+                                        <div class="pic">
+                                            <img src="~/Images/t1.jpeg" style="width:80%;height:60%;" alt="">
+                                        </div>
+                                        <h4>Amit Patel</h4>
+                                        <span>Propritor</span>
+                                        <div class="social">
+                                           
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                                @*<div class="col-lg-2 col-md-6">
+                                    </div>*@
+                                    <div class="col-lg-5 col-md-6 text-center ">
+                                        <div class="member">
+                                            <div class="form">
+                                                <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                                                    <div class="row">
+                                                        <div class="form-group col-lg-6">
+                                                            <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                                                        </div>
+                                                        <div class="form-group col-lg-6 mt-3 mt-lg-0">
+                                                            <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email">
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="form-group col-lg-6">
+                                                            <input type="tel" name="name" class="form-control" id="name" placeholder="Your Mobile No." data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                                                        </div>
+                                                        <div class="form-group col-lg-6 mt-3 mt-lg-0">
+                                                            <input type="text" class="form-control" name="email" id="email" placeholder="Your Shop Name" data-rule="email" data-msg="Please enter a valid email">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group mt-3">
+                                                        <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject">
+                                                    </div>
+                                                    <div class="form-group mt-3">
+                                                        <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                                                    </div>
+                                                    <div class="my-3">
+                                                        <div class="loading">Loading</div>
+                                                        <div class="error-message"></div>
+                                                        <div class="sent-message">Your message has been sent. Thank you!</div>
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <br />
+                                                        <button type="submit" title="Send Message">Send Query</button>
+
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                                </div>
+
+                </section><!-- End Contact Section -->
+
+    </main><!-- End #main -->
+    <!-- ======= Footer ======= -->
+    <!-- End  Footer -->
+    <!--===============================================================================================-->
+    <script src="~/Chemist/Login/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Chemist/Login/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/Chemist/Login/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Chemist/Login/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/Chemist/Login/vendor/tilt/tilt.jquery.min.js"></script>
+    <script>
+        $('.js-tilt').tilt({
+            scale: 1.1
+        })
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,153 @@
+﻿@page
+@model Mediflow.Pages.Chemist.ChemistOrderHistoryModel
+@{
+    Layout = "~/Pages/Shared/Chemist/_ChemistHome.cshtml";
+}
+
+<html>
+    <head>
+        
+        <style>
+
+            .add-scroll {
+                overflow-y: scroll;
+                height: 100px;
+            }
+
+        </style>
+
+    <script>
+        
+        $(document).ready(function () {
+
+
+
+                //$('.FinalOidClick').click(function () {
+                    
+                //    var buttonID = $(this).attr("id");
+
+                //    $.ajax({
+
+                //        type: "GET",
+                //        url: "ChemistOrderHistory?handler=Forward",
+                //        headers: {
+                //        "XSRF-TOKEN": $('input:hidden[name="__RequestVerificationToken"]').val()
+                //        },
+
+                //        contentType: "application/json; charset=utf-8",
+                        
+                //        data: { 'OrderId': buttonID },
+                //        //cache: false,
+                //        success: function (data)
+                //        {
+                        
+                //            alert("Viewing Order" + buttonID);
+                        
+                //        },
+                //    });
+                //});
+
+                if ($('#tblRows tr').length >5)
+                {
+                    //$('#scrollSection').addClass('add-scroll');
+                   // $('#scrollSection').scroll();
+                }
+            });
+
+      
+    </script>
+</head>
+
+<body>
+    
+                    <div id="customer-orders" class="col-lg-9">
+                        <div class="box">
+                            <p class="lead"><h1>My orders :</h1>Your orders at one place</p>
+                            
+                            <p class="text-muted">If you have any questions, please feel free to <a href="contact.html">contact us</a>, our customer service center is working for you 24/7.</p>
+                            
+                            <div class="table-responsive">
+                               
+                                <table class="table table-hover" id="tblRows">
+                                  
+                                        <thead>
+                                            <tr>
+                                                <th>Order</th>
+                                                <th>Date</th>
+                                                <th>Total</th>
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="rows">
+                                            <div id="scrollSection">
+                                                @{
+                                                    int count = 0;
+
+
+                                                }
+                                                @for (int i = 0; i < Model.OrderMaster.Count(); i++)
+                                                {
+                                                    int FinalOid = @Model.OrderMaster[i].FinalOrderId;
+                                                    string status = Model.OrderMaster[i].OrderStatus;
+                                                    count++;
+                                                    <form method="get" asp-page="/Chemist/OrderInvoice">
+                                                        <tr>
+
+                                                            <th>@count</th>
+                                                            <td>@Model.OrderMaster[i].OrderDate</td>
+                                                            <td>@Model.OrderMaster[i].FinalPayable</td>
+
+                                                            @switch (status)
+                                                            {
+                                                                case "Received":
+                                                                    
+                                                                    <td><span class="badge badge-success">@Model.OrderMaster[i].OrderStatus</span></td>
+                                                                    break;
+                                                                case "Cancelled":
+                                                                    <td><span class="badge badge-danger">@Model.OrderMaster[i].OrderStatus</span></td>
+                                                                    break;
+                                                                case "Approved":
+                                                                    <td><span class="badge badge-primary">@Model.OrderMaster[i].OrderStatus</span></td>
+                                                                    break;
+                                                                case "Reject":
+                                                                    <td><span class="badge badge-warning">@Model.OrderMaster[i].OrderStatus</span></td>
+                                                                    break;
+                                                                case "UnderReview":
+                                                                    <td><span class="badge badge-info">@Model.OrderMaster[i].OrderStatus</span></td>
+                                                                    break;
+                                                                case "Dispatched":
+                                                                    <td><span class="alert alert-info">@Model.OrderMaster[i].OrderStatus</span></td>
+                                                                    break;
+                                                                case "OutForDelivery":
+                                                                    <td><span class="alert alert-info">@Model.OrderMaster[i].OrderStatus</span></td>
+                                                                    break;
+                                                                case "Delivered":
+                                                                    <td><span class="alert alert-success">@Model.OrderMaster[i].OrderStatus</span></td>
+                                                                    break;
+                                                            }
+
+                                                            <td><button type="submit" class="btn btn-primary btn-sm" name="FinalOidClick" value="@FinalOid">VIEW @*<a class="btn btn-primary btn-sm">View</a>*@</button></td>
+
+                                                        </tr>
+                                                    </form>
+                                                }
+
+
+                                            </div>
+                                        </tbody>
+                                   
+                                </table>
+                                   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>

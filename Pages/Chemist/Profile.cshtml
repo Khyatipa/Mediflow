@@ -1,0 +1,93 @@
+﻿@page
+@model Mediflow.Pages.Chemist.ProfileModel
+
+@{
+    ViewData["Title"] = "Profile";
+    Layout = "~/Pages/Shared/_ChemistHome.cshtml";
+}
+
+<h1>Profile</h1>
+
+<h4>CRegister</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="CRegister.Id" />
+            <div class="form-group">
+                <label asp-for="CRegister.Fname" class="control-label"></label>
+                <input asp-for="CRegister.Fname" class="form-control" />
+                <span asp-validation-for="CRegister.Fname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CRegister.Lname" class="control-label"></label>
+                <input asp-for="CRegister.Lname" class="form-control" />
+                <span asp-validation-for="CRegister.Lname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CRegister.Rdlno" class="control-label"></label>
+                <input asp-for="CRegister.Rdlno" class="form-control" />
+                <span asp-validation-for="CRegister.Rdlno" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CRegister.Email" class="control-label"></label>
+                <input asp-for="CRegister.Email" class="form-control" />
+                <span asp-validation-for="CRegister.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CRegister.Address" class="control-label"></label>
+                <input asp-for="CRegister.Address" class="form-control" />
+                <span asp-validation-for="CRegister.Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CRegister.Username" class="control-label"></label>
+                <input asp-for="CRegister.Username" class="form-control" />
+                <span asp-validation-for="CRegister.Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CRegister.Mobile" class="control-label"></label>
+                <input asp-for="CRegister.Mobile" class="form-control" />
+                <span asp-validation-for="CRegister.Mobile" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CRegister.Gender" class="control-label"></label>
+                <input asp-for="CRegister.Gender" class="form-control" />
+                <span asp-validation-for="CRegister.Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CRegister.Password" class="control-label"></label>
+                <input asp-for="CRegister.Password" class="form-control" />
+                <span asp-validation-for="CRegister.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CRegister.City" class="control-label"></label>
+                <input asp-for="CRegister.City" class="form-control" />
+                <span asp-validation-for="CRegister.City" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CRegister.State" class="control-label"></label>
+                <input asp-for="CRegister.State" class="form-control" />
+                <span asp-validation-for="CRegister.State" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CRegister.Zcode" class="control-label"></label>
+                <input asp-for="CRegister.Zcode" class="form-control" />
+                <span asp-validation-for="CRegister.Zcode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CRegister.Status" class="control-label"></label>
+                <input asp-for="CRegister.Status" class="form-control" />
+                <span asp-validation-for="CRegister.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+

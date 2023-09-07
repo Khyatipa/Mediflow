@@ -1,0 +1,207 @@
+﻿@page
+@model Mediflow.Pages.Chemist.ReturnInvoiceAdminModel
+@{
+    Layout = "~/Pages/Shared/Admin/_AdminHome.cshtml";
+}
+@Html.AntiForgeryToken()
+<html>
+<head>
+
+</head>
+<body>
+
+    <div id="customer-order" class="col-lg-9 pdfdownload">
+        <div class="box btnAll " id="invoiceDiv">
+
+            <div class="card-header" style="background-color:#4fbfb0">
+                <h1 style="margin-left:240px">Disha Enterprise</h1>
+                <h5 style="margin-left:245px;color:white">Mediflow - A Product of DishaEnterprise</h5>
+            </div>
+            <br />
+            <div class="row addresses">
+                <div class="col-lg-4">
+                    <p>
+                        219,Sakar Complex, Sanstha Vasahat,
+                        Raopura, Vadodara, Gujarat, 390001.
+                        Mob: 9327251779, 0265-2414258
+                    </p>
+                </div>
+                <div class="col-lg-8">
+                    <p>
+                        GSTIN : 24AAIFV3598A1Z4
+<br />
+                        20B VAD-88524, 21B VAD-88525
+<br />
+                        Mediflow.com
+                    </p>
+                </div>
+            </div>
+            <hr />
+
+            <div class="row addresses">
+                <div class="card col-lg-6 text-justify">
+                    <div class="card-header text-center">
+                        <h2>Invoice address</h2>
+                    </div>
+
+                    <br />
+                    @if (Model.CRegister != null)
+                    {
+
+
+                        <h4>
+                           ShopName : @Model.CRegister.ShopName,
+                        </h4>
+                        <h4>Address : @Model.CRegister.Address</h4>
+
+
+                    }
+
+
+
+
+                    <h4>Date      : @Model.ReturnMaster.RmDate.Value.ToString("dd/MM/yyyy")</h4>
+
+                    <h4>
+                        Delivery  : Provide to store
+                    </h4>
+
+
+
+                </div>
+                <div class="card col-lg-6 text-right">
+                    <div class="card-header text-center">
+                        <h2>Bill Details</h2>
+                    </div>
+                    
+                       
+                    <br>
+                        <h4>
+                            DL no.    : @Model.CRegister.Rdlno
+                        </h4>
+
+                        <h4>
+                            GST       : @Model.CRegister.GstNo
+                        </h4>
+
+                        <h4>Bill No.  : @Model.ReturnMaster.RmasterId </h4>
+
+                        @if (Model.ReturnMaster.RmIstypeExpiry == true)
+                        {
+                            <h4>Bill Type :Expiry Return</h4>}
+                        else
+                        {
+                            <h5>Bill Type : Instant Return </h5>}
+
+                       
+                   
+
+                </div>    
+            </div>
+                <hr />
+                <p class="lead">
+                    Return #@Model.ReturnMaster.RmasterId was initiated on
+                    <strong>@Model.ReturnMaster.RmDate.Value.ToString("dd/MM/yyyy")</strong> and is currently
+                    <strong>processed</strong>.
+                </p>
+
+
+                <div class="table-responsive mb-4">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Sr.No</th>
+                                <th>Product</th>
+                                <th>HSN</th>
+                                <th>Pack</th>
+                                <th>Mfg</th>
+                                <th>Batch No.</th>
+                                <th>ExpiryDt.</th>
+                                <th>M.R.P</th>
+                                <th>Qty</th>
+                                <th>Free</th>
+                                <th>Rate</th>
+                                <th>SGST%</th>
+                                <th>CGST%</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int count = 0;
+                                double eachTotal = 0.0;
+                            }
+                            @foreach (var item in Model.SpReturnInvoice)
+                            {
+                                count++;
+                                eachTotal = Convert.ToDouble(item.Rate * item.Ritem_qty);
+                                System.Math.Round(eachTotal, 2);
+                                <tr>
+
+                                    <td>@count</td>
+
+                                    <td>
+                                        <a asp-page="/Chemist/DetailedProduct" asp-route-id="@item.Ritem_id">@item.Item_name</a>
+                                    </td>
+                                    <td>@item.HsnCode</td>
+                                    <td>@item.Volume</td>
+                                    <td>@item.Mfg_by_name</td>
+                                    <td>@item.Rbatch_no</td>
+
+                                    <td>@item.Ritem_expiry.Value.Date.ToString("dd/MM/yyyy")</td>
+                                    <td>@item.Mrp</td>
+                                    <td>@item.Ritem_qty</td>
+                                    <td>0</td>
+                                    <td>@item.Rate</td>
+                                    <td>@(item.gstPercent * 100 / 2)</td>
+                                    <td>@(item.gstPercent * 100 / 2)</td>
+                                    <td>@eachTotal</td>
+                                </tr>
+                            }
+
+                        </tbody>
+                        <tfoot>
+
+                        </tfoot>
+                    </table>
+                </div>
+                <!-- /.table-responsive-->
+                <div class="row addresses">
+                    <div class="card col-lg-4">
+                        <p>
+                            <h4 class="text-center">Value   Total : @Model.ReturnMaster.RmValuePrice </h4>
+                        </p>
+                    </div>
+                    <div class="col-lg-4">
+                    </div>
+                    <div class="card col-lg-4">
+                        <table>
+
+                            <p>
+                                <h4 class="text-center">Net Amount : @Model.ReturnMaster.RmFinalPayable</h4>
+
+                            </p>
+                        </table>
+                    </div>
+                </div>
+                <hr />
+
+                <div class="row addresses card-footer">
+                    <div class="col-lg-3">
+                        FOR DISHA ENTERPRISE
+                    </div>
+                    <div class="col-lg-9">
+                        SUBJECT TO VADODARA JURISDICTION ONLY
+                    </div>
+
+
+
+                    <p class="text-muted">
+                        If you have any questions, please feel free to
+                        <a href="contact.html">contact us</a>, our customer service center is working for you 24/7.
+                    </p>
+                </div>
+            </div>
+    </div>
+</body>
+</html>

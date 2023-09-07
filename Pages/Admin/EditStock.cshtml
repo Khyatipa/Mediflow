@@ -1,0 +1,418 @@
+﻿@page
+@model Mediflow.Pages.Admin.EditStockModel
+@{
+    Layout = "~/Pages/Shared/Admin/_AdminHome.cshtml";
+    int count = 0;
+}
+<head>
+    <title>Table V04</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link rel="stylesheet" type="text/css" href="~/Table/vendor/perfect-scrollbar/perfect-scrollbar.css">
+
+    @*<link rel="stylesheet" type="text/css" href="~/Table/css/util.css">*@
+    <link rel="stylesheet" type="text/css" href="~/Table/css/main.css?1234567">
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $(".inreditVal").click(function () {
+
+
+                var inrVal = $('#inputVal').val();
+
+                inrVal = isNaN(inrVal) ? 0 : inrVal;
+                inrVal = parseInt(inrVal, 10) + 5;
+
+                $("#inputVal").val(inrVal);
+
+
+            });
+
+            $(".dcreditVal").click(function () {
+
+                var inrVal = $('#inputVal').val();
+
+
+                inrVal = isNaN(inrVal) ? 0 : inrVal;
+                inrVal--;
+                inrVal < 2 ? inrVal = 2 : '';
+
+
+                $("#inputVal").val(inrVal);
+
+
+
+            });
+
+            $(".endableBtn").click(function () {
+
+                var content = $(this).attr("id");
+                var productId = $('#' + content + 'Pid').val();
+                
+                if ($('#' + content).hasClass('btn-outline-primary')) {
+
+
+
+                    $.ajax({
+
+                        type: 'Get',
+                        url: 'EditStock?handler=EnableDisableStock',
+
+                        data: { 'Sid': content, 'Status': true, 'ProductId': productId },
+
+                        cache: false,
+                        success: function (data) {
+
+                            $('.endableBtn').addClass('btn-outline-primary');
+                            $('.endableBtn').removeClass('btn-danger');
+                            $('.endableBtn').html('&nbsp&nbsp  No');
+
+                            $('#' + content).removeClass('btn-outline-primary');
+                            $('#' + content).addClass('btn-danger');
+                            $('#' + content).html('&nbsp&nbsp  Yes');
+                            $("#alertDisplay").fadeTo(2000, 500).slideUp(500).html("Stock Updated");
+                        },
+                    });
+
+                }
+                else {
+                    alert('Cant Disable This Stock');
+                }
+               
+
+            });
+        });
+
+
+    </script>
+    <style>
+
+        .form-change {
+            width: 150px;
+            margin: 0 auto;
+            /* text-align: center;*/
+            /*   padding-top: 20px;*/
+        }
+
+        .value-button {
+            display: inline-block;
+            border: 1px solid #ddd;
+            margin: 0px;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            vertical-align: middle;
+            padding: 11px 0;
+            background: #eee;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+            .value-button:hover {
+                cursor: pointer;
+            }
+
+        .decrease {
+            margin-right: -4px;
+            border-radius: 8px 0 0 8px;
+            background-color: #4fbfb0;
+        }
+
+        .increase {
+            margin-left: -4px;
+            border-radius: 0 8px 8px 0;
+            background-color: #4fbfb0;
+        }
+
+        .input-wrap {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .number {
+            text-align: center;
+            border: none;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            margin: 0px;
+            width: 30px;
+            height: 30px;
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+
+</head>
+<div class="container tm-mt-big tm-mb-big box col-lg-9 d-flex flex-column">
+    <div class="row">
+        <div class="col-xl-9">
+            <div class="tm-bg-primary-dark tm-block tm-block-h-auto">
+                <div class="row">
+                    <div class="col-12">
+                        @{
+                            if (Convert.ToString(ViewData["EditMsg"]) == "EditStock")
+                            {
+                                <h2 class="tm-block-title d-inline-block">Edit Stock for : @Model.Products.ItemName | Batch : @Model.StockMaster.BatchNo</h2>
+                               
+                                }
+                            else
+                            {
+                                <h2 class="tm-block-title d-inline-block">Manage Stock for : @Model.Products.ItemName</h2>
+                               
+                            }
+
+                        }
+                    </div>
+                </div>
+                
+                <br />
+                <form method="post" asp-page="/Admin/EditStock" asp-page-handler="UpdateStock" class="form-horizontal">
+                    <div class="row tm-edit-product-row">
+
+                        <div class="col-6">
+                            <div class="card sidebar-menu">
+                                <div class="card-header" style="background-color :#4fbfb0; width:273px; margin:1px">
+                                    @if (Convert.ToString(ViewData["EditMsg"]) == "EditStock")
+                                    {
+                                        <h3 class="h4 card-title">Edit Stock</h3>
+                                    }
+                                    else
+                                    {
+                                        <h3 class="h4 card-title">Add Stock</h3>
+                                    }
+                                </div>
+
+                                <div class="card-body">
+
+
+                                    <div class="form-group mb-3">
+                                        <label for="name">
+                                            Product Name
+                                        </label>
+                                        <input asp-for="Products.ItemName" id="name"
+                                               name="name"
+                                               type="text"
+                                               class="form-control validate"
+                                               required placeholder="Medicine Name" disabled />
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="description">Expiry Date</label>
+                                        <input asp-for="StockMaster.ExpiryDt" type="date" class="form-control validate" rows="3" required>
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                            <label for="category">Quantity</label>
+                                            <br />
+                                            <div class="value-button dcreditVal decrease" id="inrbutton" value="Decrease Value">-</div>
+                                            <input asp-for="StockMaster.StockQty" type="number" class="number" id="inputVal" required />
+                                            <div class="value-button inreditVal increase" id="dcrbutton" value="Increase Value">+</div>
+
+                                        </div>
+                                        <div class="form-group mb-3 col-xs-12 col-sm-6">
+                                            <label for="batch_no">
+                                                Batch Number
+                                            </label>
+                                            <input asp-for="StockMaster.BatchNo" type="text" class="form-control validate" required>
+                                        </div>
+                                    </div>
+
+                                    @{
+                                        if (Convert.ToString(ViewData["EditMsg"]) != "EditStock")
+                                        {
+                                            <button type="submit" class="btn btn-primary btn-block text-uppercase">Add Stock</button>
+                                        }
+                                        else
+                                        {
+                                            <input type="text" asp-for="StockMaster.IsActive" hidden />
+                                            <input type="text" asp-for="StockMaster.StockId" hidden />
+                                            <input type="hidden" name="Iid" value="@Model.Products.ItemId" />
+                                            <input type="hidden" name="btnedit_id" value="@Model.StockMaster.SitemId" />
+                                            <input type="hidden" name="EditStockBtn" value="Edit" />
+                                            <button type="submit" asp-page="/Admin/EditStock" asp-page-handler="UpdateCurrentStock" class="btn btn-primary btn-block text-uppercase">Edit Stock</button>
+                                        }
+                                    }
+
+                                    <input type="hidden" asp-for="StockMaster.SitemId" value="@Model.Products.ItemId" />
+                                    <input type="hidden" asp-for="StockMaster.AddedDt" value="@DateTime.Now" />
+
+
+                                    @{
+                                        if (Model.StockMasterCheck == null)
+                                        {
+                                            <input type="hidden" asp-for="StockMaster.IsActive" value="@Convert.ToBoolean(1)" />
+
+                                        }
+                                        else
+                                        {
+                                            <input type="hidden" asp-for="StockMaster.IsActive" value="@Convert.ToBoolean(0)" />
+                                        }
+                                    }
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+       
+
+        @if (Model.StockMasterList.Count != 0)
+        {
+            <form method="post" asp-page="/Admin/EditStock" asp-page-handler="UpdateCurrentStock">
+                <div class="limiter col-lg-12" id="tableonly">
+                   
+                    
+
+                    <div class="container-table100" style="width:800px">
+
+                        <div class="wrap-table100">
+                            <div class="table100 ver1 m-b-110">
+
+                                <div class="table100-head">
+
+                                    <table>
+                                        <thead>
+                                            <tr class="row100 head">
+                                                <th class="cell100 column1">Sr. No</th>
+
+                                                <th class="cell100 column2">Batch </th>
+                                                <th class="cell100 column2">Added  Date</th>
+                                                <th class="cell100 column2">Expiry Date</th>
+                                                <th class="cell100 column7">Stock</th>
+                                                <th class="cell100 column2">Active</th>
+                                                <th class="cell100 column6">Manage</th>
+
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+
+                                @foreach (var item in Model.StockMasterList)
+                                {
+                                    String sid = Convert.ToString(item.StockId) + "Pid";
+                                  
+                                   
+
+                                    count++;
+                                    <!--Confirmation of Edit-->
+                                    @*<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">Enable Stock for @Model.Products.ItemName : <b>@item.BatchNo</b>!</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Are you sure you want to Change Stock Status of ?
+                                                    Confirming will disable your current stock and enable <b>@item.BatchNo</b>!
+                                                </div>
+
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-primary sendOtp" data-toggle="modal" data-target="#openOTP">Confirm Edit</button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>*@
+                                    <!--End Confirmation of Edit-->
+                                    <div class="table100-body js-pscroll">
+                                        <table>
+                                            <tbody>
+                                                <tr class="row100 body">
+                                                    <td class="cell100 column1">@count</td>
+                                                    <td class="cell100 column2">@Html.DisplayFor(modelItem => item.BatchNo)</td>
+                                                    <td class="cell100 column2">@item.AddedDt.Value.Date.ToString("dd/MM/yyyy") </td>
+
+                                                    <td class="cell100 column2">
+                                                        @item.ExpiryDt.Value.Date.ToString("dd/MM/yyyy")
+                                                    </td>
+
+                                                    <td class="cell100 column7">  @Html.DisplayFor(modelItem => item.StockQty)</td>
+
+
+                                                    @{
+                                                        if (item.IsActive == true)
+                                                        {
+                                                            <td class="cell100 column2">
+
+                                                                <button class="btn btn-danger btn-sm rounded-0 endableBtn fa fa-power-off" type="button" id="@item.StockId" data-placement="top" title="Disable" data-toggle="modal" data-target="#exampleModalCenter">
+                                                                    &nbsp;  Yes
+                                                                </button>
+
+                                                            </td>
+                                                        }
+                                                        else
+                                                        {
+                                                            <td class="cell100 column2">
+
+
+                                                                <button class="btn btn-outline-primary btn-sm rounded-0 endableBtn fa fa-power-off" type="button" id="@item.StockId" data-toggle="modal" data-target="#exampleModalCenter" data-placement="top" title="Enable">
+                                                                    &nbsp; No
+                                                                </button>
+                                                            </td>
+                                                        }
+                                                    }
+
+
+                                                <td class="cell100 column6">
+                                                    <!--For working of edit button-->
+                                                    @*<input type="hidden" name="Sid" value="@Model.StockMaster.StockId" />*@
+                                                    
+                                                    <input type="hidden" name="Iid" value="@Model.Products.ItemId" />
+                                                    <!--End-->
+                                                    <button class="btn btn-primary btn-sm rounded-0" name="btnedit_id" value="@item.StockId" type="submit" data-toggle="tooltip" data-placement="top" @*title="Edit"*@>
+                                                        <i class="fa fa-edit"></i>
+                                                    </button>
+                                                    &nbsp; &nbsp; &nbsp;
+                                                    <button class="btn btn-primary btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" @*title="Delete"*@>
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+
+                                                </td>
+                                                </tr>
+
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                }
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+        }
+    </div>
+</div>
+

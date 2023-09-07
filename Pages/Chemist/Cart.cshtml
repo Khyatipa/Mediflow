@@ -1,0 +1,584 @@
+﻿@page
+@model Mediflow.Pages.Chemist.CartModel
+@{
+    ViewData["Title"] = "Cart";
+    Layout = "~/Pages/Shared/Chemist/_ChemistHome.cshtml";
+}
+
+@Html.AntiForgeryToken()
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpContextAccessor
+
+
+<html>
+<head>
+    <style>
+
+        .form-change {
+            width: 150px;
+            margin: 0 auto;
+            /* text-align: center;*/
+            /*   padding-top: 20px;*/
+        }
+
+        .value-button {
+            display: inline-block;
+            border: 1px solid #ddd;
+            margin: 0px;
+            width: 40px;
+            height: 42px;
+            text-align: center;
+            vertical-align: middle;
+            padding: 11px 0;
+            background: #eee;
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+            .value-button:hover {
+                cursor: pointer;
+            }
+
+        .decrease {
+            margin-right: -4px;
+            border-radius: 8px 0 0 8px;
+            background-color: #4fbfb0;
+        }
+
+        .increase {
+            margin-left: -4px;
+            border-radius: 0 8px 8px 0;
+            background-color: #4fbfb0;
+        }
+
+        .input-wrap {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .number {
+            text-align: center;
+            border: none;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            margin: 0px;
+            width: 40px;
+            height: 40px;
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    </style>
+
+</head>
+
+<body>
+   
+    <script>
+        $(document).ready(function () {
+            $(".btnDelItem").click(function () {
+               
+                var buttonID = $(this).attr("id");
+                var buttonIDs = buttonID.split('_');
+                var itemID = 0;
+
+                itemID = parseInt(buttonIDs[1], 10);
+
+                $.ajax({
+
+                    type: 'GET',
+                    url: 'Cart?handler=Delete',
+                    //headers: {
+                    //    "XSRF-TOKEN": $('input:hidden[name="__RequestVerificationToken"]').val()
+                    //},
+
+                    //contentType: "application/json; charset=utf-8",
+                    //dataType: "json",
+                    data: { 'Iid': itemID },
+                    cache: false,
+                    success: function (data) {
+
+                        $("#spanCartItemCount").html(data);
+
+                        alert("Item Deleted " + itemID);
+                        $("#removeDivRow_" + itemID).remove();
+
+                    },
+                    failure: function (data) {
+                        alert("failed");
+                    }
+                });
+
+            });
+
+            $(".inreditVal").click(function () {
+
+
+                var buttonID = $(this).attr("id");
+                var buttonIDs = buttonID.split('_');
+                var itemID = 0, orderID = 0;
+                itemID = buttonIDs[1];
+                var orderID = buttonIDs[2];
+                var gstPer = buttonIDs[3];
+
+                var inrVal = $("#val_" + buttonIDs[1]).val();
+                var tempGrandTotal = $("#grandTotalDynamic").html();
+                inrVal = isNaN(inrVal) ? 0 : inrVal;
+                inrVal = parseInt(inrVal, 10) + 5;
+
+                var rate = document.getElementById("rate_" + buttonIDs[1]).innerHTML;
+                var total = (parseFloat(rate) * parseFloat(inrVal)).toFixed(2);
+                var delTotal = $("#tot_" + buttonIDs[1]).val();
+
+                var gtotal = tempGrandTotal - delTotal;
+                gtotal = (parseFloat(gtotal) + parseFloat(total)).toFixed(2);
+
+
+                $("#val_" + buttonIDs[1]).val(inrVal);
+
+                $("#tot_" + buttonIDs[1]).val(total);
+
+                $('#summaryTotal').html(gtotal);
+
+                $("#grandTotalDynamic").html(gtotal);
+
+
+                //  var a = $('#orderID').val();
+
+
+
+                $.ajax({
+
+                    type: 'Get',
+                    url: 'Cart?handler=Update',
+                    //beforeSend: function (xhr) {
+                    //    xhr.setRequestHeader("XSRF-TOKEN",
+                    //        $('input:hidden[name="__RequestVerificationToken"]').val());
+                    //},
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: { 'Oid': orderID, 'ChangedQty': inrVal },
+
+                    cache: false,
+                    success: function (data) {
+                    },
+                });
+
+
+
+            });
+
+            $(".dcreditVal").click(function () {
+
+                var buttonID = $(this).attr("id");
+                var buttonIDs = buttonID.split('_');
+                var itemID = 0;
+                itemID = buttonIDs[1];
+                var orderID = buttonIDs[2];
+
+
+                var inrVal = $("#val_" + buttonIDs[1]).val();
+                var tempGrandTotal = $("#grandTotalDynamic").html();
+                inrVal = isNaN(inrVal) ? 0 : inrVal;
+                inrVal--;
+                inrVal < 2 ? inrVal = 2 : '';
+
+
+                var rate = document.getElementById("rate_" + buttonIDs[1]).innerHTML;
+                var total = (parseFloat(rate, 10) * parseFloat(inrVal, 10)).toFixed(2);
+                var delTotal = $("#tot_" + buttonIDs[1]).val();
+
+                var gtotal = tempGrandTotal - delTotal;
+                gtotal = (parseFloat(gtotal, 10) + parseFloat(total, 10)).toFixed(2);
+                $("#val_" + buttonIDs[1]).val(inrVal);
+
+                $("#tot_" + buttonIDs[1]).val(total);
+                $("#grandTotalDynamic").html(gtotal);
+
+                $('#summaryTotal').html(gtotal);
+
+
+                $.ajax({
+
+                    type: 'Get',
+                    url: 'Cart?handler=Update',
+
+                    data: { 'Oid': orderID, 'ChangedQty': inrVal },
+
+                    cache: false,
+                    success: function (data) {
+
+                    },
+                });
+
+            });
+
+            $(".number").change(function () {
+
+            
+                var buttonID = $(this).attr("id");
+                var buttonIDs = buttonID.split('_');
+                var itemID = 0;
+                itemID = buttonIDs[1];
+
+                var inrVal = $("#val_" + buttonIDs[1]).val();
+
+                var rate = document.getElementById("rate_" + buttonIDs[1]).innerHTML;
+                var total = parseInt(rate, 10) * parseInt(inrVal, 10);
+
+                $("#val_" + buttonIDs[1]).val(inrVal);
+
+                $("#tot_" + buttonIDs[1]).val(total);
+
+
+            });
+
+            $('#setSessionValues').click(function () {
+
+               
+                var valTot = $('#grandTotalDynamic').html();
+              
+
+                $.ajax({
+
+                    type: 'Get',
+                    url: 'Cart?handler=CartSession',
+
+                    data: { 'valTot': valTot },
+
+                    cache: false,
+                    success: function (data) {
+                        
+                        window.location.href = "/Chemist/Checkout/OrderCheckoutAddress";
+
+                    },
+                });
+            });
+        });
+
+
+    </script>
+    @{
+        double[] grandTotal = new double[@Model.SPCartDetails.Count];
+        double total, gtotal = 0, count = 0;
+        double rate;
+        String qtyChange = null;
+        String orderID = null, countRows = null;
+
+    }
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <!-- breadcrumb-->
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li aria-current="page" class="breadcrumb-item active">Meds cart</li>
+                            </ol>
+                        </nav>
+                    </div>
+                    <div id="basket" class="col-lg-9">
+                        <div class="box">
+                            @*<form method="post" action="checkout1.html">*@
+                            <h1>Shopping cart</h1>
+                            <p class="text-muted">You currently have @Model.SPCartDetails.Count() item(s) in your cart.</p>
+                            <div class="table-responsive">
+
+                                <table class="table">
+
+                                    <thead>
+                                        <tr>
+                                            <th>SrNo.</th>
+                                            <th>&ensp; Product</th>
+
+                                            <th>&ensp;&ensp;&ensp; Quantity</th>
+                                            <th>Mrp</th>
+                                            <th>Rate</th>
+                                            <th colspan="2">&ensp;&ensp; Total</th>
+                                        </tr>
+                                    </thead>
+
+                                    @for (int i = 0; i < Model.SPCartDetails.Count; i++)
+                                    {
+
+                                        double gstPer = @Model.SPCartDetails[i].gstRate;
+                                        String dcrBtn = "dcr_" + Convert.ToString(Model.SPCartDetails[i].Id) + '_' + Model.SPCartDetails[i].Oid + '_' + gstPer;
+                                        String valChange = "val_" + Convert.ToString(Model.SPCartDetails[i].Id);
+                                        String inrBtn = "inr_" + Convert.ToString(Model.SPCartDetails[i].Id) + '_' + Model.SPCartDetails[i].Oid + '_' + gstPer; /*; +"_"+i);*/
+                                        String totValue = "tot_" + Convert.ToString(Model.SPCartDetails[i].Id);/* +"_"+i);*/
+                                        String rateValue = "rate_" + Convert.ToString(Model.SPCartDetails[i].Id);
+                                        String removeDivRow = "removeDivRow_" + Convert.ToString(Model.SPCartDetails[i].Id);
+                                        string delID = "del_" + Convert.ToString(Model.SPCartDetails[i].Id);
+
+                                        countRows = "row_" + i;
+                                        qtyChange = "qty_" + i;
+
+
+                                        orderID = "Oid_" + Model.SPCartDetails[i].Oid;
+                                        int Qty = @Model.SPCartDetails[i].Qty;
+
+                                        rate = @Model.SPCartDetails[i].Rate;
+                                        total = System.Math.Round((rate * Qty), 2);
+                                        grandTotal[i] = total;
+
+                                        count = i + 1;
+
+
+                                        <tbody>
+                                            <tr id="@removeDivRow" class="@countRows">
+                                                <td>@count</td>
+
+                                                <td><a asp-page="/Chemist/DetailedProduct" asp-route-id="@Model.SPCartDetails[i].Id">@Model.SPCartDetails[i].Itemname</a></td>
+                                                <td>
+
+
+                                                    <div class="value-button dcreditVal decrease" id="@dcrBtn" value="Decrease Value">-</div>
+                                                    <input type="number" class="number @qtyChange" id="@valChange" value="@Model.SPCartDetails[i].Qty" />
+                                                    <div class="value-button inreditVal increase" id="@inrBtn" value="Increase Value">+</div>
+
+
+                                                </td>
+                                                <td>@Model.SPCartDetails[i].Price</td>
+                                                <td id="@rateValue">@Model.SPCartDetails[i].Rate</td>
+                                                <!--Identifying orderId in javascript-->
+                                                <td>
+                                                    <input style="width:70px" id="@totValue" value="@total" disabled />
+
+                                                    <input id="@orderID" hidden value="@Model.SPCartDetails[i].Oid" />
+
+
+                                                </td>
+
+                                                <td><a class="btnDelItem" id="@delID"><i class="fa fa-trash-o"></i></a></td>
+                                            </tr>
+
+                                        </tbody>
+                                    }
+                                    @{
+                                        gtotal = System.Math.Round(gtotal, 2);
+                                        Array.ForEach(grandTotal, k => gtotal += k);
+                                        System.Math.Round(gtotal, 2);
+
+                                        // TempData["gtotal"] = gtotal;
+                                    }
+
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="6">Value Total</th>
+                                            <th colspan="2" id="grandTotalDynamic">@gtotal</th>
+                                        </tr>
+                                    </tfoot>
+
+                                </table>
+                               
+                            </div>
+                            <!-- /.table-responsive-->
+                            <div class="box-footer d-flex justify-content-between flex-column flex-lg-row">
+                                <div class="left"><a href="/Chemist/OrderProducts" class="btn btn-outline-secondary"><i class="fa fa-chevron-left"></i> Continue shopping</a></div>
+                                <div class="right">
+                                    <button class="btn btn-outline-secondary updateClick"><i class="fa fa-refresh"></i> Update cart</button>
+                                    
+                                    <button class="btn btn-primary" id="setSessionValues">Proceed to checkout <i class="fa fa-chevron-right"></i></button>
+                                        
+                                </div>
+                            </div>
+                            @*</form>*@
+                        </div>
+                        <!-- /.box-->
+                        <!--<div class="row same-height-row">
+                            <div class="col-lg-3 col-md-6">
+                                <div class="box same-height">
+                                    <h3>You may also like these products</h3>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="product same-height">
+                                    <div class="flip-container">
+                                        <div class="flipper">
+                                            <div class="front"><a href="detail.html"><img src="img/product2.jpg" alt="" class="img-fluid"></a></div>
+                                            <div class="back"><a href="detail.html"><img src="img/product2_2.jpg" alt="" class="img-fluid"></a></div>
+                                        </div>
+                                    </div><a href="detail.html" class="invisible"><img src="img/product2.jpg" alt="" class="img-fluid"></a>
+                                    <div class="text">
+                                        <h3>Fur coat</h3>
+                                        <p class="price">$143</p>
+                                    </div>
+                                </div>-->
+                                <!-- /.product-->
+                            <!--</div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="product same-height">
+                                    <div class="flip-container">
+                                        <div class="flipper">
+                                            <div class="front"><a href="detail.html"><img src="img/product1.jpg" alt="" class="img-fluid"></a></div>
+                                            <div class="back"><a href="detail.html"><img src="img/product1_2.jpg" alt="" class="img-fluid"></a></div>
+                                        </div>
+                                    </div><a href="detail.html" class="invisible"><img src="img/product1.jpg" alt="" class="img-fluid"></a>
+                                    <div class="text">
+                                        <h3>Fur coat</h3>
+                                        <p class="price">$143</p>
+                                    </div>
+                                </div>-->
+                                <!-- /.product-->
+                            <!--</div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="product same-height">
+                                    <div class="flip-container">
+                                        <div class="flipper">
+                                            <div class="front"><a href="detail.html"><img src="img/product3.jpg" alt="" class="img-fluid"></a></div>
+                                            <div class="back"><a href="detail.html"><img src="img/product3_2.jpg" alt="" class="img-fluid"></a></div>
+                                        </div>
+                                    </div><a href="detail.html" class="invisible"><img src="img/product3.jpg" alt="" class="img-fluid"></a>
+                                    <div class="text">
+                                        <h3>Fur coat</h3>
+                                        <p class="price">$143</p>
+                                    </div>
+                                </div>-->
+                                <!-- /.product-->
+                            <!--</div>
+                        </div>-->
+                    </div>
+                    <!-- /.col-lg-9-->
+                    <div class="col-lg-3">
+                        <div id="order-summary" class="box" style="width:255px"> @*540*@
+                            <div class="box-header" style="background-color:#4fbfb0">
+                                <h3 class="mb-0">Order summary</h3>
+                            </div>
+                            <p class="text-muted">Shipping and additional costs are calculated based on the values you have entered.</p>
+                            <div class="table-responsive">
+
+                                <script>
+                                    $(document).ready(function () {
+                                        $('.showTax').hide();
+                                        $('#hideTax').hide();
+                                        $('#clickTax').click(function () {
+                                            $('#clickTax').hide();
+
+                                            $('.showTax').show();
+                                            $('#hideTax').show();
+
+                                        });
+                                        $('#hideTax').click(function () {
+
+                                            $('#clickTax').show();
+                                            $('.showTax').hide();
+                                            $('#hideTax').hide();
+                                        });
+
+                                        var payTotal = parseFloat($('#grandTotalDynamic').html(), 10) + parseFloat($('#totalgstID').html(), 10);
+                                        $('#payable').html(payTotal + '₹');
+                                    });
+
+
+                                    
+                                </script>
+
+                                <table class="table">
+                                    <tbody>
+
+
+                                        <tr>
+                                            <td colspan="4">Tax </td>
+                                            <th colspan="2"> @ViewData["totalGST"] </th>
+                                            <th>
+                                                <i class="fa fa-arrow-down" style="cursor:pointer" id="clickTax"></i>
+                                                <i class="fa fa-arrow-up" style="cursor:pointer" id="hideTax"></i>
+                                            </th>
+
+                                        </tr>
+
+                                        <!--GST CALCULATE-->
+                                        <tr class="showTax" style="background-color:#4fbfb0;">
+                                            <td style="color:white">GST </td>
+                                            <td style="color:white">BASE </td>
+                                            <td style="color:white">SGST ₹ </td>
+                                            <td style="color:white">CGST ₹</td>
+                                            <td style="color:white">Total-GST ₹</td>
+                                        </tr>
+                                        <tr class="showTax">
+                                            <td>GST </td>
+                                            <th>0% </th>
+                                            <th>0.0 </th>
+                                            <th>0.0 </th>
+                                            <th>0.0 </th>
+                                        </tr>
+
+                                        <tr class="showTax">
+                                            <td>GST </td>
+                                            <th>5% </th>
+                                            <th>@TempData["gst2.5"]</th>
+                                            <th>@TempData["gst2.5"]</th>
+                                            <th>@TempData["gst5"] </th>
+                                        </tr>
+                                        <tr class="showTax">
+                                            <td>GST </td>
+                                            <th>12% </th>
+                                            <th>@TempData["gst6"]</th>
+                                            <th>@TempData["gst6"]</th>
+                                            <th>@TempData["gst12"] </th>
+                                        </tr>
+                                        <tr class="showTax">
+                                            <td>GST </td>
+                                            <th>18% </th>
+
+                                            <th>@ViewData["gst9"] </th>
+                                            <th>@ViewData["gst9"] </th>
+                                            <th>@ViewData["gst18"] </th>
+                                        </tr>
+                                        <tr class="showTax">
+                                            <td>GST </td>
+                                            <th>28% </th>
+                                            <th>@ViewData["gst14"]</th>
+                                            <th>@ViewData["gst14"] </th>
+                                            <th>@ViewData["gst28"]</th>
+                                        </tr>
+                                        <tr class="showTax">
+                                            <td colspan="2">Total Tax</td>
+                                            <th>@ViewData["totalsubGST"]</th>
+                                            <th>@ViewData["totalsubGST"]</th>
+                                            <th id="totalgstID"> @ViewData["totalGST"] ₹ </th>
+
+                                        </tr>
+                                        <!--END GST CALCULATE-->
+                                        <tr>
+                                            <td colspan="4">Value Total</td>
+                                            <th colspan="2" id="summaryTotal">@gtotal ₹ </th>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4">Shipping Charges</td>
+                                            <th colspan="2">0.0  </th>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4">Discount</td>
+                                            <th colspan="2">0 %  </th>
+                                        </tr>
+                                        <tr class="total">
+                                            <td colspan="4">Payable-Total</td>
+                                            <th colspan="2" id="payable"></th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <script>
+                         //   var a = $('#payable').html();
+                       //HttpContext.Session.SetString("grandTotal", a);
+
+                        </script>
+                        
+                    </div>
+                    <!-- /.col-md-3-->
+                </div>
+            </div>
+     
+</body>
+</html>
